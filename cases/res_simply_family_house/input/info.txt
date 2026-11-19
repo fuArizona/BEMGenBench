@@ -1,0 +1,55 @@
+Two offices and the hallway were merged to the (2 car) garage and the interior walls between two offices and the hallway were demolished, as shown in the floor plan (floorplan9834.png).
+The front door of the house faces north. 
+The house is in Tucson, AZ 85730.
+
+Building: D.R. Horton plan H35G (4 bed, 2 bath, 1 story, 2-car garage on the right side of the plan), Elevation B, in Tucson, AZ 85730; built 2025. Living area 1,815 ft2 (floor plan); total building area 2,365 ft2 including garage and covered porch / patio (city permit); occupancy group R3, construction type V-B, one story; lot 45 ft x 125 ft.
+
+Orientation: the front door faces north (checked on site). floorplan9834.png is drawn with north at the bottom: turn it upside down to read it with north up (south at the top, east on the left, west on the right). The covered back patio lies on the south side; the front porch and the entry are on the north side.
+
+Foundation and structure: engineered post-tension concrete slab on grade; wood roof trusses; 9 ft ceilings on the first floor. Floors are tile in all areas except the bedrooms.
+
+Exterior wall, wall model A (2x4 wood frame with continuous exterior insulation), from outside to inside:
+1. Spanish lace stucco, one-coat system with acrylic elastomeric paint, about 3/8 to 1/2 in (to be confirmed);
+2. metal lath (to be confirmed);
+3. weather-resistant barrier (house wrap, thin film);
+4. rigid foam insulation, continuous, R-6 (RSI 1.06 m2K/W), type and thickness to be confirmed (about 1.2 in XPS or 1.5 in EPS);
+5. OSB sheathing, 7/16 in (probable);
+6. 2x4 wood studs (actual 1.5 x 3.5 in, typically 16 in on center) with R-13 (RSI 2.29 m2K/W) fiberglass batt in the 3.5 in cavity;
+7. gypsum drywall, 1/2 in (probable).
+Nominal wall system R-19 (R-13 cavity + R-6 continuous), total thickness about 6 in. The builder's feature sheet says "R-19 exterior wall systems featuring R-13 batt insulation".
+Interior walls: 2x4 wood studs, 4 in thick, 1/2 in gypsum board on both sides (5/8 in Type X at the garage wall); some bedroom and bathroom partitions have fiberglass batt for sound.
+Ceiling and roof: R-30 ceiling insulation, radiant barrier roof system.
+
+Windows: double-pane low-emissivity vinyl windows (ENERGY STAR package), white or tan vinyl frame. Sill height of all windows: 24 in (0.610 m). Glass: double-pane Low-E, argon fill (not confirmed), required for climate zone 2: U-factor <= 0.32 - 0.35, SHGC <= 0.23 - 0.25 (code limits; the label values of the installed windows are not known).
+Window schedule (width x height):
+- Bedroom 4, north wall: one hung window, 60 x 72 in (1.524 x 1.829 m), centred on the wall.
+- Bedroom 3, east wall: one single-hung window, 36 x 76 in (0.914 x 1.930 m); the frame edge is 76 in from the wall corner that is farthest from the room door.
+- Bedroom 2, east wall: one single-hung window, 36 x 76 in; the frame edge is 76 in from the wall corner that is farthest from the room door.
+- Bedroom 1, south wall: two single-hung windows, each 36 x 76 in; the frame edges are 20 in from the left and the right wall corner.
+- Dining Room, west wall: one single-hung window, 36 x 76 in, centred on the corner of the UTILITY room.
+(Bedroom 1 = the 197 ft2 bedroom, Bedroom 2 = 110 ft2, Bedroom 3 = 109 ft2, Bedroom 4 = 118 ft2 of floorplan_area.png.) The kitchen, bathrooms, walk-in closet (WIC) and utility room (Laundry) have no windows.
+
+Doors:
+1. Front entry door, centred under the covered entry on the north side: insulated fiberglass or galvanized steel door with polyurethane core, no glass lite or sidelite, 3 ft 0 in x 6 ft 8 in (0.914 x 2.032 m), 1.75 in thick.
+2. Garage entry door: 20-minute fire-rated insulated steel door with self-closing device, 3 ft 0 in x 6 ft 8 in, between the garage and the interior, about 111 in (2.82 m) from the front entry door.
+3. Patio sliding door: in the middle of the south (rear) wall of the Great Room, to the covered patio; vinyl or thermally broken aluminium frame, double-pane tempered Low-E glass; two-panel, 6 ft 0 in x 8 ft 0 in (1.829 x 2.438 m).
+4. Interior doors: hollow-core molded wood composite, 2 ft 4 in to 3 ft 0 in x 6 ft 8 in.
+
+All interior doors of the conditioned rooms are normally open and a return air path exists, so the conditioned rooms behave as one air volume served by one thermostat; the garage is a separate unconditioned space and its entry door is normally closed.
+
+HVAC and utilities: single-stage split-system air-source heat pump, outdoor unit catalog number GH5SAN54200A (Carrier / Bryant builder series, see HVAC.png), nominal cooling capacity 3.5 tons (42,000 Btu/h = 12.3 kW), SEER2 14.3, HSPF2 7.5 (from the manufacturer's product literature; the heating capacity is not given). It is a dual-fuel system: heat pump with a natural-gas furnace as the backup (confirmed by the seller and the owner; the house has a gas line). The changeover temperature is not known. Programmable smart thermostat; the owner changes the setpoints at will, so no fixed schedule exists. 
+A second thermostat in Bedroom 4 is a remote sensor of the same heat pump and does not control a separate zone; the heat pump follows the thermostat in the Living Room. The indoor fan runs in auto mode and cycles with the compressor.
+Water heating: tankless natural-gas water heater located in the garage (confirmed); its standby heat does not enter the conditioned space. Cooking: natural-gas range. LED lighting throughout. The house was built under the 2018 International Energy Conservation Code with the City of Tucson amendments.
+
+Occupants and internal gains (ASSUMED, not measured in the house): 2 occupants. Lighting power density (LED) 0.43 W/ft2 (4.6 W/m2; range 0.35 - 0.50 W/ft2). Plug loads and appliances 0.62 W/ft2 (6.7 W/m2; range 0.50 - 0.75 W/ft2). Values are the midpoints of the ranges in common residential practice (RESNET / Manual J style); the documents of the house do not give them.
+Hourly fractions of the peak (midpoints of the ranges; the hours 07-08 and 16-17 of the occupancy schedule and the hour 16-17 of the appliance schedule are interpolated):
+- Lighting, every day: 00-06 3 %; 06-09 40 %; 09-17 10 %; 17-22 75 %; 22-24 22 %.
+- Plug loads and appliances, every day: 00-06 30 %; 06-09 52 %; 09-16 40 %; 16-21 88 %; 21-24 52 %.
+- Occupancy, weekdays: 22-07 95 %; 07-08 60 %; 08-16 33 %; 16-17 60 %; 17-22 88 %. Weekends: all day 78 %.
+
+Shading and roof covering: the front porch is recessed in front of the front entry door on the north side, 6 ft deep (1.83 m) x 58 in wide (1.47 m), between the bedroom wall and the garage wall, so it shades the front entry door. The covered back patio is on the south side, next to the Great Room sliding glass door, 7 ft deep (2.13 m) x 18 ft wide (5.49 m); it shades the sliding door from the high summer sun. The roof eave overhang is 12 in (0.305 m) all around the house; it protects the stucco walls and shades the high sun. The roof covering is tile.
+
+Not available (assumed or left out of the model): blower-door result (infiltration), heat-pump changeover temperature and heating capacity, thermostat setpoint schedule (the owner changes it; 21.1 C heating and 24.0 C cooling are used), the label values of the windows (code limits are used), thickness and type of the stucco, lath and rigid foam, roof framing and slope.
+
+
+

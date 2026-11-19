@@ -1,0 +1,245 @@
+The image presents an axonometric (isometric) drawing of a rectangular building. This drawing format allows the depiction of the building in three dimensions to provide a clearer view of its structure. Here are the details as observed:
+    >> NOT USED in the IDF: General description of Figure 2-1
+
+1. **Dimensions**: 
+   - The length of the building as marked in the image is approximately 57.5 feet.
+    >> USED in the IDF: Building length (the Text file has 57.0 ft; the OCR text here says 57.5 ft, the drawing says 57'-0") -> BuildingSurface:Detailed | Vertex X = 17.3736 m (57 ft)
+   - The width is approximately 27.0 feet.
+    >> USED in the IDF: BuildingSurface:Detailed | Vertex Y = 8.2296 m (27 ft)
+   - The height of the wall from the base to the eaves (where the roof starts sloping) is 8 feet.
+    >> USED in the IDF: BuildingSurface:Detailed 'Wall *' | Vertex Z = 2.4384 m (eave height 8 ft)
+
+2. **Structure Appearance**:
+   - The building has a simple rectangular base with a pitched roof.
+    >> USED in the IDF: Pitched roof -> BuildingSurface:Detailed 'Roof South' / 'Roof North' / 'Gable East' / 'Gable West'
+   - The roof slopes towards the shorter sides of the building.
+    >> USED in the IDF: Roof slopes toward the long sides (ridge along the 57 ft direction) -> Roof South / North; gables on the east and west ends
+
+3. **Windows**:
+   - Along the longer side of the building, there are multiple single-pane windows. Eight windows can be observed on this side.
+    >> NOT USED in the IDF: Windows on the long side in the isometric view: the positions come from Figure 2-2
+   - The short side facing the front in the image shows no windows.
+
+4. **Material and Design**:
+   - The building design is minimalistic and utilitarian. The illustration does not specify materials but given the context and typical usage, it might be constructed from materials like metal or wood.
+
+5. **Orientation**:
+   - The image includes a compass arrow indicating North direction, oriented towards the upper left corner.
+    >> USED in the IDF: Building | North Axis = 0 (the compass arrow only shows the drawing orientation; the plan Figure 2-2 has north at the top)
+
+6. **Label and Annotations**:
+   - The drawing is labeled as "Figure 2-1. Base building axonometric".
+   - There is a code at the bottom right of the drawing: "CD-H00&04293710", likely a reference or document number.
+
+
+This type of illustration is typically used in architectural or engineering designs to provide a clear visual representation of physical dimensions and layout for construction or planning purposes.
+
+Figure 2-1. Basase building axonometric
+
+
+
+The image is a detailed floor plan labeled "Case L100A" with specific measurements and placements of structural elements such as windows and doors. Here’s the detailed analysis based on the labeled data:
+
+- **Overall Layout**: The layout is rectangular, and oriented with the north direction indicated at the top of the image. The external measurements of the layout are approximately 57 feet in width and 29 feet 8 inches in depth.
+    >> USED in the IDF: Building | North Axis = 0 (north at the top of the plan)
+
+- **Rooms and Spaces**: The image does not explicitly delineate individual rooms, but the placement of doors and windows suggests partitioned spaces or potential rooms.
+
+- **Windows**: Labeled with a "W", these are 3 feet wide by 5 feet high. They are found uniformly distributed along the external walls of the layout. Their exact positions are marked with measurements from adjacent windows or the edges of the walls.
+    >> USED in the IDF: FenestrationSurface:Detailed 'Window *' | Vertex 1-4 (3 ft wide x 5 ft high); positions from the plan
+
+- **Doors**: Identified with a "D", and are solid-core wood doors measuring 3 feet wide by 6 feet 8 inches high. There are two doors shown on the plan; their locations are specified with measurements from nearby structural elements.
+    >> USED in the IDF: FenestrationSurface:Detailed 'Door S' / 'Door N' | Vertex 1-4 (3 ft x 6 ft 8 in); Construction 'Door'
+
+- **Measurement Notations**: The plan uses feet-and-inch notation to specify the distance between architectural elements such as from corner to window or window to door. For instance, starting from the left of the plan:
+    >> USED in the IDF: FenestrationSurface:Detailed | Vertex X / Y: distances between corner, windows and doors
+  - There are series of windows and doors punctuated by specific measurements like 6’-0” between windows, or 2’-0” between a window and a door.
+    >> USED in the IDF: FenestrationSurface:Detailed | window and door positions (6'-0" between windows, 2'-0" between a window and a door)
+
+- **Legend and References**: At the bottom of the image, a legend explains the symbols used (W for Windows and D for Doors). Additionally, it specifies to see "Figure 2-8" for windows, suggesting there are additional documents or images related to this plan.
+    >> USED in the IDF: Legend: W = window 3 ft x 5 ft (Figure 2-8), D = solid core wood door 3 ft x 6 ft 8 in
+
+- **Other Markings and Notations**: There are additional small notational details like the arrows showing specific dimensions across spaces between windows and doors, and individual dimensions labeling the thickness of the external walls.
+
+- **Document Identification**: At the lower right corner, there's a code "CD0-AH06-A0327301" which likely serves as an identification or reference code for this floor plan within a larger document or architectural project.
+
+This plan serves as a technical reference for constructing or remodeling a building, with precise measurements crucial for builders and contractors. The absence of detail about internal partitions besides doors and windows suggests that the focus is on the shell or exterior framework of the structure.
+
+Figure 2-2. Floor plan—Case L100A
+
+
+This image depicts an architectural elevation drawing labeled as "Figure 2-3. East side elevation—Case L100A." The drawing represents the east side face of a building highlighted through various dimensions and annotations giving specifics about its construction and design.
+
+
+Key elements noted in the drawing:
+
+1. **Roof and Elevation**:
+   - There is a slanted roof with a pitch indicated as 4:12.
+    >> USED in the IDF: BuildingSurface:Detailed 'Roof South' / 'Roof North' / 'Gable *' | Vertex Z: pitch 4:12
+   - The highest point on the roof measures 13 feet and 6 inches from the peak to the eave.
+    >> USED in the IDF: Half span 13'-6" (horizontal run of the roof); rise 4.5 ft (ridge at 12.5 ft)
+
+2. **Measurements**:
+   - The building height from the base to the eaves is shown as 8 feet and 0 inches.
+    >> USED in the IDF: BuildingSurface:Detailed 'Wall *' | Vertex Z = 2.4384 m (8 ft)
+   - The total length of the structure from left to right spans 27 feet.
+    >> USED in the IDF: BuildingSurface:Detailed 'Wall East' / 'Wall West' | width 27 ft
+   - The vertical measurement in the center of the wall, from the top of the wall up to the lowest point of the roof, is shown as 18 feet and 43 inches.
+    >> CHECK ONLY (not an input) in the IDF: OCR dimension chain: the angle is 18.43 deg = atan(4/12)
+   - The separation between the eave and the peak along the slanted line (apparently the main roof inclination) is noted as 14 feet and 23 inches.
+    >> DERIVED in the IDF: Roof slope length 14.23 ft = sqrt(13.5^2 + 4.5^2) -> Roof South / North
+
+3. **Windows**:
+   - There are two windows represented, both aligned vertically.
+    >> USED in the IDF: FenestrationSurface:Detailed | windows of the east side
+   - Each window is labeled with a height separation of 1 foot and 0 inches in the area between them, and each window has essentially similar designs, noted with respective measurements adjacent.
+    >> USED in the IDF: FenestrationSurface:Detailed | vertical position of the windows (1 ft between the sashes is inside the window)
+   - According to the note beneath the elevation, "All windows located vertically as shown here."
+    >> USED in the IDF: FenestrationSurface:Detailed | Vertex Z: all windows located vertically as shown (sill 2 ft)
+
+The drawing uses simple lines and clean labels for clarity. No additional text or design details are provided beyond the structural and dimensional annotations. The presence of a reference code “CD-H06-A0372702” possibly identifies the document or project file reference.
+
+Figure 2-3. East side elevation—Case L100A
+
+The image is a technical drawing titled "Figure 2-4. Exterior wall plan section—Case L100A". It depicts a cross-sectional view of an exterior wall, divided into two main sections: the "Insulated Section" and the "Framed Section". The drawing provides a detailed representation of the different layers and components that make up this portion of the wall.
+
+**From the interior to the exterior, the layers are as follows:**
+
+1. **Interior Film**: This is the innermost layer displayed in the diagram, likely a vapor barrier or similar protective film.
+    >> NOT USED in the IDF: Interior Film: not entered
+   
+2. **Plasterboard (1/2 inch)**: Next to the interior film, there is a half-inch thick plasterboard, commonly used as an interior wall covering.
+    >> USED in the IDF: Material 'Plasterboard' (0.5 in); Construction 'Exterior Wall' (Layer 4, inside)
+
+3. **Fiberglass Batt (R-11)**: Beside the plasterboard is an R-11 fiberglass batt insulation, noted for its thermal resistance. The thickness isn't specified, but it fills the space between the structural framing.
+    >> USED in the IDF: Material 'Wall Insulation and Framing' (batt R-11); Construction 'Exterior Wall' (Layer 3)
+
+4. **2 x 4, 16" o.c.**: This indicates the framing of the wall consisting of 2x4 inch lumber spaced 16 inches on center. This is the structural component of the wall.
+    >> USED in the IDF: Material 'Wall Insulation and Framing' (2 x 4, 16 in o.c. framing, 25 %)
+
+5. **Fiberboard Sheathing (1/2 inch)**: Outside the framing, there is half-inch thick fiberboard sheathing that helps in providing a flat surface and adds rigidity to the structure.
+    >> USED in the IDF: Material 'Fiberboard Sheathing' (0.5 in); Construction 'Exterior Wall' (Layer 2)
+
+6. **Hardboard Siding (7/16 inch)**: This is the exterior sheathing component, 7/16 inch thick, likely providing weather protection and aesthetic appeal.
+    >> USED in the IDF: Material 'Hardboard Siding' (7/16 in); Construction 'Exterior Wall' (Outside Layer)
+
+7. **Exterior Film**: The outermost layer that might be another protective film specifically for exterior use against moisture and elements.
+    >> NOT USED in the IDF: Exterior Film: not entered
+
+**Other Features:**
+- Arrows point within certain layers (like the plasterboard and fiberglass batt), possibly indicating the direction or path used for certain utility installations or additional reinforcements within the layers.
+- The wall diagram is split into two sections. The left side says "Insulated Section" emphasizing the presence and continuity of insulation through this portion, whereas the right side states "Framed Section," focusing on the structural framework.
+    >> USED in the IDF: Insulated section and framed section: Material 'Wall Insulation and Framing' (75 % / 25 % composite layer)
+
+This cross-sectional view provides insights into the construction and materials used for a robust, insulated exterior wall, crucial for understanding thermal insulation properties and structural integrity in building architecture.
+
+Figure 2-4. Exterior wall plan section—Case L100A
+
+The image provided is a technical drawing labeled “Figure 2-5. Floor above vented crawl space, section—Case L100A”. This is a cross-sectional diagram that details the construction and materials used in building the floor above a vented crawl space.
+
+From the top to the bottom of the diagram:
+1. **Interior Film**: This serves as the interior finish or barrier layer between the indoor living space and the floor structure.
+    >> NOT USED in the IDF: Interior Film: not entered
+2. **Carpet with Pad (R-2.08)**: Represents the carpet and its padding, with a mentioned R-value of 2.08, indicating its thermal resistance.
+    >> USED in the IDF: Material:NoMass 'Carpet and Pad' (R-2.08); Construction 'Floor Over Crawl Space' (Layer 3)
+3. **Plywood (3/4")**: This 3/4 inch thick plywood acts as the main structural element of the flooring.
+    >> USED in the IDF: Material 'Plywood Three Quarter Inch'; Construction 'Floor Over Crawl Space' (Layer 2)
+4. **Fiberglass Batt (R-11)**: Fiberglass insulation with an R-value of 11, used for thermal insulation between the floor joists.
+    >> USED in the IDF: Material 'Floor Insulation and Joists' (batt R-11); Construction 'Floor Over Crawl Space' (Outside Layer)
+5. **Exterior Film (Still Air)**: Below the insulation, this film likely acts as a moisture barrier, facing the crawl space.
+    >> NOT USED in the IDF: Exterior Film (still air): not entered; Floor | Wind Exposure = NoWind
+6. **Joists**: The diagram shows floor joists labeled as "2 x 8, 16" o.c." which means that each joist is 2 inches by 8 inches in cross-section and placed with a center-to-center spacing of 16 inches.
+    >> USED in the IDF: Material 'Floor Insulation and Joists' (joists 2 x 8, 16 in o.c., 10 %)
+
+Framed Section and Insulated Section over the joists indicate different construction or treatment areas of the floor structure, particularly pointing to where framing and insulation are located.
+Arrow symbols in the crawl space Denote that the crawl space is vented, helping ventilate the space to prevent moisture accumulation.
+    >> USED in the IDF: Vented crawl space: BuildingSurface:Detailed 'Floor' | Outside Boundary Condition = Outdoors
+
+This diagram is typical in architectural and construction planning to specify material choices, layout, and to ensure that construction meets building codes especially regarding insulation and ventilation which are critical for energy efficiency and moisture control.
+
+Figure 2-5. Floor above vented crawl space, section—Case L100A
+
+The image illustrates a detailed architectural cross-section view of a ceiling/attic/roof construction commonly found in residential buildings, specifically marked as "Case L100A." The diagram is divided into two main sections showing different components:
+
+1. **Roof Section:**
+   - On the topmost layer, an **Exterior Film** is shown, which likely acts as a weather barrier.
+   - Beneath the exterior film are **Shingles**, which serve as the primary protective and water-proof layer.
+    >> USED in the IDF: Material 'Asphalt Shingle'; Construction 'Roof' (Outside Layer)
+   - Below the shingles is a **Plywood Sheathing** layer, indicated as being 1/2" thick. This serves as the structural base for the shingles.
+    >> USED in the IDF: Material 'Plywood Half Inch' (0.5 in); Construction 'Roof' (Layer 2)
+   - Below the plywood, the space is identified as **Attic Air**, implying a ventilated attic space.
+    >> USED in the IDF: Zone 'Attic' (attic air)
+
+2. **Ceiling Section:**
+   - The ceiling starts with **2x6** framing members, which are spaced 24 inches on center. These are typical dimensions for roof or ceiling joists in residential construction.
+    >> USED in the IDF: Material 'Ceiling Insulation and Joists' (joists 2 x 6, 24 in o.c., 10 %)
+   - Within the spaces between the framing, **Fiberglass Batt** insulation is installed, with an R-value of 19. This type of insulation is common for reducing heat transfer and increasing energy efficiency.
+    >> USED in the IDF: Material 'Ceiling Insulation and Joists' (batt R-19); Constructions 'Ceiling' and 'Attic Floor'
+   - Below the fiberglass batts, there is a **Plasterboard** depicted as being 1/2" thick. This typically forms the ceiling surface of the room below.
+    >> USED in the IDF: Material 'Plasterboard' (0.5 in); Constructions 'Ceiling' and 'Attic Floor'
+   - An **Interior Film** is shown directly beneath the plasterboard, which might serve as a vapor barrier to prevent moisture ingress from the living spaces into the insulation.
+    >> NOT USED in the IDF: Interior Film: not entered
+
+Additional aspects of the diagram:
+   - The roofing section's angle and overlapping layers suggest a sloped roof design.
+   - The diagram includes two separate labels for sections – one as "Framed Section" and another as "Insulated Section," indicating the designated areas for structural framing and thermal insulation respectively.
+
+This simplistic yet thorough blueprint is useful in understanding the layer-by-layer assembly of a standard residential roof and ceiling construction.
+
+Figure 2-6. Ceiling/attic/roof section-Case 
+
+The image depicts a detailed sectional diagram of an interior wall. The section is labeled as "Figure 2-7. Interior wall plan section—Case L100A". It illustrates various components of the wall construction from one side to another. Here is a breakdown of each part as shown in the diagram:
+
+1. **Interior Film**: This is the topmost layer on the visible side of the diagram. It’s a thin layer, possibly a type of vapor barrier or decorative surface.
+    >> NOT USED in the IDF: Interior Film: not entered
+
+2. **Plasterboard (1/2")**: Below the interior film is a half-inch thick plasterboard, commonly used as a finishing surface for walls in construction. It provides a smooth, paintable surface.
+    >> USED in the IDF: Material 'Plasterboard'; Construction 'Interior Wall' (Outside Layer)
+
+3. **Air Gap**: Situated between the two plasterboard panels, there appears to be a small air gap. This gap could be functional for insulation or soundproofing purposes.
+    >> NOT USED in the IDF: Air gap: no layer (the frame covers only 10 % of the area and the rest is disregarded, Table 2-10 note 1)
+
+4. **2 x 4, 16" o.c.**: Representing the structural framework of the wall, these are 2x4 inch lumber pieces spaced 16 inches on center (o.c.). These are typical measurements used for the studs in wall construction, providing support for the attached wall materials and overall structural integrity.
+    >> USED in the IDF: Material 'Interior Wall Frame' (2 x 4, 16 in o.c., 10 % of the wall)
+
+5. **Another Plasterboard (1/2")**: Like the front side, there’s another half-inch thick plasterboard panel on the other side, completing the basic wall sandwich structure.
+    >> USED in the IDF: Material 'Plasterboard' (second face)
+
+This image doesn’t show any additional insulation material between the studs, which might be included depending on the wall’s requirements for temperature control or additional soundproofing. The diagram appears technical, likely part of a construction manual or educational resource, used for teaching or professional reference in building interiors.
+
+Figure 2-7. Interior wall plan section-Case L100A
+
+
+This image depicts a technical drawing of a window detail for a vertical slider window (NFRC AA) with a 2¾"-wide frame (Case L100A). It includes specific measurements and labels regarding the structure of the window, described as follows:
+
+1. **Overall Dimensions**: The entire window frame is marked at the top with a width of 3'-0” and contains detailed measurements for smaller sections including 2'-6½" and smaller increments of 0'-2¾" and 0’-2½".
+    >> USED in the IDF: WindowProperty:FrameAndDivider / FenestrationSurface:Detailed | gross window 3'-0" wide; frame 2.75 in
+
+2. **Individual Pane Dimensions**:
+    - Right-hand side vertical measurements are provided with 2'-1½", 2'-7/8", 5'-0", and other minor segments.
+    >> USED in the IDF: FenestrationSurface:Detailed | window height 5'-0"; Number of Horizontal Dividers = 1 (mid rail)
+    - The base of the window frame incorporates measurements in segments, notably 0'-2¾" and 0’-2½".
+    >> USED in the IDF: WindowProperty:FrameAndDivider | Frame Width / Divider Width 2.75 in (0'-2 3/4"); 0'-2 1/2" is the edge-of-glass strip (Table 2-12)
+    - Horizontal dimensions on the central frame show 2'-1½" and 0'-2¾".
+    >> USED in the IDF: WindowProperty:FrameAndDivider | Divider Width = 2.75 in
+
+3. **Detailed Sections**:
+    - The drawing illustrates the structure including the **Edge of Glass Area**, **Frame Area**, and **Center of Glass Area**.
+    >> CHECK ONLY (not an input) in the IDF: Edge of glass, frame and center of glass areas: results of the frame width (Table 2-12)
+    - Dotted lines likely represent the movable parts or different functionalities (like opening mechanisms) of the window.
+    >> USED in the IDF: Vertical slider with two sashes: Number of Horizontal Dividers = 1, Number of Vertical Dividers = 0
+
+4. **Construction Details**:
+    - It is observed that there is precision in outlining where the frame ends, and the glass begins.
+    - The labels include prominently displayed measurements for all sides and specific components of the window.
+
+5. **Caption and Additional Information**:
+    - The figure is labeled as “Figure 2-8. Window detail, vertical slider (NFRC AA) with 2¾"-wide frame—Case L100A”.
+    - Located at the bottom right, there is a numerical code: “CD-RH06-40237003”, which might be a reference or project number.
+
+6. **Page and Layout**:
+    - The layout is very cleanly segmented, with all text and numerical data neatly aligned for clarity.
+    - The page number “20” is located at the bottom center of the document, potentially indicating its placement within a larger set of architectural or building plans.
+
+This drawing is primarily technical and intended for architectural or construction use, providing exact specifications necessary for window installation and manufacture within the specified standards.
+Figure 2-8. Window detail, vertical slider (NFRC AA) with 23%"-wide frame-Case L100A 

@@ -1,0 +1,211 @@
+Version,23.1;
+Building,L100A Colorado Springs,0,Suburbs,0.04,0.4,FullInteriorAndExterior,25;
+Timestep,4;
+SimulationControl,No,No,No,No,Yes;
+GlobalGeometryRules,UpperLeftCorner,Counterclockwise,World;
+Site:Location,Colorado Springs,38.82,-104.72,-7,1873;
+RunPeriod,Year,1,1,,12,31,,Sunday,Yes,Yes,No,Yes,Yes;
+ScheduleTypeLimits,Any Number;
+ScheduleTypeLimits,Fraction,0,1,Continuous;
+Schedule:Constant,Always On,Fraction,1;
+Schedule:Constant,Heat SP,Any Number,20;
+HeatBalanceAlgorithm,ConductionTransferFunction;
+SurfaceConvectionAlgorithm:Inside,TARP;
+SurfaceConvectionAlgorithm:Outside,DOE-2;
+Material,Plasterboard,Smooth,0.0127,0.1602,800.8,1088.5,0.9,0.6,0.6;
+Material,Wall Core,Rough,0.0889,0.059662,200,1400,0.9,0.6,0.6;
+Material,Fiberboard Sheathing,Rough,0.0127,0.0547,288.3,1297.8,0.9,0.6,0.6;
+Material,Hardboard Siding,Rough,0.0112,0.0941,640.7,1172.2,0.9,0.6,0.6;
+Material,Plywood 3/4,Smooth,0.01905,0.1154,544.6,1214,0.9,0.6,0.6;
+Material,Plywood 1/2,Smooth,0.0127,0.1154,544.6,1214,0.9,0.6,0.6;
+Material,Floor Core,Rough,0.0889,0.050933,200,1400,0.9,0.6,0.6;
+Material:NoMass,Carpet and Pad,Rough,0.366309,0.9,0.6,0.6;
+Material,Ceiling Core,Rough,0.1397,0.048158,200,1400,0.9,0.6,0.6;
+Material,Asphalt Shingle,Rough,0.00635,0.0819,1121,1255.8,0.9,0.6,0.6;
+Material,Door Core,Rough,0.04445,0.1158,512.6,1381.6,0.9,0.6,0.6;
+Material,Int Frame,Rough,0.0889,0.01154,51.3,1381.6,0.9,0.6,0.6;
+WindowMaterial:SimpleGlazingSystem,Window Glazing,5.90,0.67,0.612;
+
+Construction,Exterior Wall,Hardboard Siding,Fiberboard Sheathing,Wall Core,Plasterboard;
+Construction,Floor,Carpet and Pad,Plywood 3/4,Floor Core;
+Construction,Ceiling,Plasterboard,Ceiling Core;
+Construction,Roof,Plywood 1/2,Asphalt Shingle;
+Construction,Attic Ceiling Reverse,Ceiling Core,Plasterboard;
+Construction,Gable,Plywood 1/2,Hardboard Siding;
+Construction,Door,Door Core;
+Construction,Window,Window Glazing;
+Construction,Interior Wall,Plasterboard,Int Frame,Plasterboard;
+Zone,Living,0,0,0,0,1,1,2.4384,348.64;
+Zone,Attic,0,0,0,0,1,1,1.3716,98.05;
+
+BuildingSurface:Detailed,South Wall,Wall,Exterior Wall,Living,,Outdoors,,SunExposed,WindExposed,,4,
+  0.0000,0.0000,2.4384,
+  0.0000,0.0000,0.0000,
+  17.3736,0.0000,0.0000,
+  17.3736,0.0000,2.4384;
+BuildingSurface:Detailed,North Wall,Wall,Exterior Wall,Living,,Outdoors,,SunExposed,WindExposed,,4,
+  17.3736,8.2296,2.4384,
+  17.3736,8.2296,0.0000,
+  0.0000,8.2296,0.0000,
+  0.0000,8.2296,2.4384;
+BuildingSurface:Detailed,East Wall,Wall,Exterior Wall,Living,,Outdoors,,SunExposed,WindExposed,,4,
+  17.3736,0.0000,2.4384,
+  17.3736,0.0000,0.0000,
+  17.3736,8.2296,0.0000,
+  17.3736,8.2296,2.4384;
+BuildingSurface:Detailed,West Wall,Wall,Exterior Wall,Living,,Outdoors,,SunExposed,WindExposed,,4,
+  0.0000,8.2296,2.4384,
+  0.0000,8.2296,0.0000,
+  0.0000,0.0000,0.0000,
+  0.0000,0.0000,2.4384;
+BuildingSurface:Detailed,Floor,Floor,Floor,Living,,Outdoors,,NoSun,NoWind,,4,
+  0.0000,0.0000,0.0000,
+  0.0000,8.2296,0.0000,
+  17.3736,8.2296,0.0000,
+  17.3736,0.0000,0.0000;
+BuildingSurface:Detailed,Ceiling,Ceiling,Ceiling,Living,,Surface,Attic Floor,NoSun,NoWind,,4,
+  0.0000,0.0000,2.4384,
+  17.3736,0.0000,2.4384,
+  17.3736,8.2296,2.4384,
+  0.0000,8.2296,2.4384;
+BuildingSurface:Detailed,Attic Floor,Floor,Attic Ceiling Reverse,Attic,,Surface,Ceiling,NoSun,NoWind,,4,
+  0.0000,0.0000,2.4384,
+  0.0000,8.2296,2.4384,
+  17.3736,8.2296,2.4384,
+  17.3736,0.0000,2.4384;
+BuildingSurface:Detailed,Roof South,Roof,Roof,Attic,,Outdoors,,SunExposed,WindExposed,,4,
+  0.0000,0.0000,2.4384,
+  17.3736,0.0000,2.4384,
+  17.3736,4.1148,3.8100,
+  0.0000,4.1148,3.8100;
+BuildingSurface:Detailed,Roof North,Roof,Roof,Attic,,Outdoors,,SunExposed,WindExposed,,4,
+  17.3736,8.2296,2.4384,
+  0.0000,8.2296,2.4384,
+  0.0000,4.1148,3.8100,
+  17.3736,4.1148,3.8100;
+BuildingSurface:Detailed,Gable East,Wall,Gable,Attic,,Outdoors,,SunExposed,WindExposed,,3,
+  17.3736,0.0000,2.4384,
+  17.3736,8.2296,2.4384,
+  17.3736,4.1148,3.8100;
+BuildingSurface:Detailed,Gable West,Wall,Gable,Attic,,Outdoors,,SunExposed,WindExposed,,3,
+  0.0000,8.2296,2.4384,
+  0.0000,0.0000,2.4384,
+  0.0000,4.1148,3.8100;
+FenestrationSurface:Detailed,S Window 1,Window,Window,South Wall,,,,1,4,
+  0.9144,0.0000,2.1336,
+  0.9144,0.0000,0.6096,
+  1.8288,0.0000,0.6096,
+  1.8288,0.0000,2.1336;
+FenestrationSurface:Detailed,N Window 1,Window,Window,North Wall,,,,1,4,
+  16.4592,8.2296,2.1336,
+  16.4592,8.2296,0.6096,
+  15.5448,8.2296,0.6096,
+  15.5448,8.2296,2.1336;
+FenestrationSurface:Detailed,S Window 2,Window,Window,South Wall,,,,1,4,
+  3.0480,0.0000,2.1336,
+  3.0480,0.0000,0.6096,
+  3.9624,0.0000,0.6096,
+  3.9624,0.0000,2.1336;
+FenestrationSurface:Detailed,N Window 2,Window,Window,North Wall,,,,1,4,
+  14.3256,8.2296,2.1336,
+  14.3256,8.2296,0.6096,
+  13.4112,8.2296,0.6096,
+  13.4112,8.2296,2.1336;
+FenestrationSurface:Detailed,S Window 3,Window,Window,South Wall,,,,1,4,
+  5.1816,0.0000,2.1336,
+  5.1816,0.0000,0.6096,
+  6.0960,0.0000,0.6096,
+  6.0960,0.0000,2.1336;
+FenestrationSurface:Detailed,N Window 3,Window,Window,North Wall,,,,1,4,
+  12.1920,8.2296,2.1336,
+  12.1920,8.2296,0.6096,
+  11.2776,8.2296,0.6096,
+  11.2776,8.2296,2.1336;
+FenestrationSurface:Detailed,S Window 4,Window,Window,South Wall,,,,1,4,
+  7.3152,0.0000,2.1336,
+  7.3152,0.0000,0.6096,
+  8.2296,0.0000,0.6096,
+  8.2296,0.0000,2.1336;
+FenestrationSurface:Detailed,N Window 4,Window,Window,North Wall,,,,1,4,
+  10.0584,8.2296,2.1336,
+  10.0584,8.2296,0.6096,
+  9.1440,8.2296,0.6096,
+  9.1440,8.2296,2.1336;
+FenestrationSurface:Detailed,S Window 5,Window,Window,South Wall,,,,1,4,
+  9.4488,0.0000,2.1336,
+  9.4488,0.0000,0.6096,
+  10.3632,0.0000,0.6096,
+  10.3632,0.0000,2.1336;
+FenestrationSurface:Detailed,N Window 5,Window,Window,North Wall,,,,1,4,
+  7.9248,8.2296,2.1336,
+  7.9248,8.2296,0.6096,
+  7.0104,8.2296,0.6096,
+  7.0104,8.2296,2.1336;
+FenestrationSurface:Detailed,S Window 6,Window,Window,South Wall,,,,1,4,
+  11.5824,0.0000,2.1336,
+  11.5824,0.0000,0.6096,
+  12.4968,0.0000,0.6096,
+  12.4968,0.0000,2.1336;
+FenestrationSurface:Detailed,N Window 6,Window,Window,North Wall,,,,1,4,
+  5.7912,8.2296,2.1336,
+  5.7912,8.2296,0.6096,
+  4.8768,8.2296,0.6096,
+  4.8768,8.2296,2.1336;
+FenestrationSurface:Detailed,E Window 1,Window,Window,East Wall,,,,1,4,
+  17.3736,0.9144,2.1336,
+  17.3736,0.9144,0.6096,
+  17.3736,1.8288,0.6096,
+  17.3736,1.8288,2.1336;
+FenestrationSurface:Detailed,W Window 1,Window,Window,West Wall,,,,1,4,
+  0.0000,7.3152,2.1336,
+  0.0000,7.3152,0.6096,
+  0.0000,6.4008,0.6096,
+  0.0000,6.4008,2.1336;
+FenestrationSurface:Detailed,E Window 2,Window,Window,East Wall,,,,1,4,
+  17.3736,3.6576,2.1336,
+  17.3736,3.6576,0.6096,
+  17.3736,4.5720,0.6096,
+  17.3736,4.5720,2.1336;
+FenestrationSurface:Detailed,W Window 2,Window,Window,West Wall,,,,1,4,
+  0.0000,4.5720,2.1336,
+  0.0000,4.5720,0.6096,
+  0.0000,3.6576,0.6096,
+  0.0000,3.6576,2.1336;
+FenestrationSurface:Detailed,E Window 3,Window,Window,East Wall,,,,1,4,
+  17.3736,6.4008,2.1336,
+  17.3736,6.4008,0.6096,
+  17.3736,7.3152,0.6096,
+  17.3736,7.3152,2.1336;
+FenestrationSurface:Detailed,W Window 3,Window,Window,West Wall,,,,1,4,
+  0.0000,1.8288,2.1336,
+  0.0000,1.8288,0.6096,
+  0.0000,0.9144,0.6096,
+  0.0000,0.9144,2.1336;
+FenestrationSurface:Detailed,S Door,Door,Door,South Wall,,,,1,4,
+  14.0208,0.0000,2.0321,
+  14.0208,0.0000,0.0000,
+  14.9352,0.0000,0.0000,
+  14.9352,0.0000,2.0321;
+FenestrationSurface:Detailed,N Door,Door,Door,North Wall,,,,1,4,
+  3.3528,8.2296,2.0321,
+  3.3528,8.2296,0.0000,
+  2.4384,8.2296,0.0000,
+  2.4384,8.2296,2.0321;
+InternalMass,Interior Walls,Interior Wall,Living,,190.27;
+Schedule:Compact,Sensible Gain W,Any Number,Through: 12/31,For: AllDays,Until: 01:00,333.808,Until: 02:00,333.808,Until: 03:00,333.808,Until: 04:00,333.808,Until: 05:00,333.808,Until: 06:00,557.714,Until: 07:00,700.733,Until: 08:00,1401.466,Until: 09:00,817.668,Until: 10:00,500.272,Until: 11:00,500.272,Until: 12:00,667.323,Until: 13:00,500.272,Until: 14:00,417.333,Until: 15:00,433.745,Until: 16:00,433.745,Until: 17:00,634.206,Until: 18:00,684.028,Until: 19:00,734.143,Until: 20:00,1151.183,Until: 21:00,1151.183,Until: 22:00,1201.884,Until: 23:00,1201.884,Until: 24:00,1084.656;
+Schedule:Compact,Latent Gain W,Any Number,Through: 12/31,For: AllDays,Until: 01:00,72.389,Until: 02:00,72.389,Until: 03:00,72.389,Until: 04:00,72.389,Until: 05:00,72.389,Until: 06:00,120.745,Until: 07:00,151.811,Until: 08:00,303.622,Until: 09:00,177.015,Until: 10:00,108.436,Until: 11:00,108.436,Until: 12:00,144.484,Until: 13:00,108.436,Until: 14:00,90.266,Until: 15:00,94.076,Until: 16:00,94.076,Until: 17:00,137.450,Until: 18:00,148.294,Until: 19:00,159.138,Until: 20:00,249.403,Until: 21:00,249.403,Until: 22:00,260.247,Until: 23:00,260.247,Until: 24:00,235.043;
+OtherEquipment,Internal Sensible,None,Living,Sensible Gain W,EquipmentLevel,1,,,0,0.7,0,;
+OtherEquipment,Internal Latent,None,Living,Latent Gain W,EquipmentLevel,1,,,1,0,0,;
+ZoneInfiltration:DesignFlowRate,Living Infiltration,Living,Always On,AirChanges/Hour,,,,0.67,,,,;
+ZoneInfiltration:DesignFlowRate,Attic Infiltration,Attic,Always On,AirChanges/Hour,,,,2.4,,,,;
+ThermostatSetpoint:SingleHeating,Heat Only,Heat SP;
+ZoneControl:Thermostat,Living Thermostat,Living,Always On,ThermostatSetpoint:SingleHeating,Heat Only;
+ZoneHVAC:IdealLoadsAirSystem,Living Ideal Loads,Always On,Living Supply,,,50,13,0.0156,0.0077,NoLimit,,,NoLimit;
+ZoneHVAC:EquipmentList,Living Equip,SequentialLoad,ZoneHVAC:IdealLoadsAirSystem,Living Ideal Loads,1,1;
+ZoneHVAC:EquipmentConnections,Living,Living Equip,Living Supply,,Living Air Node,Living Return;
+Output:Table:SummaryReports,AllSummary;
+OutputControl:Table:Style,HTML;
+Output:Variable,*,Zone Ideal Loads Supply Air Total Heating Energy,Monthly;
+Output:Variable,*,Zone Mean Air Temperature,Hourly;
+Output:SQLite,SimpleAndTabular;
+Output:Meter,Heating:EnergyTransfer,Monthly;

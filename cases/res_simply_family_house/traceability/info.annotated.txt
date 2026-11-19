@@ -1,0 +1,126 @@
+Two offices and the hallway were merged to the (2 car) garage and the interior walls between two offices and the hallway were demolished, as shown in the floor plan (floorplan9834.png).
+    >> USED in the IDF: Two offices and the hallway were merged to the (2 car) garage: one unconditioned zone for the garage: Zone | Floor Area = 34.79 m2 (374.5 ft2), no HVAC, no People / Lights / ElectricEquipment object | Zone 'Garage' [Note: the garage is unconditioned (ASSUMED)]
+    >> USED in the IDF: the interior walls between two offices and the hallway were demolished: no wall between the three rooms: six walls around the merged footprint; only the wall to the Kitchen is an interior wall (Outside Boundary Condition = Surface) | 'surf-sp-garage-L1-floor-1', '-roof-1', '-wall-1' .. '-wall-6'
+The front door of the house faces north. 
+    >> USED in the IDF: Front Door on the Kitchen wall of the entry side; every vertex is X = v and Y = -u of the plan (the plan rotated by -90 deg) so that this wall faces north; Building | North Axis = 0 (World coordinates) | FenestrationSurface:Detailed 'Front Door' on 'surf-sp-kitchen-L1-wall-5' [Note: EnergyPlus ignores North Axis with World coordinates, so the model itself is rotated]
+The house is in Tucson, AZ 85730.
+    >> USED in the IDF: Site:Location | Latitude 32.22174, Longitude -110.92648, Elevation 758 m, Time Zone -7 (Tucson); SizingPeriod:DesignDay of the Tucson-Davis-Monthan AFB station; run with the Tucson-Davis-Monthan AFB TMYx weather file | Site:Location 'House (Matterport scan)' [Note: the coordinates are those of Tucson, not of the ZIP code; EnergyPlus takes the location from the weather file header]
+
+Building: D.R. Horton plan H35G (4 bed, 2 bath, 1 story, 2-car garage on the right side of the plan), Elevation B, in Tucson, AZ 85730; built 2025. Living area 1,815 ft2 (floor plan); total building area 2,365 ft2 including garage and covered porch / patio (city permit); occupancy group R3, construction type V-B, one story; lot 45 ft x 125 ft.
+    >> USED in the IDF: D.R. Horton plan H35G, 4 bed, 2 bath, 1 story, 2-car garage: the rooms of the plan: 4 bedrooms, 2 bathrooms, Kitchen, Living Room (great room, dining), Laundry (utility), Closet (WIC) in the zone Conditioned House, and the Garage; one level (all surfaces L1) | Zone 'Conditioned House', Zone 'Garage'
+    >> USED in the IDF: Living area 1,815 ft2 (floor plan): Zone Conditioned House | Floor Area = 147.02 m2 = 1583 ft2 (the scanned rooms; the plan also has entry, pantry, great room / dining in the named rooms) | Zone 'Conditioned House'
+    >> NOT USED in the IDF: total building area 2,365 ft2, occupancy group R3, construction typ...: No EnergyPlus field (the total area includes the garage, the porch and the patio; the lot, the occupancy group and the year are not modelled)
+
+Orientation: the front door faces north (checked on site). floorplan9834.png is drawn with north at the bottom: turn it upside down to read it with north up (south at the top, east on the left, west on the right). The covered back patio lies on the south side; the front porch and the entry are on the north side.
+    >> USED in the IDF: the front door faces north (checked on site): see line 2 | FenestrationSurface:Detailed 'Front Door'
+    >> USED in the IDF: floorplan9834.png is drawn with north at the bottom: the plan is read upside down: south at the top, east on the left, west on the right; the windows and the patio door are placed on the walls of the compass orientation given in the text | FenestrationSurface:Detailed windows and doors [Note: the room rectangles keep the room list, not the real layout of the plan; only the orientation of the openings follows the plan]
+    >> USED in the IDF: the covered back patio lies on the south side; the front porch and ...: Living Room Patio Door on the south wall of the Living Room; Front Door on the north wall of the Kitchen | 'Living Room Patio Door', 'Front Door'
+
+Foundation and structure: engineered post-tension concrete slab on grade; wood roof trusses; 9 ft ceilings on the first floor. Floors are tile in all areas except the bedrooms.
+    >> USED in the IDF: engineered post-tension concrete slab on grade: floors: Outside Boundary Condition = Ground, Sun / Wind Exposure = NoSun / NoWind; concrete slab 0.1524 m | Construction 'constr-default-slabongrade'; Material 'mat-default-m14-150mm-heavyweight-concrete' [Note: the slab thickness is ASSUMED]
+    >> NOT USED in the IDF: wood roof trusses: No EnergyPlus field (the roof is a flat surface at the ceiling height; the truss framing is not modelled)
+    >> USED in the IDF: 9 ft ceilings on the first floor: wall and roof Z = 2.7432 m (9 ft 0 in) or 2.7686 m (9 ft 1 in) from floorplan_size*.png | BuildingSurface:Detailed
+    >> NOT USED in the IDF: Floors are tile in all areas except the bedrooms: No EnergyPlus field (the floor is the concrete slab; the tile is not modelled)
+
+Exterior wall, wall model A (2x4 wood frame with continuous exterior insulation), from outside to inside:
+    >> USED in the IDF: Construction | Outside Layer to Layer 5 = Stucco 7/16 in, Rigid Foam R-6, OSB 7/16 in, Fiberglass Batt R-13 3.5 in, Gypsum 1/2 in; total resistance 3.53 m2K/W (R-20.1); used by every exterior wall (also the garage) | Construction 'constr-exterior-wall'
+1. Spanish lace stucco, one-coat system with acrylic elastomeric paint, about 3/8 to 1/2 in (to be confirmed);
+    >> USED in the IDF: Material | Thickness = 0.0111 m (midpoint 7/16 in), Conductivity 0.72 W/mK | Material 'Stucco 7/16 in' [Note: the conductivity, density and specific heat are ASSUMED (library values)]
+2. metal lath (to be confirmed);
+    >> NOT USED in the IDF: Not modelled (no thermal resistance or mass)
+3. weather-resistant barrier (house wrap, thin film);
+    >> NOT USED in the IDF: Not modelled (no thermal resistance or mass)
+4. rigid foam insulation, continuous, R-6 (RSI 1.06 m2K/W), type and thickness to be confirmed (about 1.2 in XPS or 1.5 in EPS);
+    >> USED in the IDF: Material:NoMass | Thermal Resistance = 1.05666 m2K/W (R-6 x 0.17611) | Material:NoMass 'Rigid Foam R-6' [Note: the type and thickness of the foam are not modelled]
+5. OSB sheathing, 7/16 in (probable);
+    >> USED in the IDF: Material | Thickness = 0.0111 m | Material 'OSB 7/16 in' [Note: conductivity 0.12 W/mK, density 544, specific heat 1210 are ASSUMED (plywood / OSB library values)]
+6. 2x4 wood studs (actual 1.5 x 3.5 in, typically 16 in on center) with R-13 (RSI 2.29 m2K/W) fiberglass batt in the 3.5 in cavity;
+    >> USED in the IDF: Material | Thickness = 0.0889 m (3.5 in), Conductivity = 0.03883 W/mK (R-13 = 2.289 m2K/W) | Material 'Fiberglass Batt R-13 3.5 in' [Note: the layer carries the nominal R-13; the stud framing is not modelled separately]
+7. gypsum drywall, 1/2 in (probable).
+    >> USED in the IDF: Material | Thickness = 0.0127 m | Material 'Gypsum 1/2 in'
+Nominal wall system R-19 (R-13 cavity + R-6 continuous), total thickness about 6 in. The builder's feature sheet says "R-19 exterior wall systems featuring R-13 batt insulation".
+    >> USED in the IDF: the model wall has 3.53 m2K/W (R-20.1) with the stucco, OSB and gypsum added to the R-19 of the batt and the foam | Construction 'constr-exterior-wall'
+Interior walls: 2x4 wood studs, 4 in thick, 1/2 in gypsum board on both sides (5/8 in Type X at the garage wall); some bedroom and bathroom partitions have fiberglass batt for sound.
+    >> USED in the IDF: Interior walls: 2x4 wood studs, 4 in thick, 1/2 in gypsum board on ...: Construction | gypsum 0.0127 m, air space 0.15 m2K/W, gypsum 0.0127 m | Construction 'constr-interior-wall', 'constr-interior-wall_rev' [Note: the stud cavity is an air space (ASSUMED)]
+    >> USED in the IDF: 5/8 in Type X at the garage wall: Construction | gypsum 0.0159 m, air space 0.15 m2K/W, gypsum 0.0159 m | Construction 'constr-garage-interior-wall', 'constr-garage-interior-wall_rev'; the wall between the Garage and the Kitchen
+    >> NOT USED in the IDF: some partitions have fiberglass batt for sound: Not modelled (the sound batt has no effect between rooms of one zone)
+Ceiling and roof: R-30 ceiling insulation, radiant barrier roof system.
+    >> USED in the IDF: R-30 ceiling insulation: Construction | roofing 0.0095 m, plywood 0.0159 m, Ceiling Insulation R-30 (5.2833 m2K/W), gypsum 0.0127 m; total 5.55 m2K/W | Construction 'constr-roof'; Material:NoMass 'Ceiling Insulation R-30' [Note: the roofing and the plywood are ASSUMED (library values)]
+    >> NOT USED in the IDF: radiant barrier roof system: Not modelled
+
+Windows: double-pane low-emissivity vinyl windows (ENERGY STAR package), white or tan vinyl frame. Sill height of all windows: 24 in (0.610 m). Glass: double-pane Low-E, argon fill (not confirmed), required for climate zone 2: U-factor <= 0.32 - 0.35, SHGC <= 0.23 - 0.25 (code limits; the label values of the installed windows are not known).
+    >> USED in the IDF: double-pane low-emissivity vinyl windows, U-factor <= 0.32 - 0.35, ...: WindowMaterial:SimpleGlazingSystem | U-Factor = 1.98739 W/m2K (0.35 Btu/h-ft2-F), Solar Heat Gain Coefficient = 0.25; used by all windows and the patio glass door | WindowMaterial:SimpleGlazingSystem 'Window Glazing U-0.35 SHGC-0.25'; Construction 'constr-window' [Note: the upper code limits are used (the label values are not known); the argon fill and the frame colour are not modelled]
+    >> USED in the IDF: Sill height of all windows: 24 in (0.610 m): Vertex Z of the windows from 0.6096 m | FenestrationSurface:Detailed
+Window schedule (width x height):
+- Bedroom 4, north wall: one hung window, 60 x 72 in (1.524 x 1.829 m), centred on the wall.
+    >> USED in the IDF: 1.524 x 1.829 m, sill 0.6096 m | 'Bedroom 118 North Window' on 'surf-sp-bedroom-118-L1-wall-4'
+- Bedroom 3, east wall: one single-hung window, 36 x 76 in (0.914 x 1.930 m); the frame edge is 76 in from the wall corner that is farthest from the room door.
+    >> USED in the IDF: 0.914 x 1.930 m, sill 0.6096 m | 'Bedroom 109 East Window' on 'surf-sp-bedroom-109-L1-wall-3' [Note: the corner is read as the south-east corner]
+- Bedroom 2, east wall: one single-hung window, 36 x 76 in; the frame edge is 76 in from the wall corner that is farthest from the room door.
+    >> USED in the IDF: 0.914 x 1.930 m, sill 0.6096 m | 'Bedroom 110 East Window' on 'surf-sp-bedroom-110-L1-wall-3' [Note: the corner is read as the south-east corner]
+- Bedroom 1, south wall: two single-hung windows, each 36 x 76 in; the frame edges are 20 in from the left and the right wall corner.
+    >> USED in the IDF: 0.914 x 1.930 m, sill 0.6096 m; 0.914 x 1.930 m, sill 0.6096 m | 'Bedroom 197 South Window 1', 'Bedroom 197 South Window 2' on 'surf-sp-bedroom-197-L1-wall-2'
+- Dining Room, west wall: one single-hung window, 36 x 76 in, centred on the corner of the UTILITY room.
+    >> USED in the IDF: 0.914 x 1.930 m, sill 0.6096 m | 'Living Room West Window' on 'surf-sp-living-room-L1-wall-1' [Note: the Dining Room is part of the Living Room; the Laundry and the Closet of the model touch the north part of that wall, so the window is at the centre of the exterior part (position ASSUMED)]
+(Bedroom 1 = the 197 ft2 bedroom, Bedroom 2 = 110 ft2, Bedroom 3 = 109 ft2, Bedroom 4 = 118 ft2 of floorplan_area.png.) The kitchen, bathrooms, walk-in closet (WIC) and utility room (Laundry) have no windows.
+    >> USED in the IDF: Bedroom 1 = 197 ft2, Bedroom 2 = 110 ft2, Bedroom 3 = 109 ft2, Bedr...: names of the zones in the model: Bedroom 197, Bedroom 110, Bedroom 109, Bedroom 118 (rooms of the zone Conditioned House) | BuildingSurface:Detailed
+    >> USED in the IDF: The kitchen, bathrooms, walk-in closet and utility room have no win...: no window object on the walls of these rooms
+
+Doors:
+1. Front entry door, centred under the covered entry on the north side: insulated fiberglass or galvanized steel door with polyurethane core, no glass lite or sidelite, 3 ft 0 in x 6 ft 8 in (0.914 x 2.032 m), 1.75 in thick.
+    >> USED in the IDF: 0.914 x 2.032 m, sill 0.0000 m; Material | Thickness = 0.04445 m | 'Front Door' on 'surf-sp-kitchen-L1-wall-5'; Construction 'constr-exterior-door'; Material 'Insulated Door 1.75 in' [Note: the door resistance R-5 is ASSUMED; the position on the Kitchen wall beside the garage is ASSUMED (the room layout of the model does not follow the plan)]
+2. Garage entry door: 20-minute fire-rated insulated steel door with self-closing device, 3 ft 0 in x 6 ft 8 in, between the garage and the interior, about 111 in (2.82 m) from the front entry door.
+    >> USED in the IDF: 0.914 x 2.032 m, sill 0.0000 m; two partner doors (Outside Boundary Condition Object) | 'Garage Entry Door' on 'surf-sp-garage-L1-wall-2'; 'Kitchen Garage Entry Door' on 'surf-sp-garage-L1-wall-2_mirror' [Note: an interior door between the garage and the Kitchen, on the same wall line as the front door]
+3. Patio sliding door: in the middle of the south (rear) wall of the Great Room, to the covered patio; vinyl or thermally broken aluminium frame, double-pane tempered Low-E glass; two-panel, 6 ft 0 in x 8 ft 0 in (1.829 x 2.438 m).
+    >> USED in the IDF: Surface Type = GlassDoor, 1.829 x 2.438 m, sill 0.0000 m, Construction constr-window | 'Living Room Patio Door' on 'surf-sp-living-room-L1-wall-2'
+4. Interior doors: hollow-core molded wood composite, 2 ft 4 in to 3 ft 0 in x 6 ft 8 in.
+    >> NOT USED in the IDF: No interior door object (the rooms of the zone are separated by interior walls without openings)
+
+All interior doors of the conditioned rooms are normally open and a return air path exists, so the conditioned rooms behave as one air volume served by one thermostat; the garage is a separate unconditioned space and its entry door is normally closed.
+    >> USED in the IDF: All interior doors of the conditioned rooms are normally open and a...: the 10 rooms are one zone: Zone | Floor Area = 147.02 m2, Volume = 404.8 m3; one air terminal, one zone sizing object, one infiltration, people, lights and equipment object | Zone 'Conditioned House'; 'Conditioned House Infiltration', 'Conditioned House People', 'Conditioned House Lights', 'Conditioned House Equipment' [Note: the walls between the rooms stay as interior partitions of the zone]
+    >> USED in the IDF: the garage is a separate unconditioned space and its entry door is ...: the Garage zone has no HVAC and no loads; the entry door is an interior door between the two zones (no air exchange is modelled) | Zone 'Garage'
+
+HVAC and utilities: single-stage split-system air-source heat pump, outdoor unit catalog number GH5SAN54200A (Carrier / Bryant builder series, see HVAC.png), nominal cooling capacity 3.5 tons (42,000 Btu/h = 12.3 kW), SEER2 14.3, HSPF2 7.5 (from the manufacturer's product literature; the heating capacity is not given). It is a dual-fuel system: heat pump with a natural-gas furnace as the backup (confirmed by the seller and the owner; the house has a gas line). The changeover temperature is not known. Programmable smart thermostat; the owner changes the setpoints at will, so no fixed schedule exists. 
+    >> USED in the IDF: single-stage split-system air-source heat pump, 3.5 tons = 42,000 B...: Coil:Cooling:DX:SingleSpeed | Gross Rated Total Cooling Capacity = 12309.0 W; Coil:Heating:DX:SingleSpeed | Rated Total Heating Capacity = 12309.0 W; Rated Air Flow Rate = 0.6607 m3/s (Fan, coils, unitary system) | Coil 'hvac-hp Cooling Coil'; Coil 'hvac-hp Heating Coil'; Fan 'hvac-hp Supply Fan'; AirLoopHVAC:UnitarySystem 'hvac-hp Unitary System' [Note: the heating capacity equal to the cooling capacity and the air flow of 400 cfm per ton are ASSUMED]
+    >> USED in the IDF: SEER2 14.3: Coil:Cooling:DX:SingleSpeed | Rated COP = 3.50 (EER = -0.02 SEER2^2 + 1.12 SEER2 = 11.9; COP = EER / 3.412) | Coil 'hvac-hp Cooling Coil' [Note: the conversion is ASSUMED]
+    >> USED in the IDF: HSPF2 7.5: Coil:Heating:DX:SingleSpeed | Rated COP = 2.75 (HSPF2 / 3.412 x 1.25) | Coil 'hvac-hp Heating Coil' [Note: the ratio 1.25 of rated to seasonal COP is ASSUMED]
+    >> USED in the IDF: dual-fuel system: heat pump with a natural-gas furnace as the backup: Coil:Heating:Fuel | Fuel Type = NaturalGas, Burner Efficiency = 0.8, Nominal Capacity = autosize; Supplemental Heating Coil Object Type = Coil:Heating:Fuel in the unitary system | Coil:Heating:Fuel 'hvac-hp Supp Heat or Reheat Coil' [Note: the furnace efficiency and capacity are ASSUMED; Output:Meter NaturalGas:Facility reads the gas]
+    >> USED in the IDF: The changeover temperature is not known: Minimum Outdoor Dry-Bulb Temperature for Compressor Operation = -8 C (the EnergyPlus HVACTemplate default) | Coil 'hvac-hp Heating Coil' [Note: ASSUMED]
+    >> USED in the IDF: Programmable smart thermostat; the owner changes the setpoints at will: heating setpoint 21.1 C, cooling setpoint 24.0 C all year (constant schedules); dual setpoint control | ZoneControl:Thermostat 'Living Room Thermostat'; ThermostatSetpoint:DualSetpoint; Schedule 'HVACTemplate-Always 21.1', 'HVACTemplate-Always 24.0' [Note: the setpoints are ASSUMED]
+A second thermostat in Bedroom 4 is a remote sensor of the same heat pump and does not control a separate zone; the heat pump follows the thermostat in the Living Room. The indoor fan runs in auto mode and cycles with the compressor.
+    >> USED in the IDF: A second thermostat in Bedroom 4 is a remote sensor; the heat pump ...: ZoneControl:Thermostat | Zone Name = Conditioned House (the thermostat is in the Living Room, part of the zone); AirLoopHVAC:UnitarySystem | Controlling Zone = Conditioned House | ZoneControl:Thermostat 'Living Room Thermostat' [Note: the sensor in Bedroom 4 has no object]
+    >> USED in the IDF: The indoor fan runs in auto mode and cycles with the compressor: AirLoopHVAC:UnitarySystem | Supply Air Fan Operating Mode Schedule Name = HVAC Fan Auto (constant 0 = cycling fan) | Schedule:Compact 'HVAC Fan Auto'
+Water heating: tankless natural-gas water heater located in the garage (confirmed); its standby heat does not enter the conditioned space. Cooking: natural-gas range. LED lighting throughout. The house was built under the 2018 International Energy Conservation Code with the City of Tucson amendments.
+    >> NOT USED in the IDF: tankless natural-gas water heater in the garage; natural-gas range: No water heater or gas equipment object (no hot water load is modelled; the heater is in the garage and its standby heat does not enter the conditioned space; the range is part of the plug loads)
+    >> USED in the IDF: LED lighting throughout: Lights | Watts per Zone Floor Area (see line 44) | Lights 'Conditioned House Lights'
+    >> NOT USED in the IDF: built under the 2018 International Energy Conservation Code with th...: No EnergyPlus field
+
+Occupants and internal gains (ASSUMED, not measured in the house): 2 occupants. Lighting power density (LED) 0.43 W/ft2 (4.6 W/m2; range 0.35 - 0.50 W/ft2). Plug loads and appliances 0.62 W/ft2 (6.7 W/m2; range 0.50 - 0.75 W/ft2). Values are the midpoints of the ranges in common residential practice (RESNET / Manual J style); the documents of the house do not give them.
+    >> USED in the IDF: 2 occupants: People | Number of People Calculation Method = People, Number of People = 2 | People 'Conditioned House People' [Note: Activity Level = 95 W per person is ASSUMED]
+    >> USED in the IDF: Lighting power density (LED) 0.43 W/ft2 (4.6 W/m2): Lights | Watts per Zone Floor Area = 4.63 W/m2 | Lights 'Conditioned House Lights'
+    >> USED in the IDF: Plug loads and appliances 0.62 W/ft2 (6.7 W/m2): ElectricEquipment | Watts per Zone Floor Area = 6.67 W/m2 | ElectricEquipment 'Conditioned House Equipment'
+Hourly fractions of the peak (midpoints of the ranges; the hours 07-08 and 16-17 of the occupancy schedule and the hour 16-17 of the appliance schedule are interpolated):
+- Lighting, every day: 00-06 3 %; 06-09 40 %; 09-17 10 %; 17-22 75 %; 22-24 22 %.
+    >> USED in the IDF: Schedule:Compact, For: AllDays, Until 06:00 0.03 / 09:00 0.40 / 17:00 0.10 / 22:00 0.75 / 24:00 0.22 | Schedule 'Lighting Schedule'
+- Plug loads and appliances, every day: 00-06 30 %; 06-09 52 %; 09-16 40 %; 16-21 88 %; 21-24 52 %.
+    >> USED in the IDF: Schedule:Compact, For: AllDays, Until 06:00 0.30 / 09:00 0.52 / 16:00 0.40 / 21:00 0.88 / 24:00 0.52 | Schedule 'Appliance Schedule'
+- Occupancy, weekdays: 22-07 95 %; 07-08 60 %; 08-16 33 %; 16-17 60 %; 17-22 88 %. Weekends: all day 78 %.
+    >> USED in the IDF: Schedule:Compact, For: AllOtherDays, Until 07:00 0.95 / 08:00 0.60 / 16:00 0.33 / 17:00 0.60 / 22:00 0.88 / 24:00 0.95; For: Saturday Sunday, Until 24:00 0.78 | Schedule 'Occupancy Schedule'
+
+Shading and roof covering: the front porch is recessed in front of the front entry door on the north side, 6 ft deep (1.83 m) x 58 in wide (1.47 m), between the bedroom wall and the garage wall, so it shades the front entry door. The covered back patio is on the south side, next to the Great Room sliding glass door, 7 ft deep (2.13 m) x 18 ft wide (5.49 m); it shades the sliding door from the high summer sun. The roof eave overhang is 12 in (0.305 m) all around the house; it protects the stucco walls and shades the high sun. The roof covering is tile.
+    >> NOT USED in the IDF: front porch 6 ft x 58 in, covered back patio 7 ft x 18 ft, roof eav...: No shading object (the shade of the porch, the patio and the eaves is not modelled)
+    >> NOT USED in the IDF: The roof covering is tile: The roof covering is a roofing layer of the library (ASSUMED); the tile is not modelled | Material 'mat-default-f13-built-up-roofing'
+
+Not available (assumed or left out of the model): blower-door result (infiltration), heat-pump changeover temperature and heating capacity, thermostat setpoint schedule (the owner changes it; 21.1 C heating and 24.0 C cooling are used), the label values of the windows (code limits are used), thickness and type of the stucco, lath and rigid foam, roof framing and slope.
+    >> USED in the IDF: Not available: blower-door result (infiltration): ZoneInfiltration:DesignFlowRate | Flow Rate per Exterior Surface Area = 0.00056896 m3/s-m2 (0.112 cfm/ft2) | ZoneInfiltration:DesignFlowRate 'Conditioned House Infiltration', 'Garage Infiltration' [Note: ASSUMED (not in info.txt)]
+    >> USED in the IDF: Not available: label values of the windows (code limits are used), ...: the code limits U 0.35 and SHGC 0.25, the stucco thickness 0.0111 m and the library values are used; no roof slope (flat surface) | see the items above [Note: ASSUMED]
+
+>> NOT IN info.txt (kept in the IDF with ASSUMED / Kept comments):
+    >> Material properties of the layers that info.txt does not give (conductivity, density, specific heat, absorptances) and the roofing / sheathing of the roof | Material, Material:NoMass | ASSUMED: library values
+    >> Slab thickness | Material | ASSUMED: 0.1524 m heavyweight concrete
+    >> Heating capacity, air flow, performance curves of the heat pump; furnace efficiency and capacity; fan power and efficiency | Coil:Heating:DX:SingleSpeed, Curve:*, Fan:OnOff, Coil:Heating:Fuel | ASSUMED or the EnergyPlus HVACTemplate default
+    >> Outdoor air requirement, zone sizing and system sizing values of the air loop | DesignSpecification:OutdoorAir, Sizing:Zone, Sizing:System | Kept: HVACTemplate defaults written by ExpandObjects
+    >> Activity level of the occupants | Schedule:Compact | ASSUMED: 95 W per person
+    >> Run period (no holidays are modelled), time step, convergence settings, terrain, output set | RunPeriod, Timestep, Building, Output:* | Kept: modelling choice or required by EnergyPlus
+    >> Position of the Front Door and of the Living Room West Window on their walls (the room layout of the model does not follow the plan) | FenestrationSurface:Detailed | ASSUMED
+    >> Shape of the rooms (rectangles of the labelled area) and their position (rooms without a position hint 5.0 m apart) | BuildingSurface:Detailed | ASSUMED (see the formulas of the vertex coordinates in the IDF)

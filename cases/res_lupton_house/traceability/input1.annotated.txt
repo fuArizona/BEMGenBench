@@ -1,0 +1,82 @@
+Lupton Octagonal House (passive, unconditioned)
+    >> USED in the IDF: Building | Name = Lupton Octagonal House; passive, unconditioned: no HVAC object | Building 'Lupton Octagonal House'
+
+Overview. A single-story, single-zone ("Living Zone") traditional octagonal house in Lupton, AZ (35.06°N, 109.08°W, 1780 m elevation). It has no HVAC at all: the indoor temperature floats freely with the weather. It is electricity-only and has 4 occupants. It is meant to be run with the nearest EPW, Gallup NM TMY3.
+    >> USED in the IDF: single-story, single-zone ("Living Zone"): Zone | Name = Living Zone; all surfaces use Zone Name = Living Zone | Zone 'Living Zone'
+    >> USED in the IDF: in Lupton, AZ (35.06 N, 109.08 W, 1780 m elevation): Site:Location | Name = Lupton_AZ_USA, Latitude = 35.06, Longitude = -109.08, Elevation = 1780 m (the time zone -7 is not in the document: Gallup NM EPW header) | Site:Location 'Lupton_AZ_USA'
+    >> USED in the IDF: no HVAC at all: the indoor temperature floats freely: No HVAC objects in the IDF; SimulationControl | Do Zone Sizing / Do System Sizing / Do Plant Sizing = No
+    >> USED in the IDF: electricity-only: All loads are electric (no fuel object); Output:Meter | Key Name = Electricity:Facility (result readout) | ElectricEquipment 'Living Zone Appliances', Lights 'Living Zone Lights'
+    >> USED in the IDF: has 4 occupants: People | Number of People = 4 | People 'Living Zone People'
+    >> USED in the IDF: meant to be run with the nearest EPW, Gallup NM TMY3: No IDF field: the EPW is given to EnergyPlus when the simulation is run (library file USA_NM_Gallup.Muni.AP.723627_TMYx.2011-2025.epw; there is no TMY3 file in the library); EnergyPlus takes the location from the EPW header [Note: Weather file: TMYx instead of TMY3]
+
+Geometry
+- The main footprint is a regular octagon with 19'4" (5.8928 m) sides, about 167.7 m² of floor.
+    >> USED in the IDF: main footprint: regular octagon, 19'4" (5.8928 m) sides: Vertex 1-8 X/Y of the octagon (side 5.8928 m, V1 = (10.0596, 0) ... V8 = (4.1668, 0)) | BuildingSurface:Detailed 'House Floor', 'House Roof' and the 6 octagon walls
+    >> USED in the IDF: about 167.7 m2 of floor: House Floor area = 167.67 m2 (check: matches) | BuildingSurface:Detailed 'House Floor'
+- The north wall bulges out 8'2" (2.4892 m), adding about 14.7 m². The NW diagonal wall bulges out 7'8" (2.3368 m), adding about 13.8 m².
+    >> USED in the IDF: north wall bulges out 8'2" (2.4892 m), adding about 14.7 m2: Vertex Y = 14.2265 to 16.7157 (2.4892 m), width 5.8928 m -> 14.67 m2 | 'North Protrusion Floor', 'North Protrusion Roof', 'North Protrusion Ext Wall', '... East Wall', '... West Wall'
+    >> USED in the IDF: NW diagonal wall bulges out 7'8" (2.3368 m), adding about 13: Vertices offset by 2.3368 m perpendicular to the NW face (-1.6523, +1.6523) -> 13.77 m2 | 'NW Protrusion Floor', 'NW Protrusion Roof', 'NW Protrusion Ext Wall', '... NE Wall', '... SW Wall'
+- Walls are 9" (0.2286 m) clay/adobe.
+    >> USED in the IDF: Material | Thickness = 0.2286 m; Construction | Outside Layer = Clay Wall 9in; conductivity, density, specific heat, absorptances are ASSUMED (not in the document) | Material 'Clay Wall 9in'; Construction 'Ext Clay Wall'
+  - The rectangular wall section is 11'6" (3.5052 m) high.
+    >> USED in the IDF: Vertex Z = 0 to 3.5052 m | 'South Wall', 'SE Diagonal Wall', 'East Wall', 'NE Diagonal Wall', 'West Wall', 'SW Diagonal Wall', 'North / NW Protrusion Ext Wall'
+  - Above it, each of the 8 faces has a segmental arch, 2'3" (0.6858 m) rise, also 9" clay. EnergyPlus models it as a flat rectangle.
+    >> USED in the IDF: Vertex Z = 3.5052 to 4.191 m (rise 0.6858 m); Construction = Ext Clay Wall (9 in clay) | 'South Wall Arch', 'SE Diagonal Wall Arch', 'East Wall Arch', 'NE Diagonal Wall Arch', 'West Wall Arch', 'SW Diagonal Wall Arch', 'North Protrusion Ext Wall Arch', 'NW Protrusion Ext Wall Arch' [Note: original IDF: arch and gap were one surface (z 3.5052 to 4.445 m, same area and construction)]
+  - A 10" (0.254 m) gap above the arch crown is modeled as a thin clay surface to close the envelope. The total wall envelope is 4.445 m (about 14'7") high.
+    >> USED in the IDF: 10" (0.254 m) gap above the arch crown, modelled as a thin c: Vertex Z = 4.191 to 4.445 m (0.254 m); Construction = Ext Clay Wall | 'South Wall Gap', 'SE Diagonal Wall Gap', 'East Wall Gap', 'NE Diagonal Wall Gap', 'West Wall Gap', 'SW Diagonal Wall Gap', 'North Protrusion Ext Wall Gap', 'NW Protrusion Ext Wall Gap' [Note: new surfaces in the IDF (the gap was part of the arch surface)]
+    >> USED in the IDF: total wall envelope is 4.445 m (about 14'7") high: Vertex Z of the gap tops, the roof and the side walls of the bulges = 4.445 m | all wall and roof surfaces
+- The roof is an arched wood roof, modeled as a flat horizontal surface at z = 4.445 m. It is a 1.5" wood deck plus 4" closed-cell spray foam, with U ≈ 0.2 W/m²K from the foam alone.
+    >> USED in the IDF: arched wood roof, modelled as a flat horizontal surface at z: Surface Type = Roof, Vertex Z = 4.445 m; Construction = Wood SprayFoam Roof | 'House Roof', 'North Protrusion Roof', 'NW Protrusion Roof'
+    >> USED in the IDF: 1.5" wood deck: Material | Thickness = 0.0381 m; Construction | Outside Layer = Wood Deck 1.5in; other properties ASSUMED | Material 'Wood Deck 1.5in'; Construction 'Wood SprayFoam Roof'
+    >> USED in the IDF: 4" closed-cell spray foam: Material | Thickness = 0.1016 m; Construction | Layer 2 = Spray Foam Ins 4in | Material 'Spray Foam Ins 4in'; Construction 'Wood SprayFoam Roof'
+    >> DERIVED in the IDF: U approx. 0.2 W/m2K from the foam alone: Material | Conductivity = 0.02032 W/mK (= 0.2 W/m2K x 0.1016 m) | Material 'Spray Foam Ins 4in' [Note: original IDF: 0.026 W/mK (U = 0.256 W/m2K)]
+- The floor is a 4" concrete slab on grade.
+    >> USED in the IDF: Material | Thickness = 0.1016 m; Surface Type = Floor, Outside Boundary Condition = Ground; other properties ASSUMED | Material 'Concrete Slab 4in'; Construction 'Slab On Grade'; 'House Floor', 'North Protrusion Floor', 'NW Protrusion Floor'
+- An internal mass of 14.86 m² of 9" wood side panels is included.
+    >> USED in the IDF: InternalMass | Surface Area = 14.86 m2; Material | Thickness = 0.2286 m | InternalMass 'Wooden Side Panels'; Construction 'Wood Panel Const'; Material 'Wood Panel 9in'
+
+Openings (double-pane glazing, U = 2.05 W/m²K, SHGC = 0.40)
+    >> USED in the IDF: U-Factor = 2.05 W/m2K, Solar Heat Gain Coefficient = 0.40 | WindowMaterial:SimpleGlazingSystem 'Double Pane Window'; Construction 'Window Const'
+
+┌─────────────────────────────────────────┬───────────────────────────────────────────────────────────────────────┐
+│                  Face                   │                               Openings                                │
+├─────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────┤
+│ SE diagonal                             │ Center wood door (3'2" × 7') plus a side window on each side (8'1" ×  │
+    >> USED in the IDF: SE diagonal: center wood door 3'2" x 7': Surface Type = Door, Vertex 1-4: width 0.9652 m, height 2.1336 m (7 ft), centred on the SE diagonal wall (2.4638 m from each end) | FenestrationSurface:Detailed 'SE Door'; Construction 'Ext Wood Door'; Material 'Wood Door 1.75in' [Note: original IDF: door height 2.1082 m (6 ft 11 in)]
+    >> USED in the IDF: SE diagonal: a side window on each side (8'1" x 8', sill 3'6: Vertex 1-4: width 2.4638 m (8 ft 1 in), height 2.4384 m (8 ft), sill Z = 1.0668 m (3 ft 6 in), top Z = 3.5052 m | 'SE Left Window', 'SE Right Window' (Construction 'Window Const')
+│                                         │ 8', sill 3'6")                                                        │
+├─────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────┤
+│ SW diagonal                             │ Same as SE                                                            │
+    >> USED in the IDF: Door 0.9652 x 2.1336 m; windows 2.4638 x 2.4384 m, sill 1.0668 m | 'SW Door', 'SW Left Window', 'SW Right Window' [Note: original IDF: door height 2.1082 m]
+├─────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────┤
+│ South wall                              │ Full-width window, sill 3'6", no door                                 │
+    >> USED in the IDF: Vertex 1-4: full width 5.8928 m, sill Z = 1.0668 m, top Z = 3.5052 m; no door object on the south wall | 'South Window' (on 'South Wall')
+├─────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────┤
+│ West wall                               │ Full-width window, sill 3'6", no door                                 │
+    >> USED in the IDF: Vertex 1-4: full width 5.8928 m, sill Z = 1.0668 m, top Z = 3.5052 m; no door object on the west wall | 'West Window' (on 'West Wall')
+├─────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────┤
+│ East wall, NE diagonal, North wall, NW  │ No openings                                                           │
+    >> USED in the IDF: No FenestrationSurface:Detailed on 'East Wall', 'NE Diagonal Wall', 'North Protrusion Ext Wall', 'NW Protrusion Ext Wall' | (none)
+│ diagonal                                │                                                                       │
+└─────────────────────────────────────────┴───────────────────────────────────────────────────────────────────────┘
+
+Internal gains and infiltration
+- 4 people at 120 W each (activity schedule). They are home at night and on weekends, and mostly out from 08:00 to 17:00 on weekdays (10% present).
+    >> USED in the IDF: 4 people at 120 W each (activity schedule): People | Number of People = 4, Activity Level Schedule Name = Res Activity Sched; Res Activity Sched | Field 4 = 120 (W per person); the radiant fraction 0.3 is ASSUMED | People 'Living Zone People'; Schedule:Compact 'Res Activity Sched'
+    >> USED in the IDF: home at night and on weekends, mostly out from 08:00 to 17:0: Weekdays: Until 08:00 = 1.0 (Field 4), Until 17:00 = 0.1 (Field 6), after 17:00 = 1.0 (Fields 8, 10); weekends = 1.0 (Field 13); People | Number of People Schedule Name | Schedule:Compact 'Res Occupancy Sched'
+- LED lighting at 5 W/m², with a residential schedule.
+    >> USED in the IDF: LED lighting at 5 W/m2: Design Level Calculation Method = Watts/Area, Watts per Zone Floor Area = 5.0 W/m2; the return air, radiant, visible and replaceable fractions are ASSUMED (LED) | Lights 'Living Zone Lights'
+    >> USED in the IDF: residential schedule (lighting): Lights | Schedule Name = Res Occupancy Sched (ASSUMED: the residential schedule is taken as the occupancy schedule; the document gives no hourly values) | Lights 'Living Zone Lights'; Schedule:Compact 'Res Occupancy Sched' [Note: an earlier version had its own Res Lighting Sched (values not in the document)]
+- Appliances at 7 W/m², with a residential schedule.
+    >> USED in the IDF: Appliances at 7 W/m2: Design Level Calculation Method = Watts/Area, Watts per Zone Floor Area = 7.0 W/m2; the latent, radiant and lost fractions are ASSUMED | ElectricEquipment 'Living Zone Appliances'
+    >> USED in the IDF: residential schedule (appliances): ElectricEquipment | Schedule Name = Res Occupancy Sched (ASSUMED: the residential schedule is taken as the occupancy schedule; the document gives no hourly values) | ElectricEquipment 'Living Zone Appliances'; Schedule:Compact 'Res Occupancy Sched' [Note: an earlier version had its own Res Equipment Sched (values not in the document)]
+- Infiltration is 0.000302 m³/s per m² of exterior surface, constant all year.
+    >> USED in the IDF: Infiltration is 0.000302 m3/s per m2 of exterior surface: Design Flow Rate Calculation Method = Flow/ExteriorArea, Flow Rate per Exterior Surface Area = 0.000302 m3/s-m2 | ZoneInfiltration:DesignFlowRate 'Living Zone Infiltration'
+    >> USED in the IDF: constant all year: Schedule Name = Always On (1.0 all days); Constant / Temperature / Velocity / Velocity Squared Term Coefficient = 1 / 0 / 0 / 0 | Schedule:Compact 'Always On'
+
+>> NOT IN input1.txt (kept in the IDF with ASSUMED / Kept comments):
+    >> Material properties (conductivity, density, specific heat, absorptances, roughness) of clay, concrete, wood, door, foam | Material | ASSUMED: not in input1.txt
+    >> Hourly values of the lighting and appliance schedules | Lights, ElectricEquipment | ASSUMED: the document only says "residential schedule"; the occupancy schedule is used for both (the separate lighting and equipment schedules are deleted)
+    >> Return air, radiant, visible, replaceable fractions of lights; radiant fraction of people; latent, radiant, lost fractions of equipment | People, Lights, ElectricEquipment | ASSUMED: values kept from the original IDF. People radiant 0.3, lights return air 0.0 and replaceable 1.0 are the EnergyPlus defaults; EnergyPlus documents lights fractions for fluorescent luminaires only (no LED data); no document value for the equipment fractions
+    >> Building terrain, north axis, run period, time zone and the result output (Output:Variable, Output:Meter, Output:Table:SummaryReports) | Building, RunPeriod, Site:Location, Output:Variable, Output:Meter, Output:Table:SummaryReports | Kept: modelling choice or required by EnergyPlus (Terrain Country and North Axis 0 are ASSUMED)
+    >> REMOVED from the original IDF (not in the document, not needed by EnergyPlus): time step, heat balance / surface convection algorithms, design days, water mains temperature, output diagnostics / variable dictionary / table style, Building convergence, solar distribution and warm-up fields | Timestep, HeatBalanceAlgorithm, SurfaceConvectionAlgorithm:Inside / Outside, SizingPeriod:DesignDay, Site:WaterMainsTemperature, Output:Diagnostics, Output:VariableDictionary, OutputControl:Table:Style; Building fields left blank | Deleted, so EnergyPlus uses its defaults (4 time steps per hour, CTF, TARP, DOE-2, 1 minimum warm-up day)

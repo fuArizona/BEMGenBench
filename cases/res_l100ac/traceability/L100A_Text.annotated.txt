@@ -1,0 +1,906 @@
+and roof solar absorptance of 0.6 were assumed. The equivalence of the one-zone model versus the two- zone base case was verified with sensitivity tests using BLAST and SERIRES/SUNCODE. However, model the attic as a separate zone if your software allows it.
+    >> USED in the IDF: Zone 'Attic' (unconditioned attic as a separate zone, as the text advises); solar absorptance 0.6 -> Material (all opaque materials) | Thermal Absorptance 0.9, Solar Absorptance 0.6, Visible Absorptance 0.6
+
+2.2.2 Vented Crawl Space
+    >> NOT USED in the IDF: Section title (no data)
+No attempt was made to describe the vented crawl space as a separate zone. To simulate a vented crawl space, HERS BESTEST only requires the floor to have an exterior film coefficient for "rough" surface texture and zero windspeed (in addition to the floor materials and interior film coefficient). Consistent with ASHRAE Handbook 1993 Fundamentals, vented crawl space air temperature is assumed to equal outdoor air temperature.
+    >> USED in the IDF: BuildingSurface:Detailed 'Floor' | Outside Boundary Condition = Outdoors (crawl space air = outdoor air), Wind Exposure = NoWind (zero wind speed); Material 'Floor Insulation and Joists' | Roughness = Rough (outermost layer, 'rough' texture)
+
+2.2.3 Windows
+A great deal of information about the window properties has been provided so that equivalent input for windows will be possible for many programs. The basic properties of the single-pane window, including shading coefficient, solar heat gain coefficient, and thermal resistance, are provided in Table 2-3. Additional information can be found in Figure 2-8, Table 2-6, and Tables 2-12 through 2-14. This information is drawn primarily from the WINDOW 4.1 (WINDOW 4.1, 1994) software for developing detailed glazing properties. For programs that need transmittance or reflectance at other angles of incidence, interpolate between the values of Table 2-14. Where other unspecified data are needed, then values consistent with those quoted will have to be calculated.
+    >> USED in the IDF: Window data come from Table 2-3, Figure 2-8, Table 2-6, Tables 2-12 to 2-14 -> WindowMaterial:Glazing 'Window Glass', WindowProperty:FrameAndDivider 'Window Frame', Construction 'Window'; interpolation of Table 2-14 is not needed (EnergyPlus calculates the angle dependence)
+For the base case, total glass and frame areas for each wall can be combined into a single large area for that wall. For later cases where shading is used, the specific window geometry will need to be modeled as closely as possible.
+    >> NOT USED in the IDF: The IDF does not combine glass and frame into one large area: the 18 window units are modelled one by one with a frame (FenestrationSurface:Detailed 'Window S1'..'Window W3', Frame and Divider Name = Window Frame), as the text asks for shaded cases
+
+2.2.4 Interior Walls
+The interior walls within the conditioned zone have been included for the purpose of modeling the effect of their mass. They are not intended to divide the conditioned zone into separately controlled zones. The importance of modeling interior wall mass will be more evident in Tier 2 tests when passive solar cases are added to HERS BESTEST.
+    >> USED in the IDF: InternalMass 'Interior Walls' (Construction 'Interior Wall') in the conditioned zone; no separate zone
+
+2.2.5 Infiltration
+Colorado Springs, Colorado, and Las Vegas, Nevada, are at 6145 ft. and 2178 ff. altitude Tespectively, so the density of air is Jess than that at sea-level for both locations. If your program does not use barometric pressure from the weather data, or otherwise automatically corrects for the change in air density caused by altitude, then adjust the specified infiltration rates (to yield mass flows equivalent to what would occur at the specified altitude) as shown in Table 2-4. Only use the attic infiltration rate if your software allows that input. Attic infiltration is based on the Cooling and Heating Load Calculation Manual, (McQuiston and Spitler, P. 4.12) for typical ventilation by natural effects. If you need more information about altitude effects on infiltration, see Appendix B.
+    >> USED in the IDF: Site:Location | Name = Colorado Springs CO, Elevation = 1873 m (6145 ft); ZoneInfiltration:DesignFlowRate 'Conditioned Zone Infiltration' | Air Changes per Hour = 0.67 and 'Attic Infiltration' | Air Changes per Hour = 2.4 (EnergyPlus corrects the air density from the weather data, so the altitude adjustment of Table 2-4 / Appendix B is not applied). Las Vegas (2178 ft) is not used in L100AC
+
+2.2.6 Internal Loads
+These are non-HVAC related internally generated loads from equipment, lights, people, animals, etc. An hourly internal load schedule for the conditioned zone is specified in Table 2-11. There are no internal loads in the attic. This schedule disaggregates sensible and latent loads. If your software does not analyze latent loads, then leave them out and use only the sensible portion of the internal loads. Aggregate sensible loads are 70% radiative and 30% convective.
+    >> USED in the IDF: ElectricEquipment 'Internal Gains' (Schedule Name = Internal Gains Sched, hourly schedule of Table 2-11; Fraction Radiant = 0.57534 = 0.7 x sensible / total); no People / Lights objects; no internal load object for the Attic zone
+Because internal loads are given only for their effect on heating and cooling load, the equipment fuel type and efficiency associated with generating these loads do not matter.
+    >> NOT USED in the IDF: Fuel type and efficiency of the loads do not matter: ElectricEquipment is only a heat source
+
+2.2.7 Combined Radiative and Convective Surface Coefficients
+Combined surface coefficients are denoted in various section drawings throughout Volume 1 as "Interior Film" and "Exterior Film" (e.g., see Figures 2-4 through 2-7). If your program uses combined surface coefficients, then use the information given in Table 2-4 (this information is also included with the detailed material descriptions of Tables 2-6 through 2-10). Because the heating season average windspeed for Colorado Springs, Colorado, is nearly equal to the cooling season average windspeed for Las Vegas, Nevada, the listed exterior surface coefficients apply to both climates.
+    >> NOT USED in the IDF: Combined film coefficients are not entered: EnergyPlus calculates convection and radiation itself (the text allows to ignore them)
+If your program does not allow variation of combined surface coefficients or if your program automatically calculates interior and exterior surface convection and radiation in greater detail, then you may ignore this information. See Appendices C and D if you need more information on surface coefficients.
+    >> NOT USED in the IDF: Same: film coefficients are ignored (allowed by this sentence)
+
+2.2.8 Surface Radiative Properties
+Surface radiative properties are given in Table 2-4. These properties apply to all opaque exterior and interior building surfaces; they are roughly equivalent to medium color paint or a light color roof.
+    >> USED in the IDF: Material (all opaque materials) | Thermal Absorptance 0.9, Solar Absorptance 0.6, Visible Absorptance 0.6 (Table 2-4 values apply to all opaque exterior and interior surfaces)
+
+2.2.9 Interior Solar Distribution
+Interior solar distribution is the fraction of transmitted solar radiation incident on specific surfaces in a room. This effect can be significant in passive solar applications. If your program does not calculate this effect internally, then use the interior solar fractions from Table 2-5. The calculation of transmitted solar radiation reflected back out through windows (cavity albedo) is presented in Appendix E. If your program does not allow for variations of interior solar distribution, then disregard.
+    >> USED in the IDF: Building | Solar Distribution = FullInteriorAndExterior (EnergyPlus calculates the interior solar distribution, so the fractions of Table 2-5 are not entered)
+
+2.2.10 Mechanical System
+For the base building, obtain only pure load outputs (i.e., assume all equipment including ducts is 100% efficient). The thermostat settings and equipment descriptions below are sufficient for this purpose. This mechanical system only applies to the conditioned zone; it does not apply to the unconditioned attic. Assume the following:
+    >> USED in the IDF: ZoneHVAC:IdealLoadsAirSystem 'Conditioned Zone Ideal Loads Air System' (pure loads, 100 % efficient); applies to 'Conditioned Zone' only, none for Zone 'Attic'
+
+* 100% Convective Air System 
+    >> USED in the IDF: ZoneHVAC:IdealLoadsAirSystem (100 % convective air system)
+* The thermostat senses only the air temperature 
+    >> USED in the IDF: ZoneControl:Thermostat 'Conditioned Zone Thermostat' (air temperature control)
+* The thermostat is of the nonproportional type.
+    >> USED in the IDF: ZoneHVAC:IdealLoadsAirSystem | Heating Limit / Cooling Limit = LimitCapacity (nonproportional: the heat rate equals the capacity when the setpoint is not met)
+
+2.2.10.1 Thermostat Control Strategies
+Annual thermostat control settings are shown below. Because monthly reference results for an entire year are provided in Volume 2, Section 3, your heating and cooling seasons may be for the entire year or some other reasonable length as designated by your tool. Instructions for using monthly reference results are also provided in Volume 2, Section 3.
+    >> USED in the IDF: RunPeriod 'Annual' | Begin Month / Day = 1 / 1, End Month / Day = 12 / 31 (the heating season may be the entire year)
+For Colorado Springs, Colorado (heating only) cases: 
+    >> USED in the IDF: Colorado Springs case (L100AC) = heating only
+	HEAT = ON IF TEMP < 68°F; COOL = OFF.
+    >> USED in the IDF: Schedule:Constant 'Heating Setpoint' | Hourly Value = 20 C (68 F); ThermostatSetpoint:SingleHeating | Setpoint Temperature Schedule Name; ZoneControl:Thermostat | Control Type Schedule 'Heating Only Control' = 1 (single heating setpoint); ZoneHVAC:IdealLoadsAirSystem | Maximum Total Cooling Capacity = 0 (COOL = OFF)
+For Las Vegas, Nevada (cooling only) cases: 
+    >> NOT USED in the IDF: Las Vegas (cooling only) case: used by L100AL, not by L100AC
+	COOL = ON IF TEMP > 78°F; HEAT = OFF.
+    >> NOT USED in the IDF: Las Vegas setpoint 78 F: not in L100AC
+	
+The thermostat is nonproportional in the sense that when the air temperature exceeds the thermostat cooling set-point, the heat extraction rate is assumed to equal the maximum capacity of the cooling equipment. Likewise, when the air temperature drops below the thermostat heating set-point, the heat addition rate equals the maximum capacity of the heating equipment. A proportional thermostat model can be made to approximate a nonproportional thermostat model by setting a very small throttling range (the minimum allowed by your program).
+    >> NOT USED in the IDF: Description of the nonproportional thermostat: no field (ideal loads with capacity limit)
+
+2.2.10.2 Equipment Characteristics
+
+HEATING CAPACITY = 3413 MBtwh (effectively infinite). 
+    >> USED in the IDF: ZoneHVAC:IdealLoadsAirSystem | Maximum Sensible Heating Capacity = 1000252 W (3413 MBtu/h)
+EFFECTIVE EFFICIENCY = 100%.
+    >> USED in the IDF: ZoneHVAC:IdealLoadsAirSystem (ideal loads = 100 % efficiency, no efficiency field)
+
+COOLING CAPACITY = 3413 MBtwh (effectively infinite). 
+    >> NOT USED in the IDF: Cooling capacity 3413 MBtu/h: not used in L100AC because COOL = OFF (Maximum Total Cooling Capacity = 0); used by L100AL
+EFFECTIVE EFFICIENCY = 100%.
+    >> NOT USED in the IDF: Cooling efficiency 100 %: no field
+
+WASTE HEAT FROM FAN = 0.
+    >> USED in the IDF: No fan object (waste heat from fan = 0)
+
+The 3413 MBtu/h requirement comes from the english equivalent of 1 MW. If your software does not allow this much capacity, then use the largest system that your software will allow.
+    >> NOT USED in the IDF: Explanation of the 3413 MBtu/h (1 MW)
+
+## The starting of Figure 2-1
+1. **Dimensions**: 
+   - The length of the building as marked in the image is approximately 57.0 feet.
+    >> USED in the IDF: BuildingSurface:Detailed 'Wall South' / 'Wall North' / 'Floor' / 'Ceiling' / 'Attic Floor' | Vertex X (57 ft = 17.3736 m, east-west)
+   - The width is approximately 27.0 feet.
+    >> USED in the IDF: BuildingSurface:Detailed 'Wall East' / 'Wall West' / 'Floor' / 'Ceiling' | Vertex Y (27 ft = 8.2296 m)
+   - The height of the wall from the base to the eaves (where the roof starts sloping) is 8 feet.
+    >> USED in the IDF: BuildingSurface:Detailed 'Wall *' | Vertex Z (eave height 8 ft = 2.4384 m); Roof / Gable start at this height
+The building length is 57'-0", width is 27'-0", and height is 8'-0".
+    >> USED in the IDF: Same dimensions (57'-0", 27'-0", 8'-0")
+## The ending of Figure 2-1
+Figure 2-1. Basase building axonometric
+
+## The starting of Figure 2-2
+The image is a detailed floor plan labeled "Case L100A" with specific measurements and placements of structural elements such as windows and doors. Here’s the detailed analysis based on the labeled data:
+- **Overall Layout**: The layout is rectangular, and oriented with the north direction indicated at the top of the image. The external measurements of the layout are approximately 57 feet in width and 27 feet 8 inches in depth.
+    >> DERIVED in the IDF: Building | North Axis = 0 (north at the top of the plan); overall size 57 ft x 27 ft as above (the text 'width 57 ft, depth 27 ft 8 in' is the dimension chain of the drawing)
+- **Rooms and Spaces**: The image does not explicitly delineate individual rooms, but the placement of doors and windows suggests partitioned spaces or potential rooms.
+- **Windows**: Labeled with a "W", these are 3 feet wide by 5 feet high. They are found uniformly distributed along the external walls of the layout. 
+    >> USED in the IDF: FenestrationSurface:Detailed 'Window S1'..'S6', 'N1'..'N6', 'E1'..'E3', 'W1'..'W3' | Vertex 1-4 (3 ft x 5 ft window, frame inset by the frame width 2.75 in because EnergyPlus puts the frame outside the vertices)
+- **Doors**: Identified with a "D", and are solid-core wood doors measuring 3 feet wide by 6 feet 8 inches high. There are two doors shown on the plan; their locations are specified with measurements from nearby structural elements.
+    >> USED in the IDF: FenestrationSurface:Detailed 'Door S' and 'Door N' | Vertex 1-4 (3 ft x 6 ft 8 in); Construction 'Door' (solid core door)
+- **Measurement Notations**: The plan uses feet-and-inch notation to specify the distance between architectural elements such as from corner to window or window to door. For instance, starting from the left of the plan:
+  - There are series of windows and doors punctuated by specific measurements like 6’-0” between windows, or 2’-0” between a window and a door.
+    >> USED in the IDF: FenestrationSurface:Detailed | Vertex X / Y of each window and door (distances along the wall from Figure 2-2, e.g. 6'-0" between windows)
+- **Document Identification**: At the lower right corner, there's a code "CD0-AH06-A0327301" which likely serves as an identification or reference code for this floor plan within a larger document or architectural project.
+Legend: W = Window (3’ wide x 5’ high)
+    >> USED in the IDF: Window: 3 ft x 5 ft -> FenestrationSurface:Detailed vertices; WindowProperty:FrameAndDivider (Figure 2-8)
+D = Solid-core wood door (3’ wide x 6’8” high)
+    >> USED in the IDF: Door: 3 ft x 6 ft 8 in -> FenestrationSurface:Detailed 'Door S' / 'Door N' vertices (area 20 ft2 each)
+## The ending of Figure 2-2
+Figure 2-2. Floor plan—Case L100A
+
+## The starting of Figure 2-3
+Key elements noted in the drawing:
+1. **Roof and Elevation**:
+   - There is a slanted roof with a pitch indicated as 4:12.
+    >> USED in the IDF: BuildingSurface:Detailed 'Roof South' / 'Roof North' / 'Gable East' / 'Gable West' | Vertex Z: roof pitch 4:12 (rise 4.5 ft over the half span 13.5 ft)
+   - The highest point on the roof measures 13 feet and 6 inches from the peak to the eave.
+    >> USED in the IDF: Half span 13'-6" -> rise 4.5 ft -> ridge height 12.5 ft; used in the Roof / Gable vertices
+2. **Measurements**:
+   - The building height from the base to the eaves is shown as 8 feet and 0 inches.
+    >> USED in the IDF: BuildingSurface:Detailed | eave height 8 ft (Vertex Z)
+   - The total length of the structure from left to right spans 27 feet.
+    >> USED in the IDF: BuildingSurface:Detailed 'Wall East' / 'Wall West' | width 27 ft (Vertex Y)
+   - The vertical measurement in the center of the wall, from the top of the wall up to the lowest point of the roof, is shown as 18 feet and 43 inches.
+    >> CHECK ONLY (not an input) in the IDF: Dimension chain of the OCR (18.43 deg is the roof angle atan(4/12)); the IDF uses pitch 4:12
+   - The separation between the eave and the peak along the slanted line (apparently the main roof inclination) is noted as 14 feet and 23 inches.
+    >> DERIVED in the IDF: Roof slope length 14.23 ft -> BuildingSurface:Detailed 'Roof South' / 'Roof North' (Table 2-5: 14.2 ft)
+3. **Windows**:
+   - There are two windows represented, both aligned vertically.
+    >> USED in the IDF: FenestrationSurface:Detailed | Vertex Z of the windows on the east wall
+   - Each window is labeled with a height separation of 1 foot and 0 inches in the area between them, and each window has essentially similar designs, noted with respective measurements adjacent.
+   - According to the note beneath the elevation, "All windows located vertically as shown here."
+    >> USED in the IDF: FenestrationSurface:Detailed | Vertex Z of all windows (sill height 2 ft, window height 5 ft, 1 ft between the two sashes is part of the window)
+Note: All windows located vertically as shown here. 
+    >> USED in the IDF: Same note: all windows are located vertically as in Figure 2-3
+## The ending of Figure 2-3
+Figure 2-3. East side elevation—Case L100A
+
+## The starting of Figure 2-4
+It depicts a cross-sectional view of an exterior wall, divided into two main sections: the "Insulated Section" and the "Framed Section". The drawing provides a detailed representation of the different layers and components that make up this portion of the wall.
+(Top) Insulated Section (From exterior to interrior): Exterior Film,  Hardboard Siding (7/16"), Fiberboard Sheathing (1/2"), Fiberglass Batt (R-11), Plasterboard (1/2"), Interrior Film.
+    >> USED in the IDF: Construction 'Exterior Wall' | Outside Layer = Hardboard Siding, Layer 2 = Fiberboard Sheathing, Layer 3 = Wall Insulation and Framing (batt R-11 + 2 x 4 as one composite layer), Layer 4 = Plasterboard; Interior / Exterior Film are not entered
+(Bottom) Framed Section (From exterior to interrior): Exterior Film,  Hardboard Siding (7/16"), Fiberboard Sheathing (1/2"), 2 x 4 16" (o.c.), Plasterboard (1/2"), Interrior Film.
+    >> USED in the IDF: Framed section of the wall: part of the composite layer 'Wall Insulation and Framing' (25 % frame, Table 2-3 note 3)
+## The ending of Figure 2-4
+Figure 2-4. Exterior wall plan section—Case L100A 
+
+## The starting of Figure 2-5
+From the top to the bottom of the diagram:
+1. **Interior Film**: This serves as the interior finish or barrier layer between the indoor living space and the floor structure.
+    >> NOT USED in the IDF: Interior Film (not entered)
+2. **Carpet with Pad (R-2.08)**: Represents the carpet and its padding, with a mentioned R-value of 2.08, indicating its thermal resistance.
+    >> USED in the IDF: Material:NoMass 'Carpet and Pad' | Thermal Resistance = 0.3663 m2K/W (R-2.08); Construction 'Floor Over Crawl Space' (Layer 3, room side)
+3. **Plywood (3/4")**: This 3/4 inch thick plywood acts as the main structural element of the flooring.
+    >> USED in the IDF: Material 'Plywood Three Quarter Inch' (0.75 in); Construction 'Floor Over Crawl Space' (Layer 2)
+4. **Fiberglass Batt (R-11)**: Fiberglass insulation with an R-value of 11, used for thermal insulation between the floor joists.
+    >> USED in the IDF: Material 'Floor Insulation and Joists' (batt R-11 + joists as one composite layer); Construction 'Floor Over Crawl Space' (Outside Layer)
+5. **Exterior Film (Still Air)**: Below the insulation, this film likely acts as a moisture barrier, facing the crawl space.
+    >> NOT USED in the IDF: Exterior film (still air): not entered; effect through BuildingSurface 'Floor' Wind Exposure = NoWind
+6. **Joists**: The diagram shows floor joists labeled as "2 x 8, 16" o.c." which means that each joist is 2 inches by 8 inches in cross-section and placed with a center-to-center spacing of 16 inches.
+    >> USED in the IDF: Material 'Floor Insulation and Joists' | Thickness 3.5 in (joists 2 x 8, 16 in o.c.; thickness as the insulation, Table 2-7 note 4)
+
+Framed Section and Insulated Section over the joists indicate different construction or treatment areas of the floor structure, particularly pointing to where framing and insulation are located.
+Arrow symbols in the crawl space Denote that the crawl space is vented, helping ventilate the space to prevent moisture accumulation.
+    >> USED in the IDF: BuildingSurface:Detailed 'Floor' | Outside Boundary Condition = Outdoors (vented crawl space at outdoor temperature)
+## The ending of Figure 2-5
+Figure 2-5. Floor above vented crawl space, section—Case L100A
+
+## The starting of Figure 2-6
+The image illustrates a detailed architectural cross-section view of a ceiling/attic/roof construction commonly found in residential buildings, specifically marked as "Case L100A." The diagram is divided into two main sections showing different components:
+
+1. **Roof Section:**
+   - On the topmost layer, an **Exterior Film** is shown, which likely acts as a weather barrier.
+   - Beneath the exterior film are **Shingles**, which serve as the primary protective and water-proof layer.
+   - Below the shingles is a **Plywood Sheathing** layer, indicated as being 1/2" thick. This serves as the structural base for the shingles.
+    >> USED in the IDF: Construction 'Roof' | Outside Layer = Asphalt Shingle, Layer 2 = Plywood Half Inch
+   - Below the plywood, the space is identified as **Attic Air**, implying a ventilated attic space.
+    >> NOT USED in the IDF: Exterior Film: not entered
+
+    >> USED in the IDF: Material 'Asphalt Shingle'; Construction 'Roof' (Outside Layer)
+2. **Ceiling Section:**
+    >> USED in the IDF: Material 'Plywood Half Inch' (0.5 in); Constructions 'Roof' (Layer 2) and 'Gable'
+   - The ceiling starts with **2x6** framing members, which are spaced 24 inches on center. These are typical dimensions for roof or ceiling joists in residential construction.
+    >> USED in the IDF: Zone 'Attic' (attic air, unconditioned zone)
+   - Within the spaces between the framing, **Fiberglass Batt** insulation is installed, with an R-value of 19. This type of insulation is common for reducing heat transfer and increasing energy efficiency.
+   - Below the fiberglass batts, there is a **Plasterboard** depicted as being 1/2" thick. This typically forms the ceiling surface of the room below.
+   - An **Interior Film** is shown directly beneath the plasterboard, which might serve as a vapor barrier to prevent moisture ingress from the living spaces into the insulation.
+    >> USED in the IDF: Material 'Ceiling Insulation and Joists' (joists 2 x 6, 24 in o.c. as part of the composite layer, 90 / 10 %)
+
+    >> USED in the IDF: Material 'Ceiling Insulation and Joists' (batt R-19, 6.25 in); Constructions 'Ceiling' and 'Attic Floor'
+Additional aspects of the diagram:
+    >> USED in the IDF: Material 'Plasterboard' (0.5 in); Constructions 'Ceiling' (room side) and 'Attic Floor'
+   - The roofing section's angle and overlapping layers suggest a sloped roof design.
+    >> NOT USED in the IDF: Interior Film: not entered
+   - The diagram includes two separate labels for sections – one as "Framed Section" and another as "Insulated Section," indicating the designated areas for structural framing and thermal insulation respectively.
+
+This simplistic yet thorough blueprint is useful in understanding the layer-by-layer assembly of a standard residential roof and ceiling construction.
+## The ending of Figure 2-6
+Figure 2-6. Ceiling/attic/roof section—Case L100A
+
+## The starting of Figure 2-7
+(From left to side ): Interior Film, Plasterboard (1/2"), (top) Air Gap (mid)"2 x 4, 16" o.c." (Bottom) Air Gap, Plasterboard (1/2"), Interior Film
+    >> USED in the IDF: Construction 'Interior Wall' | Outside Layer = Plasterboard, Layer 2 = Interior Wall Frame (InternalMass 'Interior Walls')
+## The ending of Figure 2-7
+Figure 2-7. Interior wall plan section—Case L100A
+
+## The starting of Figure 2-8
+Figure 2-8. Window detail, vertical slider (NFRC AA) with 23%"-wide frame-Case 
+    >> USED in the IDF: WindowProperty:FrameAndDivider 'Window Frame' (vertical slider NFRC AA, 2.75 in frame)
+## The ending of Figure 2-8
+Figure 2-8. Window detail, vertical slider (NFRC AA) with 2%”-wide frame—Case L100A
+
+Table 2-3. Building Thermal Summary—Case L100A
+##  (like .csv format split by ",", the first Table 2-3 form (with .csv format) starts)
+       , AREA(ft^2), R(b*f*F/Btu), U(Btu/(h*ft^2*F), UA(Btu/(h*F), HEATCAP(Btu/F) 
+ELEMENT, ,(Note 1), (Note 1}, (Note 1), (Note 2) 
+Exterior Walls (Note 3), 1034, 11.76, 0.085, 87.9, 1383 
+    >> CHECK ONLY (not an input) in the IDF: Exterior Walls 1034 ft2, R 11.76, U 0.085, UA 87.9, HEATCAP 1383: result summary; net wall area follows from the Wall South / North / East / West and window / door vertices; composite R 11.76 is the check of Construction 'Exterior Wall'
+North Windows (Note 4), 90, 0.96, 1.039, 93.5, ,
+    >> USED in the IDF: FenestrationSurface:Detailed 'Window N1'..'N6' (90 ft2 = 6 x 15 ft2); R 0.96, U 1.039, UA 93.5 are check values (EnergyPlus calculates)
+East Windows (Note 4), 45, 0.96, 1.039, 46.7, , 
+    >> USED in the IDF: FenestrationSurface:Detailed 'Window E1'..'E3' (45 ft2 = 3 x 15 ft2)
+West Windows (Note 4), 45, 0.96, 1.039, 46.7, ,
+    >> USED in the IDF: FenestrationSurface:Detailed 'Window W1'..'W3' (45 ft2)
+South Windows (Note 4), 90, 0.96, 1.039, 93.5, , 
+    >> USED in the IDF: FenestrationSurface:Detailed 'Window S1'..'S6' (90 ft2)
+Doors,                  40, 3.04, 0.329, 13.2, 62 
+    >> USED in the IDF: FenestrationSurface:Detailed 'Door S', 'Door N' (2 x 20 ft2); Construction 'Door' / Material 'Solid Core Door'; R 3.04, U 0.329 are check values
+Ceiling/Attic/Roof (Note 5), 1539, 20.48, 0.049, 75.4, 1665 
+    >> USED in the IDF: BuildingSurface:Detailed 'Ceiling' / 'Attic Floor' (1539 ft2); R 20.48 and U 0.049 are check values of the composite ceiling (air-air)
+Floor (Note 5), 1539, 14.15, 0.071, 108.8, 1471, 
+    >> USED in the IDF: BuildingSurface:Detailed 'Floor' (1539 ft2); R 14.15 and U 0.071 are check values
+Infiltration (Note 6) 
+"Colorado Springs, CO", ,  ,  , 118.2 (UA(Btu/(h*F)),
+    >> CHECK ONLY (not an input) in the IDF: Infiltration UA 118.2 (Colorado Springs): result of 0.67 ACH x volume; not an input (ZoneInfiltration | Air Changes per Hour = 0.67)
+"Las Vegas, NV", ,  ,  , 136.9 (UA(Btu/(h*F), 
+    >> NOT USED in the IDF: Las Vegas infiltration UA 136.9: L100AL only
+Interior Walls, 1024, ,  ,  , 1425 (HEATCAP(Btu/F))
+    >> USED in the IDF: InternalMass 'Interior Walls' | Surface Area = 190.265 m2 (2 x 1024 ft2); HEATCAP 1425 Btu/F is the check of the mass
+TOTAL BUILDING 6006 Excluding Infiltration, , ,  ,  , 6006 (HEATCAP(Btu/F))
+    >> CHECK ONLY (not an input) in the IDF: Total building 6006 (heat capacity): check value
+Excluding Infiltration, , ,  ,  565.5 (UA(Btu/(h*F))
+    >> CHECK ONLY (not an input) in the IDF: Excluding infiltration UA 565.5: check value
+Including Infiltration (Colorado Springs, CO), , ,  , 683.7 565.5 (UA(Btu/(h*F))
+    >> CHECK ONLY (not an input) in the IDF: Including infiltration (Colorado Springs) UA 683.7: check value
+Including Infiltration (Las Vegas, NV), , ,  ,  702.4 
+    >> NOT USED in the IDF: Including infiltration (Las Vegas) UA 702.4: L100AL only
+##  (the first Table 2-3 form (with .csv format) ends)
+
+WINDOW SUMMARY: SINGLE PANE, ALUMINUM FRAME WITH THERMAL BREAK {Note 7)
+
+##  (like .csv format split by ",", the second Table 2-3 form (with .csv format) starts)
+   ,Area(ft^2), U(Btu/(h*ft^2*F), SHGC (dir. nor.), Trans(dir. nor.), SC
+   ,          , (Note 1), (Note 8}, (Note 9), (Note 10) 
+Glass pane,            10.96, 1.064, 0.857, 0.837, 1.000 
+    >> USED in the IDF: WindowMaterial:Glazing 'Window Glass' | Solar Transmittance at Normal Incidence = 0.837; glass area 10.96 ft2 results from the frame width 2.75 in and the divider; U 1.064 and SHGC 0.857 are check values (EnergyPlus calculates)
+Aluminum sash with thermal break, 4.04, 0.971,
+    >> USED in the IDF: WindowProperty:FrameAndDivider 'Window Frame' | Frame Width 0.06985 m (2.75 in), Frame Conductance 51.65 W/m2K (9.096 Btu/h ft2 F without films, Table 2-6); frame area 4.04 ft2 results; U 0.971 (with films) is a check
+Window composite air-air, 15.00, 1.039, 0.670, 0.612, 0.781 
+    >> USED in the IDF: FenestrationSurface:Detailed window vertices (gross window 15.00 ft2 = 3 ft x 5 ft); U 1.039, SHGC 0.670, Trans 0.612, SC 0.781 are check values
+##  (the second Table 2-3 form (with .csv format) ends)
+
+Note 1: Includes interior and exterior surface coefficients. 
+    >> NOT USED in the IDF: Note 1 (films included in R / U): explanation
+Note 2: Heat capacity includes building mass within the thermal envelope (e.g., insulation and insulation thickness of structural framing are included, exterior siding and roof/attic mass are excluded). 
+    >> CHECK ONLY (not an input) in the IDF: Note 2 (heat capacity definition): the mass is given by the Material densities and specific heats
+Note 3: Excludes area of windows and doors. ASHRAE framed area fraction of 0.25 is assumed for 2x4 16" O.C. construction. 
+    >> USED in the IDF: Material 'Wall Insulation and Framing' (one composite layer, 75 % insulated / 25 % framed)
+Note 4: Window area and other properties are for glass and frame combined. The accompanying window summary disaggregates glass and frame properties for a single window unit. North and south walls contain six window units each; east and west walls | contain three window units each. 
+    >> USED in the IDF: FenestrationSurface:Detailed: 6 window units on the north and south walls, 3 on the east and west walls (18 windows, each with Frame and Divider Name = Window Frame)
+Note 5: ASHRAE roof/ceiling framing area fraction of 0.1 applied to both ceiling and floor. 
+    >> USED in the IDF: Materials 'Ceiling Insulation and Joists' and 'Floor Insulation and Joists' (one composite layer each, 90 % insulated / 10 % framed)
+Note 6: Infiltration UA = (infiltration mass flow)*(specific heat). Assumes air properties: specific heat = 0.240 Bru/(Ib*F); density = 0,075 Ib/ft^3 at sea level, adjusted for altitude per Appendix B. The following values were used to obtain infiltration UA: 
+    >> NOT USED in the IDF: Note 6 (infiltration UA calculation): explanation; EnergyPlus calculates the mass flow from the weather data
+
+##  (like .csv format split by ",", the third Table 2-3 form (with .csv format) starts)
+Location, ACH Volume (ft^3), Altitude (ft), UAinf (Bru/(h*F))
+Colo Sprgs (Colorado Springs), 0.67 12312, 6145, 118.2
+    >> USED in the IDF: ZoneInfiltration:DesignFlowRate 'Conditioned Zone Infiltration' | Air Changes per Hour = 0.67; Site:Location | Elevation = 1873 m (6145 ft); volume 12312 ft3 is a check (Zone Volume is calculated from the geometry)
+Las Vegas, 0.67, 12312, 2178, 136.9
+    >> NOT USED in the IDF: Las Vegas (0.67 ACH, 2178 ft, 136.9): L100AL only
+##  (the third Table 2-3 form (with .csv format) ends)
+
+Note 7: This data summarizes one complete window unit per detailed description of Figure 2-8 and Tables 2-12 through 2-14.
+    >> NOT USED in the IDF: Note 7: pointer to Figure 2-8 and Tables 2-12 to 2-14 (used there)
+Note 8: SHGC is the Solar Heat Gain Coefficient that includes the inward flowing fraction of absorbed direct normal 1 solar radiation in addition to direct normal transmittance. For more detail, see ASHRAE 1993 Fundamentals, chp. 27. 
+    >> NOT USED in the IDF: Note 8 (SHGC definition): EnergyPlus calculates SHGC
+Note 9: "Trans." is the direct normal transmittance.
+    >> NOT USED in the IDF: Note 9 (Trans. definition)
+Note 10: Shading coefficient (SC) is the ratio of direct normal SHGC for a specific glazing unit to direct normal SHGC for the WINDOW 4.1 reference glazing unit.
+    >> NOT USED in the IDF: Note 10 (SC definition)
+
+Table 2-4. Other Building Details—Case L100A
+##  (like .csv format split by ",", the first Table 2-4 form (with .csv format) starts)
+                 , Conditioned Zone, , Attic (unconditioned), 
+AIR VOLUME (ft^3), 12312, , 3463,
+    >> CHECK ONLY (not an input) in the IDF: Air volume 12312 ft3 (conditioned) and 3463 ft3 (attic): Zone Volume fields are blank, EnergyPlus calculates them from the surfaces (check)
+INFILTRATION, ACH, CFM, ACH, CFM,
+ HERS w/ automatic altitude adjustment, 0.67, 137.5, 2.4, 138.5 
+    >> USED in the IDF: ZoneInfiltration:DesignFlowRate 'Conditioned Zone Infiltration' | Air Changes per Hour = 0.67 (137.5 CFM); 'Attic Infiltration' | Air Changes per Hour = 2.4 (138.5 CFM) (automatic altitude adjustment: done by EnergyPlus)
+ HERS wv site fixed at sea level (Note 1)
+ Colorado Springs, 0.533, 109.4, 1.910, 110.2
+    >> NOT USED in the IDF: Sea-level-fixed values for Colorado Springs (0.533 ACH / 1.910 ACH): not used, EnergyPlus adjusts the air density from the weather file
+ Las Vegas, 0.618, 126.8, 2.213, 127.7 
+    >> NOT USED in the IDF: Sea-level-fixed values for Las Vegas: L100AL only, and not used either
+INTERNAL GAINS, Sensible, Latent, Sensible, Latent 
+Daily internal gains (Btu/day)(see Table 2-11 for hourly profile), 56105, 12156, 0, 0 
+    >> USED in the IDF: ElectricEquipment 'Internal Gains' | Design Level = 833.56 W (68261 Btu/day / 24 h); Fraction Latent = 0.17808 (12156 / 68261); Fraction Radiant = 0.57534; Schedule:Compact 'Internal Gains Sched' (Table 2-11). Attic gains 0 -> no object
+##  (the first Table 2-4 form (with .csv format) ends)
+
+##  (like .csv format split by ",", the second Table 2-4 form (with .csv format) starts)
+COMBINED RADIATIVE AND CONVECTIVE SURFACE (FILM) COEFFICIENTS (Note 2), Exterior film U-val (Btu/(h*ft^2*F)), Interior film U-val (Btu/(h*ft^2*F)) 
+Walls and doors, 5.748, 1.460 
+    >> NOT USED in the IDF: Film coefficients, walls and doors (5.748 / 1.460): not entered (EnergyPlus calculates)
+Ceiling, n/a, 1.307 
+    >> NOT USED in the IDF: Film coefficients, ceiling: not entered
+Roof, 5.748, 1.330
+    >> NOT USED in the IDF: Film coefficients, roof: not entered
+Floor above ventilated crawl space, 2.200, 1.307 
+    >> NOT USED in the IDF: Film coefficients, floor above ventilated crawl space: not entered (Floor | Wind Exposure = NoWind, Roughness Rough instead)
+Window, 4.256, 1.460 
+    >> NOT USED in the IDF: Film coefficients, window: not entered
+Window frame, 4.256, 1.460 
+    >> NOT USED in the IDF: Film coefficients, window frame: not entered
+SURFACE RADIATIVE PROPERTIES, Exterior, Interior 
+Shortwave (visible and UV) absorptance, 0.6, 0.6 
+    >> USED in the IDF: Material (all opaque materials) | Solar Absorptance 0.6, Visible Absorptance 0.6 (shortwave absorptance 0.6, exterior and interior)
+Longwave (infrared) emittance, 0.9, 0.9
+    >> USED in the IDF: Material (all opaque materials) | Thermal Absorptance = 0.9 (longwave emittance 0.9, exterior and interior)
+##  (the second Table 2-4 form (with .csv format) ends)
+
+Note 1: Appendix B describes the algorithm used for adjusting infiltration rates if your software does not account for variation of air density with altitude (i.e., site fixed at sea level). 
+    >> NOT USED in the IDF: Note 1: altitude adjustment algorithm (Appendix B): not needed
+Note 2: More information about combined surface coefficients is included in Appendices C and D.
+    >> NOT USED in the IDF: Note 2: pointer to Appendices C and D
+
+2.2.11 Case L100A: Supplementary Tables
+The following data were used for generating reference results. The previous figures and tables summarized, and are based on, the data presented in this section. We expect that many HERS tools will not be able to directly input much of the data in this section (e.g., material densities, specific heats, detailed window optical properties, interior solar fractions, surface coefficients, etc.). However, if your models are capable of receiving this level of detail, then you must use these tables where possible.
+    >> USED in the IDF: The IDF uses the detailed data of Tables 2-5 to 2-14 where EnergyPlus has a field
+
+Table 2-5. Component Surface Areas and Solar Fractions—Case L100A
+##  (like .csv format split by ",", the first Table 2-5 form (with .csv format) starts)
+ELEMENT, HEIGHT or LENGTH (ft), WIDTH (ft), MULTIPLIER, AREA (ft^2), INSIDE SOLAR FRACTION
+EXTERIOR NORTH/SOUTH WALLS, , , , ,(Note 1)
+Gross Wall, 8.0, 57.0, 1.0, 456.0,
+    >> USED in the IDF: BuildingSurface:Detailed 'Wall South' / 'Wall North' | Vertex 1-4: 8.0 ft x 57.0 ft = 456 ft2
+ Gross Window, 5.0, 3.0, 6.0, 90.0,
+    >> USED in the IDF: FenestrationSurface:Detailed 'Window S1'..'S6', 'N1'..'N6' (3 ft x 5 ft, 6 per wall)
+  Window Frame Only, , , ,24.2, 0.0031
+    >> CHECK ONLY (not an input) in the IDF: Window frame only 24.2 ft2 (6 x 4.04), inside solar fraction 0.0031: frame area results from WindowProperty:FrameAndDivider | Frame Width; solar fraction not entered
+  Door 6.7, 3.0, 1.0, 20.0, 0.0026
+    >> USED in the IDF: FenestrationSurface:Detailed 'Door S' / 'Door N' (3.0 ft x 6.7 ft = 20 ft2 each; vertices 6 ft 8 in); solar fraction 0.0026 not entered
+  Net Wall (Note 2), , , , 346.0,
+    >> CHECK ONLY (not an input) in the IDF: Net wall 346 ft2 = gross wall - window rough openings - door: result
+   Insulated Wall (Note 2), , , , 259.5, 0.0332
+    >> USED in the IDF: Material 'Wall Insulation and Framing' (insulated section 259.5 ft2 = 75 % of the net wall); solar fraction 0.0332 not entered
+   Framed Wall (Note 2), , , , 86.5, 0.0114 
+    >> USED in the IDF: Material 'Wall Insulation and Framing' (framed section 86.5 ft2 = 25 %); solar fraction 0.0114 not entered
+EXTERIOR EAST/WEST WALLS, , , , , ,  
+ Gross Wall, 8.0, 27.0, 1.0, 216.0,
+    >> USED in the IDF: BuildingSurface:Detailed 'Wall East' / 'Wall West' | Vertex 1-4: 8.0 ft x 27.0 ft = 216 ft2
+ Gross Window, 5.0, 3.0, 3.0, 45.0,
+    >> USED in the IDF: FenestrationSurface:Detailed 'Window E1'..'E3', 'W1'..'W3' (3 ft x 5 ft, 3 per wall)
+  Window Frame Only, , , ,  121, 0.0016
+    >> CHECK ONLY (not an input) in the IDF: Window frame only 12.1 ft2 (3 x 4.04), solar fraction 0.0016 not entered
+  Net Wall (Note 2), , , ,  171.0,
+    >> CHECK ONLY (not an input) in the IDF: Net wall 171.0 ft2: result
+    Insulated Wall (Note 2), , , ,  128.3, 0.0164
+    >> USED in the IDF: Material 'Wall Insulation and Framing' (insulated 75 %); solar fraction 0.0164 not entered
+	Framed Wall (Note 2), , , ,  42.8, 0.0055 
+    >> USED in the IDF: Material 'Wall Insulation and Framing' (framed 25 %); solar fraction 0.0055 not entered
+INTERIOR WALLS, , , , , ,  
+ Gross Wall (Note 3), 8.0, 128.0, , 1024.0,
+    >> USED in the IDF: InternalMass 'Interior Walls' | Surface Area = 2 x 8.0 ft x 128.0 ft = 2048 ft2 = 190.265 m2 (both faces, Note 3)
+ Unframed Wall (Note 3), , , ,  921.6, 0.1179
+    >> USED in the IDF: Construction 'Interior Wall' | Layer Plasterboard (unframed wall 90 %); solar fraction 0.1179 not entered
+ Framed Wall (Note 3), , , ,  102.4, 0.0131
+    >> USED in the IDF: Material 'Interior Wall Frame' (framed wall 10 %, density 3.2 lb/ft3); solar fraction 0.0131 not entered
+FLOOR/CEILING, , , , , , 
+Gross Floor/Ceiling, 57.0, 27.0, 1.0, 1539.0,
+    >> USED in the IDF: BuildingSurface:Detailed 'Floor', 'Ceiling', 'Attic Floor' | Vertex 1-4: 57.0 ft x 27.0 ft = 1539 ft2
+ Insulated Floor/Ceiling (Note 4), , , ,   1385.1, 0.1772
+    >> USED in the IDF: Materials 'Ceiling Insulation and Joists' / 'Floor Insulation and Joists' (insulated 90 %: 1385.1 ft2); solar fraction 0.1772 not entered
+ Framed Floor/Ceiling (Note 4), , , ,   153.9, 0.0197 
+    >> USED in the IDF: Same materials (framed 10 %: 153.9 ft2); solar fraction 0.0197 not entered
+ROOF, , , , , , 
+Roof Deck (Note 5), 57.0, 14.2, 2.0, 1622.2, 
+    >> USED in the IDF: BuildingSurface:Detailed 'Roof South' / 'Roof North' | Vertex 1-4: 57.0 ft x 14.2 ft each (multiplier 2: north and south slopes), 1622.2 ft2
+Attic EW Gable (Note 6), 4.5, 27.0, 2.0, 121.5, 
+    >> USED in the IDF: BuildingSurface:Detailed 'Gable East' / 'Gable West' (triangles: 27 ft base x 4.5 ft height, 60.75 ft2 each, 121.5 ft2 total)
+"TRANSMITTED SOLAR, INTERIOR DISTRIBUTION SUMMARY", , , , , , 
+Total Opaque Interior Surface Area (Note 7), , , ,   6272.7, 0.8024 
+    >> NOT USED in the IDF: Total opaque interior surface area 6272.7 ft2, fraction 0.8024: not entered (Building | Solar Distribution = FullInteriorAndExterior)
+Solar to Air (or low mass furnishings), , , ,  , 0.1750 (Note 8)
+    >> NOT USED in the IDF: Solar to air 0.1750: not entered
+Solar Lost (back out through windows), , , ,  , 0.0226 (Note 9)
+    >> NOT USED in the IDF: Solar lost 0.0226: not entered
+##  (the first Table 2-5 form (with .csv format) ends)
+Note 1: Solar energy transmitted through windows is assumed as distributed to interior opaque surfaces in proportion to their areas. Only the radiation not directly absorbed by lightweight furnishings (assumed to exist only for the purpose of calculating inside solar fraction) or lost back out through windows is distributed to interior opaque surfaces.
+    >> NOT USED in the IDF: Note 1: how the solar fractions are defined (not entered)
+Note 2: Net wall area is gross wal] area less the rough opening areas of the windows and door. Insulated and framed exterior wall sections are defined in Figure 2-4. ASHRAE framed area fraction of 0.25 is assumed for 2x4 16" O.C. construction.
+    >> USED in the IDF: Note 2: ASHRAE framed fraction 0.25 for 2 x 4 16 in o.c. -> Material 'Wall Insulation and Framing' (75 / 25)
+Note 3: Width is the total length of all interior walls. Framed wall area is assumed to be 10% of gross wall area for 2x4 16" O.C. framing. Only one side of the wall is considered for listed area. This area is multiplied by 2 for determining solar fractions. Solar fractions shown are for just one side of the interior wall.
+    >> USED in the IDF: Note 3: interior walls: frame 10 % of the area -> Material 'Interior Wall Frame'; both sides -> InternalMass Surface Area x 2
+Note 4: Insulated and framed floor and ceiling sections are defined in Figures 2-5 and 2-6 respectively. ASHRAE roof/ceiling framing area fraction of 0.1 applied to both ceiling and floor.
+    >> USED in the IDF: Note 4: ASHRAE framing fraction 0.1 for floor and ceiling -> Materials 'Floor Insulation and Joists', 'Ceiling Insulation and Joists' (90 / 10)
+Note 5: The multiplier accounts for both the northward and southward sloped portions of the roof deck.
+    >> USED in the IDF: Note 5: multiplier 2 = north and south roof slopes -> two Roof surfaces
+Note 6: Gable area is calculated as a triangle. Multiplier accounts for east- and west-facing gable ends.
+    >> USED in the IDF: Note 6: gable = triangle, multiplier 2 -> two Gable surfaces (east and west)
+Note 7: Total area of just those surfaces to which an inside solar fraction is applied.
+    >> NOT USED in the IDF: Notes on the solar fraction calculation (Appendix E): not entered
+Note 8: Based on the midpoint of the range given by SUNCODE-PC User’s Manual, p. 2-16.
+    >> NOT USED in the IDF: Notes on the solar fraction calculation (Appendix E): not entered
+Note 9: Calculated using the algorithm described in Appendix E.
+    >> NOT USED in the IDF: Notes on the solar fraction calculation (Appendix E): not entered
+
+Table 2-6. Material Descriptions Exterior Wall, Door, and Window—Case L100A
+##  (like .csv format split by ",", the first Table 2-6 form (with .csv format) starts)
+EXTERIOR WALL (inside to outside) ELEMENT, Thickness (in), R (h*ft^2*F/Btu), U (Btu/h*ft^2*F), k (Btu/h*ft*F), DENSITY (lb/ft^3), Cp (Btu/lb*F)
+Int Surf Coef, , 0.685, 1.460, 
+    >> NOT USED in the IDF: Interior surface coefficient: not entered
+Plasterboard, 0.5, 0.450, 2.222, 0.0926, 50.0, 0.26 
+    >> USED in the IDF: Material 'Plasterboard' | Thickness 0.0127 m (0.5 in), Conductivity 0.16027 W/mK (0.0926), Density 800.923 kg/m3 (50 lb/ft3), Specific Heat 1088.57 J/kgK (0.26)
+Fiberglass batt (Note 1), 3.5, 11.000, 0.091, 0.0265, 0.6, 0.20 
+    >> USED in the IDF: Material 'Wall Insulation and Framing' (batt R-11, 3.5 in, 0.6 lb/ft3, Cp 0.20) as part of ONE composite layer with the frame: Thickness 3.5 in, Conductivity 0.05966, Density 135.356, Specific Heat 1352.66
+Frame 2x4, 16" O.C. (Note 2), 3.5, 4.373, 0.229, 0.0667, 32.0, 0.33 
+    >> USED in the IDF: Material 'Wall Insulation and Framing' (frame 2 x 4, 16 in o.c., 3.5 in, 32 lb/ft3, Cp 0.33; 25 %), see the line above
+Fiberboard sheathing, 0.5, 1.320, 0.758, 0.0316, 18.0, 0.31 
+    >> USED in the IDF: Material 'Fiberboard Sheathing' | Thickness 0.0127 m, Conductivity 0.05469, Density 288.332, Specific Heat 1297.91
+'Hardboard siding, 7/16" ', 0.44, 0.670, 1.492, 0.0544, 40.0, 0.28 
+    >> USED in the IDF: Material 'Hardboard Siding' | Thickness 0.01118 m (0.44 in), Conductivity 0.09415, Density 640.739, Specific Heat 1172.3
+Ext Surf Coef (Note 3), , 0.174, 5.748, 
+    >> NOT USED in the IDF: Exterior surface coefficient: not entered (Roughness = Rough on the outermost layer, note 3)
+'Total air - air, insulated section', 14.299, 0.070, 
+    >> CHECK ONLY (not an input) in the IDF: Total air-air, insulated section 14.299: check
+'Total air - air, frame section',  7.672, 0.130 
+    >> CHECK ONLY (not an input) in the IDF: Total air-air, frame section 7.672: check
+'Total air - air, composite section (Note 4)',  11.760, 0.085 
+    >> CHECK ONLY (not an input) in the IDF: Total air-air, composite 11.760 (75 % / 25 %): check of Construction 'Exterior Wall'
+'Total surf - surf, insulated section',  13.440, 0.074 
+    >> CHECK ONLY (not an input) in the IDF: Total surf-surf, insulated section 13.440: check
+'Total surf - surf, frame section',  6.813, 0.147 
+    >> CHECK ONLY (not an input) in the IDF: Total surf-surf, frame section 6.813: check
+'Total surf - surf, composite section (Note 5)',  10.901, 0.092 
+    >> DERIVED in the IDF: Total surf-surf composite R 10.901: used to derive Conductivity (0.05966 W/mK) of Material 'Wall Insulation and Framing' = 3.5 in / (10.901 - 0.450 - 1.320 - 0.670)
+DOOR, 
+Solid core door, 1.75, 2.179, 0.459, 0.0669, 32.0, 0.33 
+    >> USED in the IDF: Material 'Solid Core Door' | Thickness 0.04445 m (1.75 in), Conductivity 0.11579, Density 512.591, Specific Heat 1381.64; Construction 'Door'
+'Total air - air, door only (Note 6)', , 3.038, 0.329,  
+    >> CHECK ONLY (not an input) in the IDF: Door total air-air R 3.038 / U 0.329: check
+##  (the first Table 2-6 form (with .csv format) ends)
+
+WINDOW SUMMARY: SINGLE PANE, ALUMINUM FRAME WITH THERMAL BREAK (Note 7) 
+
+##  (like .csv format split by ",", the second Table 2-6 form (with .csv format) starts)
+ELEMENT, Thickness (in), Area (ft^2), R (h*ft^2*F/Btu), U (Btu/h*ft^2*F), SHGC (dir. nor.) (Note 8), Trans (dir. nor.) (Note 9), SC (Note 10)
+'Int surf coef, glass', , , 0.685 1.460, 
+    >> NOT USED in the IDF: Interior surface coefficient, glass: not entered
+'Int surf coef, frame', , , 0.685 1.460,
+    >> NOT USED in the IDF: Interior surface coefficient, frame: not entered
+'Glass pane',  0.118, 10.96, 0.020, 49.371, 0.857, 0.837, 1.000 
+    >> USED in the IDF: WindowMaterial:Glazing 'Window Glass' | Thickness 0.0030 m (0.118 in), Solar Transmittance 0.837; SHGC 0.857 is a check; conductivity from Table 2-13
+'Aluminum sash w/ thermal break', , 4.04, 0.110, 9.096 ,
+    >> USED in the IDF: WindowProperty:FrameAndDivider 'Window Frame' | Frame Conductance = 51.65 W/m2K and Divider Conductance = 51.65 W/m2K (9.096 Btu/h ft2 F, no films); frame area 4.04 ft2
+'Ext surf coef (Note 11)', , ,  0.235, 4.256, 
+    >> NOT USED in the IDF: Exterior surface coefficient (glass and frame): not entered
+'Window composite air-air', , 15.00, 0.963, 1., 0.670, 0.612, 0.781
+    >> CHECK ONLY (not an input) in the IDF: Window composite air-air: area 15.00 ft2, U 1.039, SHGC 0.670, Trans 0.612, SC 0.781: check values
+##  (the second Table 2-6 form (with .csv format) ends)
+Note 1: Insulated section only, see Figure 2-4 for section view of wall.
+    >> USED in the IDF: Note 1: insulated section, see Figure 2-4 (layers of Construction 'Exterior Wall')
+Note 2: Framed section only, see Figure 2-4 for section view of wall.
+    >> USED in the IDF: Note 2: framed section, see Figure 2-4
+Note 3: 10.7 mph wind speed and brick/rough plaster roughness assumed; see Appendices C and D for more information about exterior film coefficients.
+    >> USED in the IDF: Note 3: 'brick/rough plaster roughness' of the exterior film -> Roughness = Rough for the outermost layers (Materials 'Hardboard Siding', 'Asphalt Shingle', 'Floor Insulation and Joists', 'Solid Core Door'); wind speed 10.7 mph -> BuildingSurface | Wind Exposure = WindExposed
+Note 4: Total composite R-values based on 75% insulated section 25% frame area section per ASHRAE. Thermal properties of windows and doors are not included in this composite calculation.
+    >> USED in the IDF: Note 4: composite R based on 75 % insulated / 25 % frame -> Material 'Wall Insulation and Framing'
+Note 5: Total surf-surf composite R-value is the total air-air composite R-value less the resistances due to the film coefficients.
+    >> DERIVED in the IDF: Note 5: surf-surf R = air-air R minus film resistances (used for the conductivity, see line 294)
+Note 6: Door has same film coefficients as exterior wall.
+    >> USED in the IDF: Note 6: the door has the same film coefficients as the wall -> Material 'Solid Core Door' | Roughness = Rough
+Note 7: This section sammatizes the detailed window description of Tables 2-12 through 2-14. Areas pertain to one complete window unit only (see Figure 2-8). If your software is capable of modeling windows in greater detail than shown here, then use Tables 2-12 through 2-14.
+    >> USED in the IDF: Note 7: use Tables 2-12 to 2-14 (EnergyPlus can model the window in detail) -> WindowMaterial:Glazing and WindowProperty:FrameAndDivider
+Note 8: SHGC is the Solar Heat Gain Coefficient, which includes the inward flowing fraction of absorbed direct normal solar radiation in addition to direct normal transmittance. For more detail, see ASHRAE 1993 Fundamentals, chp. 27. 
+    >> NOT USED in the IDF: Note 8 / 9 / 10: definitions of SHGC, Trans., SC (EnergyPlus calculates them)
+Note 9: "Trans." is the direct normal transmittance. 
+    >> NOT USED in the IDF: Note 8 / 9 / 10: definitions of SHGC, Trans., SC (EnergyPlus calculates them)
+Note 10: Shading coefficient (SC) is the ratio of direct normal SHGC for a specific glazing unit to direct normal SHGC for the WINDOW 4.1 reference glazing unit. 
+    >> NOT USED in the IDF: Note 8 / 9 / 10: definitions of SHGC, Trans., SC (EnergyPlus calculates them)
+Note 11; Exterior surface coefficient is the same for both frame and glass: see Appendices C and D for more about exterior film coefficients. 
+    >> NOT USED in the IDF: Note 11: exterior coefficient the same for glass and frame: not entered
+
+Table 2-7. Material Descriptions, Floor Over Vented Crawl Space—Case L100A
+##  (like .csv format split by ",", the first Table 2-7 form (with .csv format) starts)
+FLOOR OVER VENTED CRAWL SPACE (inside to outside) ELEMENT, Thickness (in), R (h*ft^2*F/Btu), U (Btu/h*ft^2*F), k (Btu/h*ft*F), DENSITY (lb/ft^3), Cp (Btu/lb*F)
+Int Surf Coef (Note 1), , 0.765, 1.307,
+    >> NOT USED in the IDF: Interior surface coefficient: not entered
+Carpet w/ fibrous pad (Note 2), ,  2.080, 0.481, , , 0.34 
+    >> USED in the IDF: Material:NoMass 'Carpet and Pad' | Thermal Resistance = 0.3663 m2K/W (R 2.080); Construction 'Floor Over Crawl Space' (Layer 3); Cp 0.34 not entered (Note 2: no mass)
+Plywood 3/4”, 0.75, 0.937, 1.067, 0.0667, 34.0, 0.29 
+    >> USED in the IDF: Material 'Plywood Three Quarter Inch' | Thickness 0.01905 m, Conductivity 0.11544, Density 544.628, Specific Heat 1214.17
+Fiberglass batt (Note 3), 3.5, 11.000, 0.091, 0.0265, 0.6, 0.20 
+    >> USED in the IDF: Material 'Floor Insulation and Joists' (batt R-11, 3.5 in) as part of ONE composite layer with the joists
+'Joists 2x8, 16" O.C. (Note 4)', 3.5, 4.373, 0.229, 0.0667, 32.0, 0.33 
+    >> USED in the IDF: Material 'Floor Insulation and Joists' | Thickness 0.0889 m (3.5 in), Conductivity 0.05093, Density 59.909, Specific Heat 1303.06 (joists 2 x 8, 16 in o.c., 10 %)
+'Ext Surf Coef (Note 5)', , 0.455, 2.200,
+    >> NOT USED in the IDF: Exterior surface coefficient 2.200 (still air): not entered; BuildingSurface 'Floor' | Wind Exposure = NoWind, Material Roughness = Rough
+'Total air-air, insulated section', ,  15.237, 0.066,
+    >> CHECK ONLY (not an input) in the IDF: Total air-air, insulated section 15.237: check
+'Total air-air, frame section', ,  8.609, 0.116,
+    >> CHECK ONLY (not an input) in the IDF: Total air-air, frame section 8.609: check
+'Total air-air, composite section (Note 6)', ,  14.148, 0.071,
+    >> CHECK ONLY (not an input) in the IDF: Total air-air, composite 14.148: check of Construction 'Floor Over Crawl Space'
+Total surf-surf, composite section (Note 7)', ,  12.928, 0.077 ,
+    >> DERIVED in the IDF: Total surf-surf composite R 12.928: used to derive Conductivity (0.05093 W/mK) of Material 'Floor Insulation and Joists' = 3.5 in / (12.928 - 2.080 - 0.937)
+##  (the first Table 2-7 form (with .csv format) ends)
+Note 1: Average of ASHRAE heating and cooling coefficients.
+    >> NOT USED in the IDF: Note 1: interior coefficient average (not entered)
+Note 2: There is not enough information available for modeling thermal mass of carpet.
+    >> USED in the IDF: Note 2: no thermal mass for the carpet -> Material:NoMass
+Note 3: Insulated section only, see Figure 2-5 for section view of floor.
+    >> USED in the IDF: Note 3: insulated section, see Figure 2-5
+Note 4: Framed section only, sec Figure 2-5 for section view of floor. For modeling purposes, thickness is the same as for insulation. remaining length is assumed to be at crawl space temperature and is not considered as thermal mass.
+    >> USED in the IDF: Note 4: joist thickness = insulation thickness (3.5 in) -> Material 'Floor Insulation and Joists' | Thickness
+Note 5: Still air and brick/rough plaster roughness assumed; see Appendix C for exterior film coefficient as a function of windspeed and surface roughness. This coefficient is applied to the 1539 ft^2 floor area.
+    >> USED in the IDF: Note 5: still air and rough texture; 1539 ft2 floor -> BuildingSurface 'Floor' | Wind Exposure = NoWind; Material Roughness = Rough
+Note 6: ASHRAE roof/ceiling framing area fraction of 0.1 applied.
+    >> USED in the IDF: Note 6: framing fraction 0.1 (90 / 10 composite)
+Note 7: Total air-air composite R-value less the film resistances.
+    >> DERIVED in the IDF: Note 7: surf-surf R = air-air R minus films (see line 335)
+
+Table 2-8. Material Descriptions, Ceiling, Attic, and Roof—Case L100A
+##  (like .csv format split by ",", the first Table 2-8 form (with .csv format) starts)
+CASE L100: CEILING/ATTIC/ROOF (inside to outside), attic as unconditioned zone (Note 1) ELEMENT, Thickness (in), R (h*ft^2*F/Btu), U (Btu/h*ft^2*F), k (Btu/h*ft*F), DENSITY (lb/ft^3), Cp (Btu/lb*F)
+CEILING (1539 ft^2 total area),
+    >> USED in the IDF: Ceiling 1539 ft2 -> BuildingSurface:Detailed 'Ceiling' (Conditioned Zone) and 'Attic Floor' (Attic)
+Int Surf Coef (Note 2), , 0.765, 1.307, 
+    >> NOT USED in the IDF: Interior surface coefficient: not entered
+Plasterboard, 0.5, 0.450, 2.222, 0.0926, 50.0, 0.26 
+    >> USED in the IDF: Material 'Plasterboard'; Constructions 'Ceiling' (room side) and 'Attic Floor'
+Fiberglass batt (Note 3), 6.25, 19.000, 0.053, 0.0274, 0.6, 0.20
+    >> USED in the IDF: Material 'Ceiling Insulation and Joists' | Thickness 0.15875 m (6.25 in), Conductivity 0.05472, Density 53.382, Specific Heat 1303.06 (batt R-19 as part of the composite layer)
+'Joists 2x6, 24" OC (Note 4)', 55, 6.872, 0.146, 0.0667, 32.0, 0.33
+    >> USED in the IDF: Material 'Ceiling Insulation and Joists' (joists 2 x 6, 24 in o.c., 10 %)
+Int Surf Coef (Note 2), , 0.765 1.307,
+'Total air-air, insulated section', , 20.980 0.048, 
+    >> CHECK ONLY (not an input) in the IDF: Total air-air, insulated section 20.980: check
+'Total air-air, framed section', ,  8.852 0.113,
+    >> CHECK ONLY (not an input) in the IDF: Total air-air, framed section 8.852: check
+'Total air-air, composite section (Note 5)', , 18.452 0.054, 
+    >> CHECK ONLY (not an input) in the IDF: Total air-air, composite 18.452: check of Construction 'Ceiling'
+'Total surf - surf, composite section (Note 5)', ,  16.922 0.059 
+    >> DERIVED in the IDF: Total surf-surf composite R 16.922: used to derive Conductivity (0.05472 W/mK) of Material 'Ceiling Insulation and Joists' = 6.25 in / (16.922 - 0.450)
+END GABLES (121.5 ft^2 total area),
+    >> USED in the IDF: END GABLES 121.5 ft2 -> BuildingSurface:Detailed 'Gable East' / 'Gable West'; Construction 'Gable'
+'Int Surf Coef', ,   0.685, 1.460,
+'Plywood 1/2”',  0.5, 0.625, 1.601, 0.0667, 34.0, 0.29 
+    >> USED in the IDF: Material 'Plywood Half Inch' | Thickness 0.0127 m, Conductivity 0.11544, Density 544.628, Specific Heat 1214.17; Construction 'Gable' (Layer 2)
+'Hardboard siding, 7/16"',   0.44, 0.670, 1.492, 0.0544, 40.0, 0.28
+    >> USED in the IDF: Material 'Hardboard Siding'; Construction 'Gable' (Outside Layer)
+'Ext Surf Coef (Note 6)',  0.174, 5.748,
+    >> NOT USED in the IDF: Exterior surface coefficient: not entered
+'Total air-air', , 2.154 0.464 
+    >> CHECK ONLY (not an input) in the IDF: Gable total air-air R 2.154: check of Construction 'Gable'
+ROOF (1622 ft^2 total area),
+    >> USED in the IDF: ROOF 1622 ft2 -> BuildingSurface:Detailed 'Roof South' / 'Roof North'; Construction 'Roof'
+'Int Surf Coef {Note 7)', ,  0.752, 1.330
+'Plywood 1/2"',  0.5, 0.625, 1.601, 0.0667, 34.0, 0.29, 
+    >> USED in the IDF: Material 'Plywood Half Inch'; Construction 'Roof' (Layer 2)
+'Asphalt shingle 1/4"',  0.25, 0.440, 2.273, 0.0473, 70.0, 0.30 
+    >> USED in the IDF: Material 'Asphalt Shingle' | Thickness 0.00635 m (0.25 in), Conductivity 0.08186, Density 1121.292, Specific Heat 1256.04; Construction 'Roof' (Outside Layer)
+'Ext Surf Coef (Note 6)', ,  0.174, 5.748,
+'Total air-air', ,  1.991, 0.502, 
+    >> CHECK ONLY (not an input) in the IDF: Roof total air-air R 1.991: check of Construction 'Roof'
+'Total Roof/Gable UA, surf-surf_(Note 8)': 1711 Btu/(h*F)
+    >> CHECK ONLY (not an input) in the IDF: Total Roof / Gable UA 1711 Btu/(h F): used only for Table 2-9 (not an input)
+##  (the first Table 2-8 form (with .csv format) ends)
+Nate 1: This table is for modeling the attic as a separate zone. }
+    >> USED in the IDF: Note 1: this table is for modelling the attic as a separate zone -> Zone 'Attic'
+Note 2: Average of ASHRAE heating and cooling coefficients. horizontal surface.
+    >> NOT USED in the IDF: Note 2: interior coefficient average (not entered)
+Note 3: Insulated section only. see Figure 2-6 for section view of ceiling.
+    >> USED in the IDF: Note 3: insulated section, see Figure 2-6
+Note 4: Framed section only, see Figure 2-6 for section view of ceiling.
+    >> USED in the IDF: Note 4: framed section, see Figure 2-6
+Note 5: Based on 10% frame area fraction per ASHRAE; applies to temperature difference between room air and attic air.
+    >> DERIVED in the IDF: Note 5: 10 % frame fraction; surf-surf = air-air minus the two interior films (see line 357)
+  The “Composite surf-surf" R-value is the composite air-air R-value less the two interior film coefficient R-values.
+Note 6: 10.7 mph wind speed and brick/rough plaster roughness assumed; see Appendix C for more about exterior film coefficients.
+    >> USED in the IDF: Note 6: rough texture, 10.7 mph -> Roughness = Rough on the roof shingle; Wind Exposure = WindExposed
+Note 7: Average for ASHRAE upward and downward heat flow through sloped surface, interpolated on cosine of roof pitch angic. 
+    >> NOT USED in the IDF: Note 7: roof interior film (not entered)
+Note 8: Area weighted sum of plywood and asphalt shingle or wood siding material layers, does not include film coefficients. This value iL used for developing Table 2-9.
+    >> NOT USED in the IDF: Note 8: roof / gable UA used for Table 2-9 only
+
+Table 2-9. Material Descriptions, Ceiling/Attic/Roof, Attic as Material Layer—Case L100A
+##  (like .csv format split by ",", the first Table 2-9 form (with .csv format) starts)
+COMPOSITE CEILING/ATTIC/ROOF (inside to outside), attic as unconditioned zone (Note 1) ELEMENT, Thickness (in), R (h*ft^2*F/Btu), U (Btu/h*ft^2*F), k (Btu/h*ft*F), DENSITY (lb/ft^3), Cp (Btu/lb*F)
+    >> NOT USED in the IDF: Table 2-9 (attic as a material layer) is NOT used: the IDF models the attic as a separate zone with Table 2-8
+CEILING/ATTIC AIR (1539 ft^2 total area),
+    >> NOT USED in the IDF: Table 2-9: not used (attic as a material layer)
+'Int Surf Coef', , 0.765, 1.307, 
+    >> NOT USED in the IDF: Table 2-9 row: not used (alternative representation, see Table 2-8)
+Plasterboard, 0.5, 0.450, 2.222, 0.0926, 50.0, 0.26 
+    >> NOT USED in the IDF: Table 2-9 row: not used (alternative representation, see Table 2-8)
+Fiberglass batt (Note 1), 6.25, 19,000, 0.053, 0.0274, 0.6, 0.20 
+    >> NOT USED in the IDF: Table 2-9 row: not used (alternative representation, see Table 2-8)
+'Joists 2x6, 24" OC (Note 2)', 5.5, 6.872, 0.146, 0.0667, 32.0, 0.33 
+    >> NOT USED in the IDF: Table 2-9 row: not used (alternative representation, see Table 2-8)
+Attic air space (Note 3), ,  1.550 0.645, 
+    >> NOT USED in the IDF: Table 2-9 row: not used (alternative representation, see Table 2-8)
+ROOF DECK AND GABLE PROPERTIES SCALED TO CEILING AREA, 1539 ft^2 (Note 4),
+    >> NOT USED in the IDF: Table 2-9: not used (attic as a material layer)
+'Plywood 1/2"', 0.5, 0.515, 1.940, 0.0808, 41.2, 0.29 
+    >> NOT USED in the IDF: Table 2-9 row: not used (alternative representation, see Table 2-8)
+Hybrid shingle/siding (Note 5), 0.25, 0.384, 2.605, 0.0543, 84.8, 0.30, 
+    >> NOT USED in the IDF: Table 2-9 row: not used (alternative representation, see Table 2-8)
+'Total roof deck/gable, surf-surf (Note 6)', ,   0.899, 1.412, 
+    >> NOT USED in the IDF: Table 2-9 row: not used (alternative representation, see Table 2-8)
+Ext Surf Coef, 0.144, 6.967
+    >> NOT USED in the IDF: Table 2-9 row: not used (alternative representation, see Table 2-8)
+SUMMARY CEILING/ATTIC/ROOF,
+    >> NOT USED in the IDF: Table 2-9: not used (attic as a material layer)
+'Total air-air, insulated section', ,  22.808, 0.044, 
+    >> NOT USED in the IDF: Table 2-9 row: not used (alternative representation, see Table 2-8)
+'Total air-air, framed section', ,  10.679, 0.094, 
+    >> NOT USED in the IDF: Table 2-9 row: not used (alternative representation, see Table 2-8)
+'Total composite, air-air (Note 7)', ,  20.482, 0.049, 
+    >> NOT USED in the IDF: Table 2-9 row: not used (alternative representation, see Table 2-8)
+'Total composite, surf-surf (Note 8)', , 19.573, 0.051,
+    >> NOT USED in the IDF: Table 2-9 row: not used (alternative representation, see Table 2-8)
+##  (the first Table 2-9 form (with .csv format) ends)
+Note 1: Insulated section only, see Figure 2-6 for section view of ceiling/attic/roof. 
+    >> NOT USED in the IDF: Table 2-9 note: not used
+Note 2: Framed section only, see Figure 2-6 for section view of ceiling/attic/roof. 
+    >> NOT USED in the IDF: Table 2-9 note: not used
+Note 3: Average winter/summer values for natural ventilation (2.4 ACH), R-19 ceiling insulation, ext abs = 0.6, includes interior films. 
+    >> NOT USED in the IDF: Table 2-9 note: not used
+Note 4: Scaled properties are presented for use with ASHRAE equivalent attic air space R-value. U, R and k are scaled on area, while density and specific heat are scaled on volume (area and thickness). 
+    >> NOT USED in the IDF: Table 2-9 note: not used
+Note 5: This “material” combines roofing and end gable materials into one hybrid layer of material. 
+    >> NOT USED in the IDF: Table 2-9 note: not used
+Note 6: Based on total roof/gable UA, surf-surf calculated in Table 2-8. 
+    >> NOT USED in the IDF: Table 2-9 note: not used
+Note 7: (ceiling interior film coefficient) + (ceiling materials) + (attic as material layer) + (scaled roof deck/gable materials) + (scaled exterior film coefficient). Based on 90% insulated section and 10% frame section per ASHRAE. 
+    >> NOT USED in the IDF: Table 2-9 note: not used
+Note 8: Based on total air-air R-value less R-values of interior film coefficient and scaled exterior film coefficient. hspec4.wk3 d:a59..g97 21-Jul-95
+    >> NOT USED in the IDF: Table 2-9 note: not used
+
+Table 2-10. Material Descriptions, Interior Wall—Case L100A
+##  (like .csv format split by ",", the first Table 2-10 form (with .csv format) starts)
+INTERIOR WALL ELEMENT (Source), Thickness (in), R (h*ft^2*F/Btu), U (Btu/h*ft^2*F), k (Btu/h*ft*F), DENSITY (lb/ft^3), Cp (Btu/lb*F)
+Int Surf Coef, , 0.685, 1.460, 
+    >> NOT USED in the IDF: Interior surface coefficient: not entered
+Plasterboard, 0.5, 0.450, 2.222, 0.0926, 50.0, 0.26 
+    >> USED in the IDF: Material 'Plasterboard'; Construction 'Interior Wall' (Outside Layer)
+'Frame 2x4, 16" O.C. (Note 1)', 3.5, 4.373, 0.229, 0.0667, 32.0, 0.33 
+    >> USED in the IDF: Material 'Interior Wall Frame' | Thickness 0.04445 m (1.75 in: half of the 3.5 in frame for each face of the InternalMass), Conductivity 0.11544, Density 51.259 kg/m3 (3.2 lb/ft3 = 32 x 0.1), Specific Heat 1381.64; Construction 'Interior Wall' (Layer 2)
+Plasterboard, 0.5, 0.450, 2.222, 0.0926, 50.0, 0.26
+    >> USED in the IDF: Material 'Plasterboard' (second face of the wall: InternalMass has two faces, see Surface Area)
+Int Surf Coef, ,  0.685, 1.460,
+    >> NOT USED in the IDF: Interior surface coefficient: not entered
+##  (the first Table 2-10 form (with .csv format) ends) 
+Note 1: Frame 2x4 only applies to 10% of the interior wall area, Remaining area is air space that is disregarded. 
+    >> USED in the IDF: Note 1: frame only for 10 % of the interior wall area -> Material 'Interior Wall Frame' | Density 3.2 lb/ft3 (= 32 x 0.1)
+ 
+Table 2-11. Internal Loads Schedule—Case L100A 
+##  (like .csv format split by ",", the first Table 2-11 form (with .csv format) starts)
+Hour of Day (Note 1), Sensible Load (Btu) (Note2),  Latent Load (Btu) (Note 2)
+1, 1139, 247
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 05:00, Value = 0.4873 = (sensible + latent) / 68261 x 24 (hours 1-5)
+2, 1139, 247
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 05:00, Value = 0.4873 = (sensible + latent) / 68261 x 24 (hours 1-5)
+3, 1139, 247
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 05:00, Value = 0.4873 = (sensible + latent) / 68261 x 24 (hours 1-5)
+4, 1139, 247
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 05:00, Value = 0.4873 = (sensible + latent) / 68261 x 24 (hours 1-5)
+5, 1139, 247
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 05:00, Value = 0.4873 = (sensible + latent) / 68261 x 24 (hours 1-5)
+6, 1903, 412
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 06:00, Value = 0.8139 = (sensible + latent) / 68261 x 24 (hour 6)
+7, 2391, 518
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 07:00, Value = 1.0228 = (sensible + latent) / 68261 x 24 (hour 7)
+8, 4782, 1036
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 08:00, Value = 2.0456 = (sensible + latent) / 68261 x 24 (hour 8)
+9, 2790, 604
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 09:00, Value = 1.1933 = (sensible + latent) / 68261 x 24 (hour 9)
+10, 1707, 370
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 11:00, Value = 0.7303 = (sensible + latent) / 68261 x 24 (hours 10-11)
+11, 1707, 370  
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 11:00, Value = 0.7303 = (sensible + latent) / 68261 x 24 (hours 10-11)
+12, 2277, 493 
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 12:00, Value = 0.9739 = (sensible + latent) / 68261 x 24 (hour 12)
+13, 1707, 370  
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 13:00, Value = 0.7303 = (sensible + latent) / 68261 x 24 (hour 13)
+14, 1424, 308 
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 14:00, Value = 0.6090 = (sensible + latent) / 68261 x 24 (hour 14)
+15, 1480, 321 
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 16:00, Value = 0.6332 = (sensible + latent) / 68261 x 24 (hours 15-16)
+16, 1480, 321   
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 16:00, Value = 0.6332 = (sensible + latent) / 68261 x 24 (hours 15-16)
+17, 2164, 469 
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 17:00, Value = 0.9257 = (sensible + latent) / 68261 x 24 (hour 17)
+18, 2334, 506
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 18:00, Value = 0.9985 = (sensible + latent) / 68261 x 24 (hour 18)
+19, 2505, 543
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 19:00, Value = 1.0717 = (sensible + latent) / 68261 x 24 (hour 19)
+20, 3928, 851
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 21:00, Value = 1.6803 = (sensible + latent) / 68261 x 24 (hours 20-21)
+21, 3928, 851 
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 21:00, Value = 1.6803 = (sensible + latent) / 68261 x 24 (hours 20-21)
+22, 4101, 888
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 23:00, Value = 1.7541 = (sensible + latent) / 68261 x 24 (hours 22-23)
+23, 4101, 888 
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 23:00, Value = 1.7541 = (sensible + latent) / 68261 x 24 (hours 22-23)
+24, 3701, 802
+    >> DERIVED in the IDF: Schedule:Compact 'Internal Gains Sched' | Until: 24:00, Value = 1.5832 = (sensible + latent) / 68261 x 24 (hour 24)
+Total, 56105, 12156
+    >> USED in the IDF: Daily totals 56105 + 12156 = 68261 Btu/day -> ElectricEquipment 'Internal Gains' | Design Level 833.56 W (= 68261 / 24 h x 0.29307); Fraction Latent 0.17808 (12156 / 68261)
+##  (the first Table 2-11 form (with .csv format) ends) 
+Note 1: Hour 1 = the interval from midnight to lam. 
+    >> USED in the IDF: Note 1: hour 1 = midnight to 1 am -> Schedule:Compact 'Internal Gains Sched' | 'Until: 05:00' is the end of hours 1-5
+Note 2: Includes all possible sources of intemal gains: sensible loads are 70% radiative and 30% convective. 
+    >> USED in the IDF: Note 2: sensible loads 70 % radiative, 30 % convective -> ElectricEquipment | Fraction Radiant = 0.7 x 56105 / 68261 = 0.57534
+
+Table 2-12. Gross Window Summary, Single Pane Aluminum Frame with Thermal Break—Case L100A
+##  (like .csv format split by ",", the first Table 2-12 form (with .csv format) starts)
+Property, Value Units, Notes
+GENERAL PROPERTIES,
+Area, gross window, 15.00 ft^2, (Note 1)
+    >> USED in the IDF: FenestrationSurface:Detailed window vertices: gross window 15.00 ft2 (3 ft x 5 ft)
+Width, frame, 2.75 in,
+    >> USED in the IDF: WindowProperty:FrameAndDivider 'Window Frame' | Frame Width 0.06985 m (2.75 in); Divider Width 0.06985 m (the mid rail has the frame width); window vertices inset by this width
+Area, frame, 4.04 ft^2,
+    >> CHECK ONLY (not an input) in the IDF: Frame area 4.04 ft2: result of the frame width, the divider and the window size (check)
+Area, edge of glass (EOG), 3.57 ft^2,
+    >> CHECK ONLY (not an input) in the IDF: Edge-of-glass area 3.57 ft2: result (check)
+Area, center of glass (COG), 7.39 ft,
+    >> CHECK ONLY (not an input) in the IDF: Center-of-glass area 7.39 ft2: result (check)
+Area, net glass, 10.96 ft^2, (Area,EOG + Area,COG)
+    >> CHECK ONLY (not an input) in the IDF: Net glass area 10.96 ft2: result (check)
+OPTICAL PROPERTIES,
+'Absorptance, frame', 0.60
+    >> USED in the IDF: WindowProperty:FrameAndDivider 'Window Frame' | Frame Solar Absorptance = 0.6; Divider Solar Absorptance = 0.6 (visible 0.6 derived from Table 2-4)
+'Transmittance, frame', 0.00
+    >> NOT USED in the IDF: Frame transmittance 0.00: no field
+COG/EOG optical properties, (see Table 2-13), (Note 2)
+    >> USED in the IDF: See Table 2-13: WindowMaterial:Glazing 'Window Glass' (the edge of glass has the same properties, note 2)
+'Solar Heat Gain Coefficient (SHGC), gross window', 0.670, (Note 3) 
+    >> CHECK ONLY (not an input) in the IDF: Gross window SHGC 0.670: check (EnergyPlus calculates)
+'Shading Coefficient (SC), gross window', 0.781, (Note 3) 
+    >> CHECK ONLY (not an input) in the IDF: Gross window SC 0.781: check
+'Dividers, curtains, blinds, and other obstructions in window',  None
+    >> DERIVED in the IDF: Dividers, curtains, blinds: None (no added obstructions); the IDF still models the mid rail of the vertical slider as a divider: WindowProperty:FrameAndDivider | Number of Horizontal Dividers = 1, Divider Type = DividedLite (Figure 2-8)
+THERMAL PROPERTIES (conductances/resistances include film coefficients),
+'Conductance, frame', 0.971 Btu/(h ft^2 F), Aluminum frame with thermal 
+    >> DERIVED in the IDF: Frame conductance 0.971 (with films) = 1 / (0.685 + 0.110 + 0.235): the film-free value 9.096 (Table 2-6) is used in Frame Conductance
+(R-Value), 1.030 h ft^2 F/Btu, break (Note 4) 
+    >> CHECK ONLY (not an input) in the IDF: Frame R-value 1.030: check
+'Conductance, edge of glass', 1.064 Btu/(h ft^2 F) 
+    >> CHECK ONLY (not an input) in the IDF: Edge-of-glass conductance 1.064: check
+(R-Value), 0.940 h ft^2 F/Btu, 
+'Conductance, center of glass',  1.064 Btu/(h ft^2 F) 
+    >> CHECK ONLY (not an input) in the IDF: Center-of-glass conductance 1.064: check
+(R-Value), 0.940 h ft^2 F/Btu, 
+'Conductance, net glass',  1.064 Btu/(h ft^2 F),  (Note 5)
+    >> CHECK ONLY (not an input) in the IDF: Net glass conductance 1.064: check
+(R-Value), 0.940 h ft^2 F/Btu, 
+'Conductance, gross glass',  1.039 Btu/(h ft^2 F),  (Note 6)
+    >> CHECK ONLY (not an input) in the IDF: Gross glass conductance 1.039: check of the window U
+(R-Value), 0.963 h ft^2 F/Btu, 
+COMBINED SURFACE COEFFICIENT CONDUCTANCES,
+'Exterior Surf Coef, glass and frame',  4.256 Biu/(h ft^2 F),  based on output of WINDOW 4.1
+    >> NOT USED in the IDF: Exterior surface coefficient 4.256: not entered
+'Interior Surface Coefficient, glass',  1.460 Biu/(h ft^2 F),  based on output of WINDOW 4.1
+    >> NOT USED in the IDF: Interior surface coefficient, glass 1.460: not entered
+'Interior Surface Coefficient, frame',  1.460 Biu/(h ft^2 F),  from ASHRAE
+    >> NOT USED in the IDF: Interior surface coefficient, frame 1.460: not entered
+##  (the first Table 2-12 form (with .csv format) ends) 
+Note 1: Area for one representative window unit. See Fig. 2-8 for a schematic representation of frame, center-of- glass (COG) and edge-of-glass (EOG) areas; dimensions are based on an NFRC size AA vertical slider. Gross window area is the sum of frame, COG and EOG areas.
+    >> USED in the IDF: Note 1: one representative window unit, NFRC size AA vertical slider (Figure 2-8) -> the 18 window units of the IDF
+Note 2: Edge-of-glass optical properties are the same as the center-of-glass properties. Table 2-14 gives optical properties as a function of incidence angle.
+    >> USED in the IDF: Note 2: edge-of-glass optical properties = center-of-glass -> one WindowMaterial:Glazing 'Window Glass'
+Note 3: These are the overall window (including COG, EOG, and frame) properties for direct normal solar radiation.
+    >> NOT USED in the IDF: Note 3: overall properties for normal incidence (check values)
+Note 4: The frame conductance presented here is based on the ASHRAE value for operable 1-pane window with aluminum frame with thermal break adjusted for the exterior surface coefficients also shown in this table. Material properties for dynamic modeling of window frames (density, specific heat, etc.) are not given.
+    >> NOT USED in the IDF: Note 4: material properties of the frame (density, specific heat) are not given -> none entered
+Note 5: Net glass conductance includes only the COG and EOG portions of the window.
+    >> NOT USED in the IDF: Note 5: definition of net glass conductance
+Note 6: Gross window conductance includes the frame, EOG, and COG portions of the window.
+    >> NOT USED in the IDF: Note 6: definition of gross window conductance
+
+Table 2-13. Glazing Summary, Single Pane Center of Glass Values—Case L100A
+##  (like .csv format split by ",", the first Table 2-13 form (with .csv format) starts)
+Property, Value Units, Notes
+GENERAL PROPERTIES,
+Number of Panes, 1
+    >> USED in the IDF: Construction 'Window' | one layer (Outside Layer = Window Glass): number of panes 1
+Pane Thickness, 0.118 in 
+    >> USED in the IDF: WindowMaterial:Glazing 'Window Glass' | Thickness = 0.0030 m (0.118 in)
+SINGLE PANE OPTICAL PROP, (Note 1) 
+Transmittance, 0.837 
+    >> USED in the IDF: WindowMaterial:Glazing | Solar Transmittance at Normal Incidence = 0.837; Visible Transmittance at Normal Incidence = 0.837 (ASSUMED equal)
+Reflectance, 0.075 
+    >> USED in the IDF: WindowMaterial:Glazing | Front Side Solar Reflectance = 0.075; Back Side = 0.075 (ASSUMED equal); Visible reflectances 0.075 (ASSUMED)
+Absorptance, 0.088
+    >> CHECK ONLY (not an input) in the IDF: Absorptance 0.088 = 1 - 0.837 - 0.075: no field (check)
+Index of Refraction, 1.5223 
+    >> NOT USED in the IDF: Index of refraction 1.5223: no field (Optical Data Type = SpectralAverage)
+Extinction Coefficient, 0.7806 /in 
+    >> NOT USED in the IDF: Extinction coefficient 0.7806 /in: no field
+Solar Heat Gain Coefficient (SHGC), 0.857
+    >> CHECK ONLY (not an input) in the IDF: SHGC 0.857: calculated by EnergyPlus (check)
+Shading Coefficient (SC), 1.000
+    >> CHECK ONLY (not an input) in the IDF: SC 1.000: check
+Optical Properties as a Function of Incident Angle (See Table 2-14)
+    >> NOT USED in the IDF: Angle dependence (Table 2-14): cannot be entered, EnergyPlus calculates it from the glass properties
+THERMAL PROPERTIES,
+Conductivity of Glass, 0.520 Btu/(h ft F) 
+    >> USED in the IDF: WindowMaterial:Glazing | Conductivity = 0.9000 W/mK (0.520 Btu/(h ft F))
+Conductance of Glass Pane, 52.881 Btu/(h ft^2 F) 
+    >> CHECK ONLY (not an input) in the IDF: Conductance of glass pane 52.881 = conductivity / thickness: check
+(R-Value), 0.019 h ft^2 F/Btu, 
+    >> CHECK ONLY (not an input) in the IDF: Glass pane R 0.019: check
+Exterior Combined Surface Coefficieng, 4.256 Btu/(h ft^2 F)
+    >> NOT USED in the IDF: Exterior combined coefficient 4.256: not entered
+(R-Value), 0.235 h ft^2 F/Btu 
+    >> NOT USED in the IDF: Exterior R 0.235: not entered
+Interior Combined Surface Coef, 1.460 Btu/(h ft^2 F) 
+    >> NOT USED in the IDF: Interior combined coefficient 1.460: not entered
+(R-Value), 0.685 h ft^2 F/Btu 
+    >> NOT USED in the IDF: Interior R 0.685: not entered
+U-Value from Interior Air to Ambient Air, 1.064 Btu/(h ft^2 F) 
+    >> CHECK ONLY (not an input) in the IDF: U-value interior air to ambient 1.064: check
+(R-Value), 0.940 h ft^2 F/Btu 
+    >> CHECK ONLY (not an input) in the IDF: R 0.940: check
+Hemispherical Infra-red Emittance, 0.84 
+    >> USED in the IDF: WindowMaterial:Glazing | Front Side Infrared Hemispherical Emissivity = 0.84 and Back Side = 0.84
+Infra-red Transmittance, 0 
+    >> USED in the IDF: WindowMaterial:Glazing | Infrared Transmittance at Normal Incidence = 0
+Density of Glass, 154 Ib/ft^3 
+    >> NOT USED in the IDF: Density of glass 154 lb/ft3: no field in WindowMaterial:Glazing
+Specific Heat of Glass 0.18 Btu/(Ib F) 
+    >> NOT USED in the IDF: Specific heat of glass 0.18: no field in WindowMaterial:Glazing
+##  (the first Table 2-13 form (with .csv format) ends) 
+Note 1: Optical properties listed in this table are for direct normal radiation. hspec4. wk3, b:al..f35; 20-Jul-95
+    >> NOT USED in the IDF: Note 1: values are for direct normal radiation
+
+Table 2-14. Optical Properties as a Function of Incidence Angle for Single-Pane Glazing—Case L100A
+##  (like .csv format split by ",", the first Table 2-14 form (with .csv format) starts)
+Properties (Notes 1, 2),
+Angle, Trans, Refl, Abs, SHGC 
+0, 0.837, 0.075, 0.088, 0.857
+    >> USED in the IDF: Angle 0 row: Trans 0.837, Refl 0.075 = the normal-incidence values of Table 2-13 -> WindowMaterial:Glazing (Solar Transmittance / Reflectance at Normal Incidence)
+10, 0.836, 0.075, 0.089, 0.857
+    >> NOT USED in the IDF: Angle-dependent value: not entered (EnergyPlus calculates the angle dependence from the glass properties)
+20, 0.835, 0.075, 0.080, 0.856 
+    >> NOT USED in the IDF: Angle-dependent value: not entered (EnergyPlus calculates the angle dependence from the glass properties)
+30, 0.830, 0.077, 0.093, 0.852
+    >> NOT USED in the IDF: Angle-dependent value: not entered (EnergyPlus calculates the angle dependence from the glass properties)
+40, 0.821, 0.083, 0.097, 0.843 
+    >> NOT USED in the IDF: Angle-dependent value: not entered (EnergyPlus calculates the angle dependence from the glass properties)
+50, 0.800, 0.089, 0.104, 0.823 
+    >> NOT USED in the IDF: Angle-dependent value: not entered (EnergyPlus calculates the angle dependence from the glass properties)
+60, 0.752, 0.143, 0.105, 0.776 
+    >> NOT USED in the IDF: Angle-dependent value: not entered (EnergyPlus calculates the angle dependence from the glass properties)
+70, 0.639, 0.253, 0.108, 0.664 
+    >> NOT USED in the IDF: Angle-dependent value: not entered (EnergyPlus calculates the angle dependence from the glass properties)
+80, 0.390, 0.505, 0.105, 0.414 
+    >> NOT USED in the IDF: Angle-dependent value: not entered (EnergyPlus calculates the angle dependence from the glass properties)
+90, 0.000, 1.000, 0.000, 0.000 
+    >> NOT USED in the IDF: Angle-dependent value: not entered (EnergyPlus calculates the angle dependence from the glass properties)
+Hemis, 0.756, 0.136, 00.98 0.779
+    >> NOT USED in the IDF: Angle-dependent value: not entered (EnergyPlus calculates the angle dependence from the glass properties)
+##  (the first Table 2-14 form (with .csv format) ends) 
+Note1: Trans = Transmittace. Refl = Reflectance. Abs = Absorptance. SHGC = Solar Heat Gain Coefficient. Hemis = Hemispherically integrated property.
+    >> NOT USED in the IDF: Note 1: abbreviations
+Note 2: Output is from WINDOW 4.1 for the following properties at direct normal incidence: transmituance = 0.837, reflectance = 0.075. SHGC accounts for surface coefficients. and is based on windspeed = 10.7 mph.
+    >> NOT USED in the IDF: Note 2: WINDOW 4.1 output at normal incidence (see Table 2-13)
+
+>> NOT IN THE DOCUMENTS (kept in the IDF with Source / Kept / ASSUMED comments):
+    >> Version '23.1' | Not in the documents | Required by EnergyPlus
+    >> Timestep '6' | Not in the documents | not in the documents
+    >> GlobalGeometryRules 'UpperLeftCorner' | Not in the documents | Required by EnergyPlus; not in the documents.
+    >> Site:Location 'Colorado Springs CO' | Partly from the documents: Latitude {deg}; Longitude {deg}; Time Zone {hr} | Not in the documents; value of the EPW header.
+    >> Schedule:Constant 'Always On', 'Heating Only Control' | Not in the documents | Kept: needed by EnergyPlus or a modelling choice
+    >> Material 'Plasterboard', 'Fiberboard Sheathing', 'Wall Insulation and Framing', 'Ceiling Insulation and Joists', 'Plywood Half Inch', 'Plywood Three Quarter Inch', 'Interior Wall Frame' | Partly from the documents: Roughness | Required by EnergyPlus; not in the documents (inside layer)
+    >> Material:NoMass 'Carpet and Pad' | Partly from the documents: Roughness | Required by EnergyPlus; not in the documents (inside layer)
+    >> WindowMaterial:Glazing 'Window Glass' | Partly from the documents: Back Side Solar Reflectance at Normal Incidence; Back Side Visible Reflectance at Normal Incidence; Front Side Visible Reflectance at Normal Incidence; Visible Transmittance at Normal Incidence | ASSUMED equal to the front side: the documents give one reflectance (Table 2-13)
+    >> BuildingSurface:Detailed 'Floor', 'Wall South', 'Wall East', 'Wall North', 'Wall West', 'Ceiling', 'Attic Floor', 'Roof South', 'Roof North', 'Gable East', 'Gable West' | Partly from the documents: Vertex 1 X {m} | Convention of this file (not in the documents): origin at the south-west corner of the floor, x east, y north, z up; the vertices are computed from the dimensions of the Name field Derived from: X = 0 (west end; origi...
+    >> ThermostatSetpoint:SingleHeating 'Conditioned Zone Heating Setpoint' | Not in the documents | Kept: needed by EnergyPlus or a modelling choice
+    >> ZoneHVAC:EquipmentConnections 'Conditioned Zone' | Not in the documents | Kept: needed by EnergyPlus or a modelling choice
+    >> ZoneHVAC:EquipmentList 'Conditioned Zone Equipment' | Not in the documents | Kept: needed by EnergyPlus or a modelling choice
+    >> Output:Table:SummaryReports 'AllSummary' | Not in the documents | Kept: needed by EnergyPlus or a modelling choice
+    >> Output:SQLite 'SimpleAndTabular' | Not in the documents | Kept: needed by EnergyPlus or a modelling choice
+    >> Output:Variable '*', '*' | Not in the documents | Kept: needed by EnergyPlus or a modelling choice
+    >> Output:Meter 'DistrictHeating:Facility', 'InteriorEquipment:Electricity' | Not in the documents | Kept: needed by EnergyPlus or a modelling choice

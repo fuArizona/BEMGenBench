@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+# EnergyPlus run output
+eplusout.*
+eplustbl.*
+*.audit
+*.bnd
+*.eio
+*.rdd
+*.mdd
+*.shd
+# scratch results of local checks
+results/_check*/
+results/_tmp*/
+# downloaded weather files (data/weather/download_weather.py)
+data/weather/*.epw
