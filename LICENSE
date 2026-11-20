@@ -21,7 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 This license covers everything in this repository that was written by the
-BEMGenBench contributors: the code (evaluator/) and the six Residence cases
+BEMGenBench contributors: the code (evaluator/) and the six residential cases
 (cases/res_*: input files, reference IDFs, traceability files).
 
 It does not cover third-party material: the DOE documents in data/DOE, the DOE
