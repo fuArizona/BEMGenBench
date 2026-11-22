@@ -40,10 +40,10 @@ RunPeriod,
     Annual Simulation,            !- Name
     1,                            !- Begin Month
     1,                            !- Begin Day of Month
-    ,                             !- Begin Year
+    2017,                         !- Begin Year  Not in the documents: the run year is set by run_conditions.txt
     12,                           !- End Month
     31,                           !- End Day of Month
-    ,                             !- End Year
+    2017,                         !- End Year  Not in the documents: the run year is set by run_conditions.txt
     Sunday,                       !- Day of Week for Start Day
     Yes,                          !- Use Weather File Holidays and Special Days
     Yes,                          !- Use Weather File Daylight Saving Period

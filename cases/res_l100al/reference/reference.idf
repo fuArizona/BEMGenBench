@@ -13,9 +13,10 @@ RunPeriod,
     Annual,                       !- Name  Source: L100A_Text_L.txt Section 2.2.10.1, annual thermostat control, the cooling season may be the entire year
     1,                            !- Begin Month  (begin and end of the year)
     1,                            !- Begin Day of Month
-    ,                             !- Begin Year
+    2017,                         !- Begin Year  Not in the documents: the run year is set by run_conditions.txt
     12,                           !- End Month
-    31;                           !- End Day of Month
+    31,                           !- End Day of Month
+    2017;                         !- End Year  Not in the documents: the run year is set by run_conditions.txt
 ! Required by EnergyPlus; not in the documents.
 GlobalGeometryRules,
     UpperLeftCorner,              !- Starting Vertex Position  Required

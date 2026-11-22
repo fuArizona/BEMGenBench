@@ -56,11 +56,11 @@ RunPeriod,
     Run Period 1,                 !- Name  Kept: name of the run period
     1,                            !- Begin Month  Kept: whole calendar year; the documents give no run period
     1,                            !- Begin Day of Month  Kept: whole calendar year; the documents give no run period
-    ,                             !- Begin Year
+    2025,                         !- Begin Year  Not in the documents as a run year: set by run_conditions.txt (the year the house was built)
     12,                           !- End Month  Kept: whole calendar year; the documents give no run period
     31,                           !- End Day of Month  Kept: whole calendar year; the documents give no run period
-    ,                             !- End Year
-    Friday,                       !- Day of Week for Start Day  ASSUMED: Friday, the weekday of 1 January 2021; not in the documents
+    2025,                         !- End Year  Not in the documents as a run year: set by run_conditions.txt (the year the house was built)
+    ,                             !- Day of Week for Start Day  Not in the documents: left blank, EnergyPlus takes the weekday of 1 January of the run year
     No,                           !- Use Weather File Holidays and Special Days  Kept: No; info.txt gives no holidays, so none are modelled
     No,                           !- Use Weather File Daylight Saving Period  Derived from: Tucson, AZ (info.txt) does not use daylight saving time
     No;                           !- Apply Weekend Holiday Rule  Kept: No

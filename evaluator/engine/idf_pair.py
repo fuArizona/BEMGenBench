@@ -225,6 +225,8 @@ class Pairing:
             m = self.mapped(rv)
             if m is not None and str(cv).strip().lower() in m:
                 return True
+        if V.enum_equal(o["cls"], key, rv, cv):
+            return True
         return V.values_equal(rv, cv, prop, self.tol)
 
     def content_equal(self, r, c):
@@ -239,7 +241,7 @@ class Pairing:
             if V.is_blank(cv):
                 if not V.equals_default(v, V.field_prop(r["info"], k), self.tol):
                     return False
-            elif not V.values_equal(v, cv, V.field_prop(r["info"], k), self.tol):
+            elif not V.values_equal(v, cv, V.field_prop(r["info"], k), self.tol) and not V.enum_equal(r["cls"], k, v, cv):
                 return False
             n += 1
         if pr is not None and pc is not None:

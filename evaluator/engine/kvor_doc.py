@@ -242,6 +242,13 @@ def _load_units(cl, zone, ritems, citems, P, universe, tol, counted):
 def kvor_doc(ref, cand, P, universe="union", ignore=(), hvac_by_type=True):
     tol = P.tol
     per, losses, per_obj, node_pending, votes = {}, [], {}, [], {}
+    gobjs = {}            # Object KVOR: unit of a group of loads ("g", class, zone) -> the reference objects of the group (their references are the sub-objects of the group)
+    objstat = {}          # Object KVOR (added 2026-11-20, does not change the key score): unit -> [class, name, keys, same keys]; an object is the same when all its keys of the universe are the same
+
+    def obk(unit, cls, name, n, ok):
+        e = objstat.setdefault(unit, [cls, name, 0, 0])
+        e[2] += n
+        e[3] += ok
     ex = dict(reference=dict(nodoc=0, undet=0), candidate=dict(nodoc=0, undet=0))
     cnt = dict(ref_doc=0, cand_doc=0, both_doc=0, only_ref=0, only_cand=0)
     findings = dict(reversed_winding=[], ambiguous=list(P.notes), node_conflicts=[], shared=P.shared_objects(), weak_single=list(P.weak),
@@ -296,6 +303,7 @@ def kvor_doc(ref, cand, P, universe="union", ignore=(), hvac_by_type=True):
                 for n_f, ok_u, label, rh, ch in units:
                     row[0] += n_f
                     universe_n += n_f
+                    obk(("o", r["uid"]), r["cls"], r.get("name") or r.get("identity"), n_f, n_f if ok_u else 0)
                     cnt["ref_doc" if rh is not None else "cand_doc"] += n_f
                     if ok_u:
                         row[1] += n_f
@@ -316,6 +324,7 @@ def kvor_doc(ref, cand, P, universe="union", ignore=(), hvac_by_type=True):
                 if n_missing:
                     row[0] += n_missing
                     universe_n += n_missing
+                    obk(("o", r["uid"]), r["cls"], r.get("name") or r.get("identity"), n_missing, 0)
                     cnt["only_ref"] += n_missing
                     losses.append(dict(kind="missing_object" if c is None else "changed_schedule", cls=r["cls"], key="%s/%s" % (r["cls"].lower(), r.get("name")), reference=r.get("name"), candidate=None, keys=n_missing))
         # ---- a load written with another calculation method (a count in one file, a density in the other): the intensity per m2 of zone floor is compared
@@ -334,7 +343,9 @@ def kvor_doc(ref, cand, P, universe="union", ignore=(), hvac_by_type=True):
                     if abs(ur[2] - uc[2]) <= max(1e-9, tol * max(abs(ur[2]), abs(uc[2]))):
                         row[1] += 1
                         correct += 1
+                        obk(("o", r["uid"]), r["cls"], r.get("name") or r.get("identity"), 1, 1)
                     else:
+                        obk(("o", r["uid"]), r["cls"], r.get("name") or r.get("identity"), 1, 0)
                         losses.append(dict(kind="changed", cls=r["cls"], key="%s/%s (per m2 of zone floor)" % (r["key_prefix"], ur[0][0]), reference="%s = %s (%.6g per m2)" % (ur[0][0], r["fields"][ur[0][0]], ur[2]),
                                            candidate="%s = %s (%.6g per m2)" % (uc[0][0], c["fields"][uc[0][0]], uc[2]), keys=1))
                         cnt["only_ref"] += 1
@@ -352,7 +363,9 @@ def kvor_doc(ref, cand, P, universe="union", ignore=(), hvac_by_type=True):
                 if abs(mr - mc) <= max(1e-9, tol * max(abs(mr), abs(mc))):
                     row[1] += 1
                     correct += 1
+                    obk(("o", r["uid"]), r["cls"], r.get("name") or r.get("identity"), 1, 1)
                 else:
+                    obk(("o", r["uid"]), r["cls"], r.get("name") or r.get("identity"), 1, 0)
                     losses.append(dict(kind="changed", cls=r["cls"], key="%s/multiplier (zone x ZoneGroup)" % r["key_prefix"], reference=str(mr), candidate=str(mc), keys=1))
                     cnt["only_ref"] += 1
             unit_r.add("multiplier")
@@ -395,11 +408,13 @@ def kvor_doc(ref, cand, P, universe="union", ignore=(), hvac_by_type=True):
                     ex["candidate"][bc] += 1
         row[0] += len(ls) + len(extra_c)
         universe_n += len(ls) + len(extra_c)
+        obk(("o", r["uid"]), r["cls"], r.get("name") or r.get("identity"), len(ls) + len(extra_c), 0)
         for k, cv in extra_c:       # documented in the candidate, blank in the reference: the same only when the value is the schema default
             prop = V.field_prop(c["info"], k) if c["info"] else None
             if prop is not None and V.equals_default(cv, prop, tol):
                 row[1] += 1
                 correct += 1
+                obk(("o", r["uid"]), r["cls"], r.get("name") or r.get("identity"), 0, 1)
             else:
                 losses.append(dict(kind="only_in_candidate", cls=r["cls"], key=r["key_prefix"] + "/" + k, reference=None, candidate=cv, keys=1))
         if not ls:
@@ -448,12 +463,15 @@ def kvor_doc(ref, cand, P, universe="union", ignore=(), hvac_by_type=True):
                 correct += 1
                 n_ok += 1
         per_obj[r["uid"]] = n_ok
+        obk(("o", r["uid"]), r["cls"], r.get("name") or r.get("identity"), 0, n_ok)
     # ---- the loads, per zone and class
     for (cl, zone), (ritems, citems) in _paired_groups(grp_r, grp_c, _zone_rename(P)).items():
+        gobjs[("g", cl, zone)] = [t[0] for t in ritems]
         row = per.setdefault(ritems[0][0]["cls"] if ritems else citems[0][0]["cls"], [0, 0])
         for n_f, ok_u, label, rv, cv_ in _load_units(cl, zone, ritems, citems, P, universe, tol, counted):
             row[0] += n_f
             universe_n += n_f
+            obk(("g", cl, zone), ritems[0][0]["cls"] if ritems else citems[0][0]["cls"], "%s / %s" % (cl, zone), n_f, n_f if ok_u else 0)
             if ok_u:
                 row[1] += n_f
                 correct += n_f
@@ -473,6 +491,7 @@ def kvor_doc(ref, cand, P, universe="union", ignore=(), hvac_by_type=True):
         if ok:
             correct += 1
             per_obj[r["uid"]] = per_obj.get(r["uid"], 0) + 1
+            obk(("o", r["uid"]), r["cls"], r.get("name") or r.get("identity"), 0, 1)
         else:
             findings["node_conflicts"].append("%s %s: reference node %r, candidate node %r (corresponds to %r)" % (r["cls"], r.get("name"), v, cv, winner.get(v.strip().lower())))
     # ---- candidate objects without a partner: their documented keys are in the universe (union) and are not matched
@@ -501,6 +520,7 @@ def kvor_doc(ref, cand, P, universe="union", ignore=(), hvac_by_type=True):
             row[0] += n_doc
             universe_n += n_doc
             cnt["only_cand"] += n_doc
+            obk(("o", c["uid"]), c["cls"], c.get("name") or c.get("identity"), n_doc, 0)
             losses.append(dict(kind="extra_object", cls=c["cls"], key=c["key_prefix"], keys=n_doc, reference=None, candidate=c.get("name") or c.get("identity")))
     # ---- the HVAC by TYPE: one key per system type that is documentary in either file (union) or in both (intersection); the same when both files have that type
     hvac_rows = []
@@ -516,6 +536,7 @@ def kvor_doc(ref, cand, P, universe="union", ignore=(), hvac_by_type=True):
             row = per.setdefault("HVAC (by type)", [0, 0])
             row[0] += 1
             universe_n += 1
+            obk(("h", tag), "HVAC (by type)", tag, 1, 1 if same else 0)
             cnt["ref_doc"] += 1 if doc_r else 0
             cnt["cand_doc"] += 1 if doc_c else 0
             if same:
@@ -536,7 +557,74 @@ def kvor_doc(ref, cand, P, universe="union", ignore=(), hvac_by_type=True):
         methods["shared"] = len(P.shared)
     if P.split:
         methods["split"] = len(P.split)
-    return dict(universe=universe, keys=universe_n, correct=correct, rate=(correct / universe_n) if universe_n else 0.0, counts=cnt, excluded=ex, per_class=per, losses=miss + other,
+    # ---- Object KVOR: an object (or the loads of one zone and class, or one HVAC type) is the same when ALL its keys of the universe are the same
+    # Sub-object rule (2026-11-20): an object is also NOT the same when an object that it names in a reference field (a Material of a Construction, a Schedule of a load, a Curve of a coil, a Construction of a
+    # surface ...) is in the universe and is not the same, at any depth. A reference to a PLACE or a bookkeeping object is not a sub-object and is left out: Zone, ZoneList, ZoneGroup, Space, SpaceList,
+    # ScheduleTypeLimits and the surface classes. A sub-object outside the universe (no documentary key) has no effect. The key score is not affected.
+    excl_exact = ("zone", "zonelist", "zonegroup", "space", "spacelist", "scheduletypelimits")
+    excl_prefix = ("buildingsurface:", "fenestrationsurface:", "shading:")
+    by_name, ref_by_uid = {}, {}
+    for o in P.ref:
+        ref_by_uid[o["uid"]] = o
+        if o.get("name"):
+            by_name.setdefault(o["name"].strip().lower(), []).append(o)
+
+    def children(unit):
+        objs = [ref_by_uid[unit[1]]] if unit[0] == "o" and unit[1] in ref_by_uid else gobjs.get(unit, [])
+        out = []
+        for o in objs:
+            if not o.get("info"):
+                continue
+            for k, v in o["fields"].items():
+                if V.is_blank(v) or V.kind_of(o["info"], k) != "ref":
+                    continue
+                for t in by_name.get(v.strip().lower(), []):
+                    cl = t["cls"].lower()
+                    if t is o or cl in excl_exact or cl.startswith(excl_prefix):
+                        continue
+                    if ("o", t["uid"]) not in out:
+                        out.append(("o", t["uid"]))
+        return out
+
+    memo, sub_bad = {}, {}
+
+    def is_same(u, stack=()):
+        if u in memo:
+            return memo[u]
+        if u in stack:
+            return True
+        e = objstat[u]
+        bad = []
+        for cu in children(u):
+            ce = objstat.get(cu)
+            if ce is None or ce[2] == 0:
+                continue
+            if not is_same(cu, stack + (u,)):
+                bad.append(str(ce[1]))
+        if bad:
+            sub_bad[u] = bad
+        memo[u] = (e[3] == e[2]) and not bad
+        return memo[u]
+
+    live = [(u, e) for u, e in objstat.items() if e[2] > 0]
+    obj_pc, not_same, own_same = {}, [], 0
+    for u, e in live:
+        own_ok = e[3] == e[2]
+        own_same += 1 if own_ok else 0
+        same = is_same(u)
+        pc = obj_pc.setdefault(e[0], [0, 0])
+        pc[0] += 1
+        pc[1] += 1 if same else 0
+        if not same:
+            why = "own keys" if not own_ok else "sub-object not the same: " + ", ".join(sub_bad[u])
+            if not own_ok and u in sub_bad:
+                why += "; sub-object not the same: " + ", ".join(sub_bad[u])
+            not_same.append(dict(cls=e[0], name=e[1], keys=e[2], same_keys=e[3], reason=why))
+    obj_same = sum(v[1] for v in obj_pc.values())
+    object_kvor = dict(objects=len(live), same=obj_same, rate=(obj_same / len(live)) if live else 0.0, per_class=obj_pc,
+                       same_by_own_keys_only=own_same, sub_object_rule="reference fields (not Zone, ZoneList, ZoneGroup, Space, SpaceList, ScheduleTypeLimits, surfaces)", parents_made_not_same=sum(1 for u, e in live if e[3] == e[2] and u in sub_bad),
+                       not_same=sorted(not_same, key=lambda d: (d["cls"], str(d["name"]))))
+    return dict(object_kvor=object_kvor, universe=universe, keys=universe_n, correct=correct, rate=(correct / universe_n) if universe_n else 0.0, counts=cnt, excluded=ex, per_class=per, losses=miss + other,
                 findings=findings, pair_methods=methods, n_pairs=len(P.pr), per_object=per_obj, ignored=ignored, structural_removed=structural, hvac_removed=hvac_removed, hvac_types=hvac_rows,
                 unpaired_reference=[dict(cls=o["cls"], name=o.get("name") or o.get("identity"), keys=len(idf_pair.leaves(o))) for o in ur],
                 unpaired_candidate=[dict(cls=o["cls"], name=o.get("name") or o.get("identity"), keys=len(idf_pair.leaves(o))) for o in uc])

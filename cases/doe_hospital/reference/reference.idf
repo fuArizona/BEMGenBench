@@ -15,9 +15,10 @@
     Annual,                       !- Name
     1,                            !- Begin Month
     1,                            !- Begin Day of Month
-    ,                             !- Begin Year
+    2017,                         !- Begin Year  Not in the documents: the run year is set by run_conditions.txt
     12,                           !- End Month
-    31;                           !- End Day of Month
+    31,                           !- End Day of Month
+    2017;                         !- End Year  Not in the documents: the run year is set by run_conditions.txt
 
   SizingPeriod:WeatherFileConditionType,
     Summer,                       !- Name

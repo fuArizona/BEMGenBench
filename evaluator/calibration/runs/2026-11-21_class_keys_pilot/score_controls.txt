@@ -1,0 +1,6 @@
+16 controls: 16 right (100.0 %)
+label -> verdict      belongs  does_not_belong  uncertain
+belongs                     7                0          0
+does_not_belong             0                6          0
+uncertain                   0                0          3
+false belongs: 0 of 9 items that do not belong or cannot be told

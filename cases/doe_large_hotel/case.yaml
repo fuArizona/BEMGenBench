@@ -11,9 +11,11 @@ standard: ASHRAE 90.1-2004
 prototype_key: HotelLarge
 prototype_key_note: the value of the column "Prototype Building" of the xlsx sheets raw_data and Schedule Summary that belongs to this building; the other rows of the xlsx are other buildings
 weather: data/weather/USA_NY_Buffalo.Niagara.Intl.AP.725280_TMY3.epw
+run_year: 2017
 inputs:
   - data/DOE/inputs/PNNL_Prototype_Scorecards.xlsx
   - data/DOE/inputs/U.S. Department of Energy Commercial Reference Building Models of.pdf
+  - data/DOE/inputs/run_conditions.txt
 reference: cases/doe_large_hotel/reference/reference.idf
 traceability:
   - cases/doe_large_hotel/traceability/doc_to_idf_map.xlsx
