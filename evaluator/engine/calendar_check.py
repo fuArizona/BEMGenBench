@@ -113,6 +113,17 @@ def required_year_check(cal, run_year):
     return out
 
 
+def calls_for_8760(cal):
+    """Does the calendar of the two files call for the 8,760-hour check of the schedules that are the same by day type? (user decision 2026-11-22)
+    Yes when the status is `differs`, or when one file has holidays or a daylight saving period (RunPeriodControl objects) that the other does not have: the day-type comparison does not see them (Holiday is not compared)."""
+    if not cal or cal.get("status") == "unknown":
+        return False
+    if cal.get("status") == "differs":
+        return True
+    r, c = cal.get("reference") or {}, cal.get("candidate") or {}
+    return (r.get("special_days_objects") != c.get("special_days_objects")) or (r.get("daylight_saving_objects") != c.get("daylight_saving_objects"))
+
+
 def calendar_check(fr, fc):
     r, c = effective(fr), effective(fc)
     if r is None or c is None:

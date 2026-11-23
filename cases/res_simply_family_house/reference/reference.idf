@@ -2538,7 +2538,7 @@ Zone,
     ,                             !- Multiplier
     ,                             !- Ceiling Height {m}
     404.793627,                   !- Volume {m3}  Derived from: sum of the volumes of the 10 conditioned rooms (floor area x ceiling height of each room)
-    147.021452;                   !- Floor Area {m2}  Derived from: sum of the floor areas of the 10 conditioned rooms (floorplan_area.png), 147.02 m2
+    147.021452;                   !- Floor Area {m2}  ASSUMED: modelling choice, the sum of the floor areas of the 10 conditioned rooms (floorplan_area.png), 147.02 m2; info.txt gives the living area as 1,815 ft2, so the documents have two values and none is taken as the key
 ! Source for Zone "Garage": info.txt ("Two offices and the hallway were merged to the (2 car) garage and the interior walls between two offices and the hallway were demolished"; floorplan9834.png). The zone is unconditioned (ASSUMED: a garage has no heating or cooling, the documents say nothing); height 9 ft 1 in (floorplan_size10.png, 11.png, 12.png).
 Zone,
     Garage,                       !- Name  Source: info.txt, the two offices and the hallway are merged into the 2-car garage

@@ -114,11 +114,12 @@ class Hourly:
         finally:
             shutil.rmtree(tmp, ignore_errors=True)
 
-    def compare(self, P, pairs):
-        res = self._compare(P, pairs)
+    def compare(self, P, pairs, cal_pairs=(), tolerance=0.01):
+        res = self._compare(P, pairs, cal_pairs, tolerance)
         if res["status"] == "done":
             res["applied"] = True
-            res["rescued"] = [r["reference"] for r in res["rows"] if r["same"]]
+            res["rescued"] = [r["reference"] for r in res["rows"] if r["same"] and r.get("trigger") != "calendar"]
+            res["demoted"] = [r["reference"] for r in res["rows"] if not r["same"] and r.get("trigger") == "calendar"]
         else:
             res["applied"] = False
             why = res.get("reason") or ""
@@ -130,10 +131,13 @@ class Hourly:
                 res["note_zh"] = "8760 没有应用（原因：%s）" % (why or res["status"])
         return res
 
-    def _compare(self, P, pairs):
-        res = dict(status="not_run", reason="", hours=None, rows=[], expanded=len(pairs))
-        if not pairs:
-            res.update(status="done", reason="no schedule differs by the comparison of the meaning: nothing to expand")
+    def _compare(self, P, pairs, cal_pairs=(), tolerance=0.01):
+        """pairs: the pairs that the comparison by day type finds different (the same series = the same schedule: no tolerance).
+        cal_pairs: the pairs that the comparison by day type finds the SAME, expanded because the calendar of the two files differs (holidays, start weekday ...): the hours that differ are
+        outside the `For:` day types, so the pair stays the same while the share of hours that differ is at most `tolerance` (default 1 %); above it the schedule is different (row `trigger: calendar`)."""
+        res = dict(status="not_run", reason="", hours=None, rows=[], expanded=len(pairs), expanded_calendar=len(cal_pairs), tolerance=tolerance)
+        if not pairs and not cal_pairs:
+            res.update(status="done", reason="no schedule differs by the comparison of the meaning, and the calendar does not call for a check: nothing to expand")
             return res
         if not self.weather or not os.path.isfile(self.weather):
             res["reason"] = "the weather file %s was not found (run data/weather/download_weather.py or give --weather-dir)" % (os.path.basename(self.weather) if self.weather else "of the case")
@@ -149,14 +153,20 @@ class Hourly:
                 res.update(status="failed", reason=("reference: " if who == "r" else "candidate: ") + why)
                 return res
             runs[who] = s
-        for rn, cn in pairs:
+        for trig, plist in (("day_type", pairs), ("calendar", cal_pairs)):
+          for rn, cn in plist:
             a, b = runs["r"].get(rn.lower()), runs["c"].get(cn.lower())
             if a is None or b is None or len(a) != len(b) or not a:
-                res["rows"].append(dict(reference=rn, candidate=cn, same=False, share=0.0, first_difference=None, note="no series of one of the two schedules (or of another length)"))
+                if trig == "calendar":
+                    continue          # a pair that is the same by day type and has no series: the result by day type stands
+                res["rows"].append(dict(reference=rn, candidate=cn, same=False, share=0.0, first_difference=None, trigger=trig, note="no series of one of the two schedules (or of another length)"))
                 continue
             eq = [abs(u - w) <= max(ABS_TOL, TOL * max(abs(u), abs(w))) for u, w in zip(a, b)]
             first = next((i for i, e in enumerate(eq) if not e), None)
-            res["rows"].append(dict(reference=rn, candidate=cn, same=first is None, share=sum(eq) / len(eq), first_difference=None if first is None else dict(hour_of_year=first + 1, reference=a[first], candidate=b[first])))
+            share = sum(eq) / len(eq)
+            diff_h = len(eq) - sum(eq)
+            same = first is None if trig == "day_type" else (diff_h / len(eq) <= tolerance + 1e-12)
+            res["rows"].append(dict(reference=rn, candidate=cn, same=same, share=share, diff_hours=diff_h, trigger=trig, first_difference=None if first is None else dict(hour_of_year=first + 1, reference=a[first], candidate=b[first])))
             res["hours"] = len(a)
         res.update(status="done")
         return res

@@ -88,6 +88,7 @@ def main(argv=None):
     ap.add_argument("--energyplus")
     ap.add_argument("--schedules-8760", action="store_true", help="expand the schedules that the comparison of the meaning finds different to 8,760 hours with EnergyPlus and compare the hours (annotation, not in the score)")
     ap.add_argument("--weather", help="the weather file for --schedules-8760")
+    ap.add_argument("--schedule-hour-tolerance", type=float, default=0.01, help="with --schedules-8760 and a different calendar of the two files: a schedule that is the same by day type stays the same while at most this share of the hours of the year differs (default 0.01)")
     ap.add_argument("--u-only", help="json file of the constructions that the documents give only as a U-value (idf_equiv.py): the equivalence compares the thermal resistance alone")
     ap.add_argument("--class-keys", help="json file of the items where the documents give only a category (class_keys.py)")
     ap.add_argument("--judgements", help="a verdict file (see idf_judge.py) for the construction pairs that the evaluator could not decide; the judge runs outside the evaluator")
@@ -174,12 +175,12 @@ def main(argv=None):
     pairing = idf_pair.pair(fr, fc, a.tolerance, base_dirs=dict(r=os.path.dirname(os.path.abspath(a.reference)), c=os.path.dirname(os.path.abspath(a.candidate))), doc_only=True)
     res_doc = kvor_doc.kvor_doc(fr, fc, pairing, a.universe, ignore, a.hvac_by_type == "on")
     hourly = schedule_8760.Hourly(root, a.weather, base_dirs=dict(r=os.path.dirname(os.path.abspath(a.reference)), c=os.path.dirname(os.path.abspath(a.candidate)))) if a.schedules_8760 else None
-    sch = schedule_kvor.schedule_kvor(pairing, res_doc, hourly)  # the schedules counted as schedules (annotation, not in the score)
+    cal = calendar_check.calendar_check(fr, fc)          # same run period, year / start weekday, holidays and daylight saving rule? (annotation, not in the score)
+    sch = schedule_kvor.schedule_kvor(pairing, res_doc, hourly, calendar_differs=calendar_check.calls_for_8760(cal), tolerance=a.schedule_hour_tolerance)  # the schedules counted as schedules; with a different calendar the pairs that are the same by day type are expanded too
     ck_items = class_keys.load(a.class_keys) if a.class_keys else []
     ck_reqs = class_keys.requests(pairing, ck_items) if ck_items else []
     eqv = idf_equiv.equivalences(pairing, res_doc, root, a.weather, judgements=a.judgements, ignore_ids={q["id"] for q in ck_reqs},
                                   u_only=[c["name"] for c in json.load(open(a.u_only, encoding="utf8"))["constructions"]] if a.u_only else ())      # the same quantity written another way: constructions, windows, outdoor air (annotation, not in the score)
-    cal = calendar_check.calendar_check(fr, fc)          # same run period, year / start weekday, holidays and daylight saving rule? (annotation, not in the score)
     lack = key_info.lack_key_info(fr, pairing)           # fields the documents do not give but the IDF needs (annotation only: not in the score)
     all_keys = kvor_aligned.kvor_aligned(fr, fc, pairing)       # supplementary: the same pairing, every key (no documentary filter)
     for p_, stt in sorted(idf_sched.FILES_READ.items()):
@@ -274,9 +275,9 @@ def main(argv=None):
         if h8["status"] != "done":
             L += ["**8,760 hours: %s.** %s" % (h8["status"], h8["reason"]), ""]
         else:
-            L += ["**8,760 hours (EnergyPlus, same period and year and weather file for both files):** %d schedule(s) that the comparison of the meaning finds different were expanded; %d of them are the same hour by hour. "
+            L += ["**8,760 hours (EnergyPlus, same period and year and weather file for both files):** %d schedule(s) that the comparison of the meaning finds different were expanded; %d of them are the same hour by hour. %s"
                   "Schedules the same (the comparison of the meaning, or the hours): %s; share of equal hours: %s. A schedule the comparison of the meaning finds the same is not expanded and counts as the same." %
-                  (h8["expanded"], h8.get("same_after", 0), ("%d / %d = %s" % (h8["schedules_same_8760"], sch["schedules"], sp(h8["rate"]))) if sch["schedules"] else "-", sp(h8["rate_hours"])), ""]
+                  (h8["expanded"], h8.get("same_after", 0), ("The calendar of the two files differs: %d schedule(s) that are the same by day type were also expanded; %d of them have more than %s of the hours different and count as DIFFERENT (their keys are lost). " % (h8.get("expanded_calendar", 0), h8.get("demoted_by_calendar", 0), pct(h8.get("tolerance", 0.01), 1))) if h8.get("expanded_calendar") else "", ("%d / %d = %s" % (h8["schedules_same_8760"], sch["schedules"], sp(h8["rate"]))) if sch["schedules"] else "-", sp(h8["rate_hours"])), ""]
             if h8["rows"]:
                 L += ["| reference | candidate | same | equal hours | first difference (hour of the year: reference / candidate) |", "|---|---|---|---|---|"]
                 for r_ in h8["rows"][:40]:

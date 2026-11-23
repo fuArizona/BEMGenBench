@@ -89,6 +89,38 @@ check("same hour by hour (2025: 1 January is a Wednesday) though the meaning dif
 rc, s = run(idf(2024, sched(ref)), idf(2024, sched(cand)))
 h = s["hourly_8760"]
 check("the same files in 2024 (1 January is a Monday): different, from hour 1", h["same_after"] == 0 and h["rows"][0]["first_difference"]["hour_of_year"] == 1, h)
+# the calendar differs (holidays only in the candidate): a pair that is the same by day type is expanded too (user decision 2026-11-22); it stays the same up to 1 % of the hours, above that it is different
+wk = [("12/31", [("Weekdays", [("24:00", "0.9")]), ("AllOtherDays", [("24:00", "0.1")])])]
+hol = lambda days: "".join("RunPeriodControl:SpecialDays,\n H%d,\n 1/%d,\n 1,\n Holiday;\n\n" % (i, d) for i, d in enumerate(days))
+ref_w = idf(2025, sched(wk))
+rc, s = run(ref_w, idf(2025, sched(wk)))
+h = s["hourly_8760"]
+check("same calendar: a schedule that is the same by day type is not expanded", h["expanded"] == 0 and h.get("expanded_calendar") == 0 and s["same"] == 1, h)
+rc, s = run(ref_w, idf(2025, sched(wk)) + hol([16]))
+h = s["hourly_8760"]
+check("one holiday (24 of 8,760 hours = 0.27 %): expanded because of the calendar, still the same", s["same"] == 1 and h["expanded_calendar"] == 1 and h["demoted_by_calendar"] == 0 and h["rows"][0]["trigger"] == "calendar" and h["rows"][0]["diff_hours"] == 24 and h["rows"][0]["same"] and h["rate"] == 1.0, h)
+rc, s = run(ref_w, idf(2025, sched(wk)) + hol([15, 16, 17, 20]))
+h = s["hourly_8760"]
+check("four holidays on weekdays (96 hours = 1.1 %): different, demoted by the calendar", h["expanded_calendar"] == 1 and h["demoted_by_calendar"] == 1 and h["rows"][0]["diff_hours"] == 96 and not h["rows"][0]["same"] and h["rate"] == 0.0 and h["demoted"] == ["S1"], h)
+check("a schedule that is the same by day type is never a rescued one", h["rescued"] == [], h)
+# the tolerance is an option
+d_t = tempfile.mkdtemp()
+fa_t, fb_t = os.path.join(d_t, "a.idf"), os.path.join(d_t, "b.idf")
+open(fa_t, "w").write(ref_w)
+open(fb_t, "w").write(idf(2025, sched(wk)) + hol([15, 16, 17, 20]))
+idf_doc_compare.main(["--reference", fa_t, "--candidate", fb_t, "--out", d_t, "--name", "t", "--schedules-8760", "--weather", epw, "--schedule-hour-tolerance", "0.02"])
+h = json.load(open(os.path.join(d_t, "t.idf_doc_compare_report.json")))["schedule_kvor"]["hourly_8760"]
+check("--schedule-hour-tolerance 0.02: the same four holidays stay the same", h["demoted_by_calendar"] == 0 and h["rate"] == 1.0, h)
+# demote: the candidate schedule becomes a constant one under its own name, so that no documentary key of it matches
+import schedule_rescue as _sr  # noqa: E402
+cand_d, n_d = _sr.demote(idf(2025, sched(wk)), ["S1"])
+check("demote replaces the schedule by a one-value schedule of the same name", n_d == 1 and "987654.321" in cand_d and "Weekdays" not in cand_d, cand_d[-200:])
+d_d = tempfile.mkdtemp()
+fb_d = os.path.join(d_d, "b.idf")
+open(fb_d, "w").write(cand_d)
+idf_doc_compare.main(["--reference", fa_t, "--candidate", fb_d, "--out", d_d, "--name", "t"])
+rp_d = json.load(open(os.path.join(d_d, "t.idf_doc_compare_report.json")))
+check("after demote the keys of the schedule are lost (key score and schedule KVOR)", rp_d["schedule_kvor"]["same"] == 0 and rp_d["score"]["same"] < rp_d["score"]["keys"], (rp_d["score"], rp_d["schedule_kvor"]["same"]))
 # the run is not requested: no field
 d = tempfile.mkdtemp()
 open(os.path.join(d, "a.idf"), "w").write(idf(2025, sched(a)))

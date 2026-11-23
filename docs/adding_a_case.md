@@ -49,6 +49,8 @@ traceability:
 
 Optional: `ref_floor_area`, `ref_exterior_wall_area`, `ref_window_area` (m2): the document values of the building totals, when the geometry of your reference differs from the documents (the totals are otherwise computed from the reference IDF).
 
+Optional: `skip_geometry_totals` (a comma separated list of `floor_area`, `exterior_wall_area`, `window_area`): totals that are NOT keys of this case, because the documents give no value or give two values and the reference geometry is a modelling choice (the Simply family house: the documents give the living area in two ways and no wall area, and the reference places the rooms apart). The skipped totals are listed in `geometry.skipped` of the result; the other totals count as before. An unknown name is ignored and noted. Give the reason in `skip_geometry_totals_note`.
+
 Only simple `key: value` lines and `- item` lists are used: `evaluator/evaluate.py` reads them without a YAML package.
 
 ## 5. Check
