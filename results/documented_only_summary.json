@@ -1,0 +1,665 @@
+{
+ "doe_full_service_restaurant": {
+  "objects_in": 70,
+  "objects_kept": 32,
+  "objects_removed": 38,
+  "removed_classes": {
+   "Version": 1,
+   "Building": 1,
+   "SimulationControl": 1,
+   "RunPeriod": 1,
+   "SizingPeriod:WeatherFileConditionType": 2,
+   "GlobalGeometryRules": 1,
+   "BuildingSurface:Detailed": 18,
+   "FenestrationSurface:Detailed": 3,
+   "Material:NoMass": 3,
+   "Construction": 4,
+   "Construction:FfactorGroundFloor": 2,
+   "Schedule:Compact": 1
+  },
+  "fields_kept": 637,
+  "fields_blanked": 5,
+  "fields_blanked_by_basis": {
+   "nodoc": 5,
+   "undet": 0
+  }
+ },
+ "doe_high_rise_apartment": {
+  "objects_in": 386,
+  "objects_kept": 180,
+  "objects_removed": 206,
+  "removed_classes": {
+   "Version": 1,
+   "Building": 1,
+   "SimulationControl": 1,
+   "RunPeriod": 1,
+   "SizingPeriod:WeatherFileConditionType": 2,
+   "GlobalGeometryRules": 1,
+   "BuildingSurface:Detailed": 138,
+   "FenestrationSurface:Detailed": 42,
+   "Material:NoMass": 3,
+   "Construction": 4,
+   "Construction:FfactorGroundFloor": 9,
+   "Schedule:Compact": 2,
+   "HVACTemplate:Plant:MixedWaterLoop": 1
+  },
+  "fields_kept": 1140,
+  "fields_blanked": 4,
+  "fields_blanked_by_basis": {
+   "nodoc": 4,
+   "undet": 0
+  }
+ },
+ "doe_hospital": {
+  "objects_in": 825,
+  "objects_kept": 360,
+  "objects_removed": 465,
+  "removed_classes": {
+   "Version": 1,
+   "Building": 1,
+   "SimulationControl": 1,
+   "RunPeriod": 1,
+   "SizingPeriod:WeatherFileConditionType": 2,
+   "GlobalGeometryRules": 1,
+   "BuildingSurface:Detailed": 402,
+   "FenestrationSurface:Detailed": 40,
+   "Material:NoMass": 3,
+   "Construction": 4,
+   "Construction:CfactorUndergroundWall": 4,
+   "Schedule:Compact": 1,
+   "HVACTemplate:Plant:ChilledWaterLoop": 1,
+   "HVACTemplate:Plant:Chiller": 1,
+   "HVACTemplate:Plant:Tower": 1,
+   "HVACTemplate:Plant:HotWaterLoop": 1
+  },
+  "fields_kept": 1921,
+  "fields_blanked": 9,
+  "fields_blanked_by_basis": {
+   "nodoc": 9,
+   "undet": 0
+  }
+ },
+ "doe_large_hotel": {
+  "objects_in": 390,
+  "objects_kept": 160,
+  "objects_removed": 230,
+  "removed_classes": {
+   "Version": 1,
+   "Building": 1,
+   "SimulationControl": 1,
+   "RunPeriod": 1,
+   "SizingPeriod:WeatherFileConditionType": 2,
+   "GlobalGeometryRules": 1,
+   "BuildingSurface:Detailed": 177,
+   "FenestrationSurface:Detailed": 30,
+   "Material:NoMass": 3,
+   "Construction": 4,
+   "Construction:CfactorUndergroundWall": 4,
+   "Schedule:Compact": 1,
+   "HVACTemplate:Plant:ChilledWaterLoop": 1,
+   "HVACTemplate:Plant:Chiller": 1,
+   "HVACTemplate:Plant:Tower": 1,
+   "HVACTemplate:Plant:HotWaterLoop": 1
+  },
+  "fields_kept": 1823,
+  "fields_blanked": 3,
+  "fields_blanked_by_basis": {
+   "nodoc": 3,
+   "undet": 0
+  }
+ },
+ "doe_large_office": {
+  "objects_in": 340,
+  "objects_kept": 137,
+  "objects_removed": 203,
+  "removed_classes": {
+   "Version": 1,
+   "Building": 1,
+   "SimulationControl": 1,
+   "RunPeriod": 1,
+   "SizingPeriod:WeatherFileConditionType": 2,
+   "GlobalGeometryRules": 1,
+   "BuildingSurface:Detailed": 151,
+   "FenestrationSurface:Detailed": 24,
+   "Material:NoMass": 3,
+   "Construction": 4,
+   "Construction:CfactorUndergroundWall": 6,
+   "Schedule:Compact": 3,
+   "HVACTemplate:Plant:ChilledWaterLoop": 1,
+   "HVACTemplate:Plant:Chiller": 1,
+   "HVACTemplate:Plant:Tower": 1,
+   "HVACTemplate:Plant:HotWaterLoop": 1,
+   "HVACTemplate:Plant:MixedWaterLoop": 1
+  },
+  "fields_kept": 910,
+  "fields_blanked": 4,
+  "fields_blanked_by_basis": {
+   "nodoc": 4,
+   "undet": 0
+  }
+ },
+ "doe_medium_office": {
+  "objects_in": 227,
+  "objects_kept": 110,
+  "objects_removed": 117,
+  "removed_classes": {
+   "Version": 1,
+   "Building": 1,
+   "SimulationControl": 1,
+   "RunPeriod": 1,
+   "SizingPeriod:WeatherFileConditionType": 2,
+   "GlobalGeometryRules": 1,
+   "BuildingSurface:Detailed": 79,
+   "FenestrationSurface:Detailed": 18,
+   "Material:NoMass": 3,
+   "Construction": 4,
+   "Construction:FfactorGroundFloor": 5,
+   "Schedule:Compact": 1
+  },
+  "fields_kept": 804,
+  "fields_blanked": 5,
+  "fields_blanked_by_basis": {
+   "nodoc": 5,
+   "undet": 0
+  }
+ },
+ "doe_mid_rise_apartment": {
+  "objects_in": 405,
+  "objects_kept": 204,
+  "objects_removed": 201,
+  "removed_classes": {
+   "Version": 1,
+   "Building": 1,
+   "SimulationControl": 1,
+   "RunPeriod": 1,
+   "SizingPeriod:WeatherFileConditionType": 2,
+   "GlobalGeometryRules": 1,
+   "BuildingSurface:Detailed": 138,
+   "FenestrationSurface:Detailed": 39,
+   "Material:NoMass": 3,
+   "Construction": 4,
+   "Construction:FfactorGroundFloor": 9,
+   "Schedule:Compact": 1
+  },
+  "fields_kept": 1148,
+  "fields_blanked": 73,
+  "fields_blanked_by_basis": {
+   "nodoc": 73,
+   "undet": 0
+  }
+ },
+ "doe_outpatient_healthcare": {
+  "objects_in": 2010,
+  "objects_kept": 678,
+  "objects_removed": 1332,
+  "removed_classes": {
+   "Version": 1,
+   "Building": 1,
+   "SimulationControl": 1,
+   "RunPeriod": 1,
+   "SizingPeriod:WeatherFileConditionType": 2,
+   "GlobalGeometryRules": 1,
+   "BuildingSurface:Detailed": 1160,
+   "FenestrationSurface:Detailed": 94,
+   "Material:NoMass": 3,
+   "Construction": 4,
+   "Construction:FfactorGroundFloor": 59,
+   "Schedule:Compact": 1,
+   "HVACTemplate:Plant:ChilledWaterLoop": 1,
+   "HVACTemplate:Plant:Chiller": 1,
+   "HVACTemplate:Plant:Tower": 1,
+   "HVACTemplate:Plant:HotWaterLoop": 1
+  },
+  "fields_kept": 3228,
+  "fields_blanked": 6,
+  "fields_blanked_by_basis": {
+   "nodoc": 6,
+   "undet": 0
+  }
+ },
+ "doe_primary_school": {
+  "objects_in": 450,
+  "objects_kept": 238,
+  "objects_removed": 212,
+  "removed_classes": {
+   "Version": 1,
+   "Building": 1,
+   "SimulationControl": 1,
+   "RunPeriod": 1,
+   "SizingPeriod:WeatherFileConditionType": 2,
+   "GlobalGeometryRules": 1,
+   "BuildingSurface:Detailed": 171,
+   "Material:NoMass": 3,
+   "Construction": 4,
+   "Construction:FfactorGroundFloor": 25,
+   "Schedule:Compact": 1,
+   "HVACTemplate:Plant:HotWaterLoop": 1
+  },
+  "fields_kept": 2038,
+  "fields_blanked": 5,
+  "fields_blanked_by_basis": {
+   "nodoc": 5,
+   "undet": 0
+  }
+ },
+ "doe_quick_service_restaurant": {
+  "objects_in": 68,
+  "objects_kept": 32,
+  "objects_removed": 36,
+  "removed_classes": {
+   "Version": 1,
+   "Building": 1,
+   "SimulationControl": 1,
+   "RunPeriod": 1,
+   "SizingPeriod:WeatherFileConditionType": 2,
+   "GlobalGeometryRules": 1,
+   "BuildingSurface:Detailed": 18,
+   "FenestrationSurface:Detailed": 3,
+   "Material:NoMass": 2,
+   "Construction": 3,
+   "Construction:FfactorGroundFloor": 2,
+   "Schedule:Compact": 1
+  },
+  "fields_kept": 637,
+  "fields_blanked": 5,
+  "fields_blanked_by_basis": {
+   "nodoc": 5,
+   "undet": 0
+  }
+ },
+ "doe_secondary_school": {
+  "objects_in": 763,
+  "objects_kept": 396,
+  "objects_removed": 367,
+  "removed_classes": {
+   "Version": 1,
+   "Building": 1,
+   "SimulationControl": 1,
+   "RunPeriod": 1,
+   "SizingPeriod:WeatherFileConditionType": 2,
+   "GlobalGeometryRules": 1,
+   "BuildingSurface:Detailed": 323,
+   "Material:NoMass": 3,
+   "Construction": 4,
+   "Construction:FfactorGroundFloor": 25,
+   "Schedule:Compact": 1,
+   "HVACTemplate:Plant:ChilledWaterLoop": 1,
+   "HVACTemplate:Plant:Chiller": 1,
+   "HVACTemplate:Plant:Tower": 1,
+   "HVACTemplate:Plant:HotWaterLoop": 1
+  },
+  "fields_kept": 3093,
+  "fields_blanked": 11,
+  "fields_blanked_by_basis": {
+   "nodoc": 11,
+   "undet": 0
+  }
+ },
+ "doe_small_hotel": {
+  "objects_in": 1042,
+  "objects_kept": 409,
+  "objects_removed": 633,
+  "removed_classes": {
+   "Version": 1,
+   "Building": 1,
+   "SimulationControl": 1,
+   "RunPeriod": 1,
+   "SizingPeriod:WeatherFileConditionType": 2,
+   "GlobalGeometryRules": 1,
+   "BuildingSurface:Detailed": 485,
+   "FenestrationSurface:Detailed": 103,
+   "Material:NoMass": 3,
+   "Construction": 4,
+   "Construction:FfactorGroundFloor": 19,
+   "Schedule:Compact": 2,
+   "HVACTemplate:Zone:Unitary": 10
+  },
+  "fields_kept": 2435,
+  "fields_blanked": 69,
+  "fields_blanked_by_basis": {
+   "nodoc": 69,
+   "undet": 0
+  }
+ },
+ "doe_small_office": {
+  "objects_in": 133,
+  "objects_kept": 49,
+  "objects_removed": 84,
+  "removed_classes": {
+   "Version": 1,
+   "Building": 1,
+   "SimulationControl": 1,
+   "RunPeriod": 1,
+   "SizingPeriod:WeatherFileConditionType": 2,
+   "GlobalGeometryRules": 1,
+   "BuildingSurface:Detailed": 43,
+   "FenestrationSurface:Detailed": 21,
+   "Material:NoMass": 3,
+   "Construction": 4,
+   "Construction:FfactorGroundFloor": 5,
+   "Schedule:Compact": 1
+  },
+  "fields_kept": 398,
+  "fields_blanked": 5,
+  "fields_blanked_by_basis": {
+   "nodoc": 5,
+   "undet": 0
+  }
+ },
+ "doe_stand_alone_retail": {
+  "objects_in": 108,
+  "objects_kept": 48,
+  "objects_removed": 60,
+  "removed_classes": {
+   "Version": 1,
+   "Building": 1,
+   "SimulationControl": 1,
+   "RunPeriod": 1,
+   "SizingPeriod:WeatherFileConditionType": 2,
+   "GlobalGeometryRules": 1,
+   "BuildingSurface:Detailed": 36,
+   "FenestrationSurface:Detailed": 3,
+   "Material:NoMass": 3,
+   "Construction": 4,
+   "Construction:FfactorGroundFloor": 5,
+   "Schedule:Compact": 1,
+   "HVACTemplate:Zone:Unitary": 1
+  },
+  "fields_kept": 730,
+  "fields_blanked": 6,
+  "fields_blanked_by_basis": {
+   "nodoc": 6,
+   "undet": 0
+  }
+ },
+ "doe_strip_mall": {
+  "objects_in": 232,
+  "objects_kept": 111,
+  "objects_removed": 121,
+  "removed_classes": {
+   "Version": 1,
+   "Building": 1,
+   "SimulationControl": 1,
+   "RunPeriod": 1,
+   "SizingPeriod:WeatherFileConditionType": 2,
+   "GlobalGeometryRules": 1,
+   "BuildingSurface:Detailed": 60,
+   "FenestrationSurface:Detailed": 36,
+   "Material:NoMass": 3,
+   "Construction": 4,
+   "Construction:FfactorGroundFloor": 10,
+   "Schedule:Compact": 1
+  },
+  "fields_kept": 1465,
+  "fields_blanked": 23,
+  "fields_blanked_by_basis": {
+   "nodoc": 23,
+   "undet": 0
+  }
+ },
+ "doe_warehouse": {
+  "objects_in": 78,
+  "objects_kept": 40,
+  "objects_removed": 38,
+  "removed_classes": {
+   "Version": 1,
+   "Building": 1,
+   "SimulationControl": 1,
+   "RunPeriod": 1,
+   "SizingPeriod:WeatherFileConditionType": 2,
+   "GlobalGeometryRules": 1,
+   "BuildingSurface:Detailed": 19,
+   "FenestrationSurface:Detailed": 4,
+   "Material:NoMass": 1,
+   "Construction": 2,
+   "Construction:FfactorGroundFloor": 3,
+   "Schedule:Compact": 1,
+   "HVACTemplate:Zone:Unitary": 1
+  },
+  "fields_kept": 353,
+  "fields_blanked": 4,
+  "fields_blanked_by_basis": {
+   "nodoc": 4,
+   "undet": 0
+  }
+ },
+ "res_iunit": {
+  "objects_in": 81,
+  "objects_kept": 35,
+  "objects_removed": 46,
+  "removed_classes": {
+   "Version": 1,
+   "SimulationControl": 1,
+   "Timestep": 1,
+   "RunPeriod": 1,
+   "GlobalGeometryRules": 1,
+   "Site:Location": 1,
+   "SizingPeriod:DesignDay": 2,
+   "Site:GroundTemperature:BuildingSurface": 1,
+   "Schedule:Constant": 2,
+   "Construction": 5,
+   "Material": 1,
+   "UtilityCost:Tariff": 1,
+   "Output:Table:SummaryReports": 1,
+   "Output:Variable": 3,
+   "Output:Meter": 1,
+   "Schedule:Compact": 3,
+   "Sizing:Zone": 1,
+   "DesignSpecification:ZoneAirDistribution": 1,
+   "ZoneHVAC:EquipmentConnections": 1,
+   "ZoneHVAC:EquipmentList": 1,
+   "ZoneHVAC:PackagedTerminalHeatPump": 1,
+   "Fan:OnOff": 1,
+   "OutdoorAir:Mixer": 1,
+   "OutdoorAir:Node": 2,
+   "Curve:Biquadratic": 3,
+   "Curve:Quadratic": 4,
+   "Curve:Cubic": 3,
+   "Coil:Heating:Electric": 1
+  },
+  "fields_kept": 251,
+  "fields_blanked": 50,
+  "fields_blanked_by_basis": {
+   "nodoc": 50,
+   "undet": 0
+  }
+ },
+ "res_l100ac": {
+  "objects_in": 81,
+  "objects_kept": 69,
+  "objects_removed": 12,
+  "removed_classes": {
+   "Version": 1,
+   "Timestep": 1,
+   "RunPeriod": 1,
+   "GlobalGeometryRules": 1,
+   "Schedule:Constant": 1,
+   "Zone": 2,
+   "ZoneInfiltration:DesignFlowRate": 2,
+   "ThermostatSetpoint:SingleHeating": 1,
+   "ZoneHVAC:EquipmentConnections": 1,
+   "ZoneHVAC:EquipmentList": 1
+  },
+  "fields_kept": 721,
+  "fields_blanked": 30,
+  "fields_blanked_by_basis": {
+   "nodoc": 30,
+   "undet": 0
+  }
+ },
+ "res_l100al": {
+  "objects_in": 81,
+  "objects_kept": 69,
+  "objects_removed": 12,
+  "removed_classes": {
+   "Version": 1,
+   "Timestep": 1,
+   "RunPeriod": 1,
+   "GlobalGeometryRules": 1,
+   "Schedule:Constant": 1,
+   "Zone": 2,
+   "ZoneInfiltration:DesignFlowRate": 2,
+   "ThermostatSetpoint:SingleCooling": 1,
+   "ZoneHVAC:EquipmentConnections": 1,
+   "ZoneHVAC:EquipmentList": 1
+  },
+  "fields_kept": 721,
+  "fields_blanked": 30,
+  "fields_blanked_by_basis": {
+   "nodoc": 30,
+   "undet": 0
+  }
+ },
+ "res_lupton_house": {
+  "objects_in": 76,
+  "objects_kept": 57,
+  "objects_removed": 19,
+  "removed_classes": {
+   "Version": 1,
+   "Building": 1,
+   "RunPeriod": 1,
+   "ScheduleTypeLimits": 2,
+   "Schedule:Compact": 1,
+   "Material": 1,
+   "Construction": 6,
+   "GlobalGeometryRules": 1,
+   "Zone": 1,
+   "Output:Table:SummaryReports": 1,
+   "Output:Variable": 2,
+   "Output:Meter": 1
+  },
+  "fields_kept": 805,
+  "fields_blanked": 148,
+  "fields_blanked_by_basis": {
+   "nodoc": 148,
+   "undet": 0
+  }
+ },
+ "res_nzertf": {
+  "objects_in": 122,
+  "objects_kept": 44,
+  "objects_removed": 78,
+  "removed_classes": {
+   "Version": 1,
+   "SimulationControl": 1,
+   "GlobalGeometryRules": 1,
+   "SizingPeriod:DesignDay": 2,
+   "Site:WaterMainsTemperature": 1,
+   "Schedule:Constant": 7,
+   "Material:NoMass": 4,
+   "Construction": 6,
+   "ElectricLoadCenter:Inverter:PVWatts": 1,
+   "ElectricLoadCenter:Distribution": 1,
+   "OutdoorAir:NodeList": 2,
+   "Curve:Biquadratic": 5,
+   "Curve:Quadratic": 6,
+   "ZoneControl:Humidistat": 1,
+   "NodeList": 2,
+   "Output:Table:SummaryReports": 1,
+   "Output:Meter": 1,
+   "Schedule:Compact": 5,
+   "ZoneControl:Thermostat": 1,
+   "DesignSpecification:OutdoorAir": 1,
+   "Sizing:Zone": 1,
+   "DesignSpecification:ZoneAirDistribution": 1,
+   "ZoneHVAC:EquipmentConnections": 1,
+   "ZoneHVAC:EquipmentList": 1,
+   "ZoneHVAC:AirDistributionUnit": 1,
+   "AirTerminal:SingleDuct:ConstantVolume:NoReheat": 1,
+   "AirLoopHVAC": 1,
+   "BranchList": 1,
+   "Branch": 1,
+   "AirLoopHVAC:SupplyPath": 1,
+   "AirLoopHVAC:ZoneSplitter": 1,
+   "AirLoopHVAC:ReturnPath": 1,
+   "AirLoopHVAC:ZoneMixer": 1,
+   "AvailabilityManagerAssignmentList": 1,
+   "AvailabilityManager:NightCycle": 1,
+   "Curve:Cubic": 3,
+   "OutdoorAir:Node": 1,
+   "Fan:OnOff": 1,
+   "AirLoopHVAC:OutdoorAirSystem": 1,
+   "AirLoopHVAC:ControllerList": 1,
+   "AirLoopHVAC:OutdoorAirSystem:EquipmentList": 1,
+   "OutdoorAir:Mixer": 1,
+   "SetpointManager:SingleZone:Cooling": 1,
+   "SetpointManager:MixedAir": 1,
+   "Controller:OutdoorAir": 1,
+   "Site:GroundTemperature:BuildingSurface": 1
+  },
+  "fields_kept": 406,
+  "fields_blanked": 112,
+  "fields_blanked_by_basis": {
+   "nodoc": 112,
+   "undet": 0
+  }
+ },
+ "res_simply_family_house": {
+  "objects_in": 191,
+  "objects_kept": 110,
+  "objects_removed": 81,
+  "removed_classes": {
+   "Version": 1,
+   "SimulationControl": 1,
+   "Building": 1,
+   "Timestep": 1,
+   "GlobalGeometryRules": 1,
+   "SizingPeriod:DesignDay": 2,
+   "ScheduleTypeLimits": 4,
+   "Schedule:Compact": 6,
+   "WindowMaterial:SimpleGlazingSystem": 1,
+   "Material": 3,
+   "Construction": 1,
+   "Material:NoMass": 1,
+   "Zone": 1,
+   "ZoneInfiltration:DesignFlowRate": 2,
+   "People": 1,
+   "Lights": 1,
+   "ElectricEquipment": 1,
+   "Output:Meter": 2,
+   "Output:Variable": 6,
+   "Output:Table:SummaryReports": 1,
+   "OutputControl:Table:Style": 1,
+   "Output:SQLite": 1,
+   "ThermostatSetpoint:DualSetpoint": 1,
+   "DesignSpecification:OutdoorAir": 1,
+   "Sizing:Zone": 1,
+   "DesignSpecification:ZoneAirDistribution": 1,
+   "ZoneHVAC:EquipmentConnections": 1,
+   "ZoneHVAC:EquipmentList": 1,
+   "ZoneHVAC:AirDistributionUnit": 1,
+   "AirTerminal:SingleDuct:ConstantVolume:NoReheat": 1,
+   "Sizing:System": 1,
+   "AirLoopHVAC": 1,
+   "BranchList": 1,
+   "Branch": 1,
+   "AirLoopHVAC:SupplyPath": 1,
+   "AirLoopHVAC:ZoneSplitter": 1,
+   "AirLoopHVAC:ReturnPath": 1,
+   "AirLoopHVAC:ZoneMixer": 1,
+   "AvailabilityManagerAssignmentList": 1,
+   "AvailabilityManager:Scheduled": 1,
+   "Curve:Biquadratic": 3,
+   "Curve:Quadratic": 5,
+   "OutdoorAir:Node": 1,
+   "Coil:Heating:DX:SingleSpeed": 1,
+   "Curve:Cubic": 3,
+   "Fan:OnOff": 1,
+   "OutdoorAir:NodeList": 1,
+   "AirLoopHVAC:OutdoorAirSystem": 1,
+   "AirLoopHVAC:ControllerList": 1,
+   "AirLoopHVAC:OutdoorAirSystem:EquipmentList": 1,
+   "OutdoorAir:Mixer": 1,
+   "SetpointManager:SingleZone:Cooling": 1,
+   "SetpointManager:MixedAir": 1,
+   "Controller:OutdoorAir": 1,
+   "Site:GroundTemperature:BuildingSurface": 1
+  },
+  "fields_kept": 1337,
+  "fields_blanked": 425,
+  "fields_blanked_by_basis": {
+   "nodoc": 425,
+   "undet": 0
+  }
+ }
+}

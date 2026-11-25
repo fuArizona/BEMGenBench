@@ -1,0 +1,725 @@
+! Vertex formulas: every Vertex coordinate carries its formula; the IDF values are the results rounded to 4 decimals. Origin at the south-west corner of the basement floor, X to the east, Y to the north, Z up.
+! a, b = sides of the rectangular footprint: a x b = 1454 ft2 = 135.0810 m2 (xlsx C29) and 2 (a + b) = 165 ft = 50.2920 m (C31), so a = (P / 2 + sqrt((P / 2)^2 - 4 A)) / 2 = 17.3688 m (long side east-west, C28) and b = P / 2 - a = 7.7772 m.
+! Heights: basement 8 ft = 2.4384 m (C42); two floors above ground of 9 ft (C52, C63): eave = 26 ft = 7.9248 m; roof slope 2:12 (C244), ridge along the long side at y = b / 2: ridge height = eave + (b / 2) x 2 / 12 = 8.5729 m.
+! Windows (one per face, ASSUMED positions): area = 0.13 x gross wall (C254..C257), width w = sqrt(area x 1.333) and height h = area / w (aspect ratio C258 = 1.333); centred in the wall height. Door: 1.83 m x 2.03 m (C268), position ASSUMED.
+! Only the fields that have a documentary basis are kept (tools/make_documented_only_idf.py); blank fields = not in the documents. Not meant to run.
+
+  Building,
+    NZERTF,                       !- Name  Kept: name of the case (the xlsx has no building name).
+    ,                             !- north axis
+    Suburbs;                      !- Terrain  Source: xlsx C20 Site Type = Suburban (EnergyPlus term: Suburbs).
+
+  Timestep,
+    60;                           !- Number of Timesteps per Hour  Source: xlsx C3 = 60
+
+  RunPeriod,
+    Annual,                       !- Name
+    1,                            !- Begin Month  Source: xlsx C4 (Jan 1).
+    1,                            !- Begin Day of Month  Source: xlsx C4 (Jan 1).
+    2012,                         !- Begin Year  Source: xlsx C5 = 2012.
+    12,                           !- End Month  Source: xlsx C4 (Dec 31).
+    31,                           !- End Day of Month  Source: xlsx C4 (Dec 31).
+    2012,                         !- End Year  Source: xlsx C5 = 2012.
+    Sunday;                       !- Day of Week for Start Day  Derived from xlsx C5: 2012-01-01 is a Sunday.
+
+  RunPeriodControl:DaylightSavingTime,
+    3/12,                         !- Start Date  Source: xlsx C7 (Mar 12).
+    11/5;                         !- End Date  Source: xlsx C7 (Nov 5).
+
+  Site:Location,
+    Gaithersburg Maryland USA,    !- Name  Source: xlsx C13 Gaithersburg, C14 Maryland (a comma would split the field, so none is used).
+    ,                             !- latitude
+    ,                             !- longitude
+    ,                             !- time zone
+    136;                          !- Elevation {m}  Source: xlsx C19 = 136 m (446 ft).
+
+  Material:NoMass,
+    Slab Layer,                   !- Name  Required by EnergyPlus (Roughness); the xlsx gives none.
+    MediumSmooth,                 !- Roughness
+    1.8;                          !- Thermal Resistance {m2-K/W}  Source: xlsx C275 = 1.8 m2K/W (R-10).
+
+  WindowMaterial:SimpleGlazingSystem,
+    Window Glazing,               !- Name
+    1.1357,                       !- U-Factor {W/m2-K}  Derived from xlsx C250: R-5 ft2 F h/Btu -> U = 0.2 Btu/h ft2 F = 1.1357 W/m2K.
+    0.25,                         !- Solar Heat Gain Coefficient  Source: xlsx C251 = 0.25.
+    0.4;                          !- Visible Transmittance  Source: xlsx C252 = 0.4.
+
+  Zone,
+    Conditioned Zone,             !- Name  Kept: name chosen by the model.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    ,                             !- multiplier
+    2.7432,                       !- Ceiling Height {m}  Source: xlsx C63 Floor-to-Floor Height = 2.7 m (9 ft).
+    ,                             !- volume
+    386.941;                      !- Floor Area {m2}  Source: xlsx C32 = 4165 ft2 = 386.941 m2 (all floors; the geometry is in the surfaces below).
+
+  ZoneCapacitanceMultiplier:ResearchSpecial,
+    Zone Capacitance Multiplier,  !- Name
+    Conditioned Zone,             !- Zone or ZoneList Name
+    7.0;                          !- Temperature Capacity Multiplier  Source: xlsx C8 = 7.
+
+  BuildingSurface:Detailed,
+    Basement Slab,                !- Name
+    Floor,                        !- Surface Type  Derived from xlsx (see the note above).
+    Slab,                         !- Construction Name
+    ,                             !- zone name
+    ,                             !- space name
+    Ground,                       !- Outside Boundary Condition  Derived from xlsx C271 Ground Coupling = Full Heated Basement.
+    ,                             !- outside boundary condition object
+    NoSun,                        !- Sun Exposure
+    NoWind,                       !- Wind Exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices
+    0,                            !- Vertex 1 X {m}  Derived from xlsx C29 / C31 / C28 / C42 / C52 / C63 / C244 (see the note above).  Derived from: X = 0 (west end)
+    0,                            !- Vertex 1 Y {m}  Derived from: Y = 0 (south side)
+    0,                            !- Vertex 1 Z {m}  Derived from: Z = 0 (basement floor)
+    0,                            !- Vertex 2 X {m}  Derived from: X = 0 (west end)
+    7.7772,                       !- Vertex 2 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    0,                            !- Vertex 2 Z {m}  Derived from: Z = 0 (basement floor)
+    17.3688,                      !- Vertex 3 X {m}  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    7.7772,                       !- Vertex 3 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    0,                            !- Vertex 3 Z {m}  Derived from: Z = 0 (basement floor)
+    17.3688,                      !- Vertex 4 X {m}  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    0,                            !- Vertex 4 Y {m}  Derived from: Y = 0 (south side)
+    0;                            !- Vertex 4 Z {m}  Derived from: Z = 0 (basement floor)
+
+  BuildingSurface:Detailed,
+    Foundation Wall South,        !- Name
+    Wall,                         !- Surface Type  Derived from xlsx (see the note above).
+    Foundation Wall,              !- Construction Name
+    ,                             !- zone name
+    ,                             !- space name
+    Ground,                       !- Outside Boundary Condition  Derived from xlsx C271 Ground Coupling = Full Heated Basement.
+    ,                             !- outside boundary condition object
+    NoSun,                        !- Sun Exposure
+    NoWind,                       !- Wind Exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices
+    0,                            !- Vertex 1 X {m}  Derived from xlsx C29 / C31 / C28 / C42 / C52 / C63 / C244 (see the note above).  Derived from: X = 0 (west end)
+    0,                            !- Vertex 1 Y {m}  Derived from: Y = 0 (south side)
+    2.4384,                       !- Vertex 1 Z {m}  Derived from: Z = 8 ft = 2.4384 m (basement height, C42)
+    0,                            !- Vertex 2 X {m}  Derived from: X = 0 (west end)
+    0,                            !- Vertex 2 Y {m}  Derived from: Y = 0 (south side)
+    0,                            !- Vertex 2 Z {m}  Derived from: Z = 0 (basement floor)
+    17.3688,                      !- Vertex 3 X {m}  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    0,                            !- Vertex 3 Y {m}  Derived from: Y = 0 (south side)
+    0,                            !- Vertex 3 Z {m}  Derived from: Z = 0 (basement floor)
+    17.3688,                      !- Vertex 4 X {m}  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    0,                            !- Vertex 4 Y {m}  Derived from: Y = 0 (south side)
+    2.4384;                       !- Vertex 4 Z {m}  Derived from: Z = 8 ft = 2.4384 m (basement height, C42)
+
+  BuildingSurface:Detailed,
+    Foundation Wall East,         !- Name
+    Wall,                         !- Surface Type  Derived from xlsx (see the note above).
+    Foundation Wall,              !- Construction Name
+    ,                             !- zone name
+    ,                             !- space name
+    Ground,                       !- Outside Boundary Condition  Derived from xlsx C271 Ground Coupling = Full Heated Basement.
+    ,                             !- outside boundary condition object
+    NoSun,                        !- Sun Exposure
+    NoWind,                       !- Wind Exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices
+    17.3688,                      !- Vertex 1 X {m}  Derived from xlsx C29 / C31 / C28 / C42 / C52 / C63 / C244 (see the note above).  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    0,                            !- Vertex 1 Y {m}  Derived from: Y = 0 (south side)
+    2.4384,                       !- Vertex 1 Z {m}  Derived from: Z = 8 ft = 2.4384 m (basement height, C42)
+    17.3688,                      !- Vertex 2 X {m}  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    0,                            !- Vertex 2 Y {m}  Derived from: Y = 0 (south side)
+    0,                            !- Vertex 2 Z {m}  Derived from: Z = 0 (basement floor)
+    17.3688,                      !- Vertex 3 X {m}  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    7.7772,                       !- Vertex 3 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    0,                            !- Vertex 3 Z {m}  Derived from: Z = 0 (basement floor)
+    17.3688,                      !- Vertex 4 X {m}  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    7.7772,                       !- Vertex 4 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    2.4384;                       !- Vertex 4 Z {m}  Derived from: Z = 8 ft = 2.4384 m (basement height, C42)
+
+  BuildingSurface:Detailed,
+    Foundation Wall North,        !- Name
+    Wall,                         !- Surface Type  Derived from xlsx (see the note above).
+    Foundation Wall,              !- Construction Name
+    ,                             !- zone name
+    ,                             !- space name
+    Ground,                       !- Outside Boundary Condition  Derived from xlsx C271 Ground Coupling = Full Heated Basement.
+    ,                             !- outside boundary condition object
+    NoSun,                        !- Sun Exposure
+    NoWind,                       !- Wind Exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices
+    17.3688,                      !- Vertex 1 X {m}  Derived from xlsx C29 / C31 / C28 / C42 / C52 / C63 / C244 (see the note above).  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    7.7772,                       !- Vertex 1 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    2.4384,                       !- Vertex 1 Z {m}  Derived from: Z = 8 ft = 2.4384 m (basement height, C42)
+    17.3688,                      !- Vertex 2 X {m}  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    7.7772,                       !- Vertex 2 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    0,                            !- Vertex 2 Z {m}  Derived from: Z = 0 (basement floor)
+    0,                            !- Vertex 3 X {m}  Derived from: X = 0 (west end)
+    7.7772,                       !- Vertex 3 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    0,                            !- Vertex 3 Z {m}  Derived from: Z = 0 (basement floor)
+    0,                            !- Vertex 4 X {m}  Derived from: X = 0 (west end)
+    7.7772,                       !- Vertex 4 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    2.4384;                       !- Vertex 4 Z {m}  Derived from: Z = 8 ft = 2.4384 m (basement height, C42)
+
+  BuildingSurface:Detailed,
+    Foundation Wall West,         !- Name
+    Wall,                         !- Surface Type  Derived from xlsx (see the note above).
+    Foundation Wall,              !- Construction Name
+    ,                             !- zone name
+    ,                             !- space name
+    Ground,                       !- Outside Boundary Condition  Derived from xlsx C271 Ground Coupling = Full Heated Basement.
+    ,                             !- outside boundary condition object
+    NoSun,                        !- Sun Exposure
+    NoWind,                       !- Wind Exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices
+    0,                            !- Vertex 1 X {m}  Derived from xlsx C29 / C31 / C28 / C42 / C52 / C63 / C244 (see the note above).  Derived from: X = 0 (west end)
+    7.7772,                       !- Vertex 1 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    2.4384,                       !- Vertex 1 Z {m}  Derived from: Z = 8 ft = 2.4384 m (basement height, C42)
+    0,                            !- Vertex 2 X {m}  Derived from: X = 0 (west end)
+    7.7772,                       !- Vertex 2 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    0,                            !- Vertex 2 Z {m}  Derived from: Z = 0 (basement floor)
+    0,                            !- Vertex 3 X {m}  Derived from: X = 0 (west end)
+    0,                            !- Vertex 3 Y {m}  Derived from: Y = 0 (south side)
+    0,                            !- Vertex 3 Z {m}  Derived from: Z = 0 (basement floor)
+    0,                            !- Vertex 4 X {m}  Derived from: X = 0 (west end)
+    0,                            !- Vertex 4 Y {m}  Derived from: Y = 0 (south side)
+    2.4384;                       !- Vertex 4 Z {m}  Derived from: Z = 8 ft = 2.4384 m (basement height, C42)
+
+  BuildingSurface:Detailed,
+    Wall South,                   !- Name
+    Wall,                         !- Surface Type  Derived from xlsx (see the note above).
+    Exterior Wall,                !- Construction Name
+    ,                             !- zone name
+    ,                             !- space name
+    ,                             !- outside boundary condition
+    ,                             !- outside boundary condition object
+    ,                             !- sun exposure
+    ,                             !- wind exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices
+    0,                            !- Vertex 1 X {m}  Derived from xlsx C29 / C31 / C28 / C42 / C52 / C63 / C244 (see the note above).  Derived from: X = 0 (west end)
+    0,                            !- Vertex 1 Y {m}  Derived from: Y = 0 (south side)
+    7.9248,                       !- Vertex 1 Z {m}  Derived from: Z = 8 ft + 2 x 9 ft = 26 ft = 7.9248 m (eave: two floors above ground C52 of 9 ft C63)
+    0,                            !- Vertex 2 X {m}  Derived from: X = 0 (west end)
+    0,                            !- Vertex 2 Y {m}  Derived from: Y = 0 (south side)
+    2.4384,                       !- Vertex 2 Z {m}  Derived from: Z = 8 ft = 2.4384 m (basement height, C42)
+    17.3688,                      !- Vertex 3 X {m}  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    0,                            !- Vertex 3 Y {m}  Derived from: Y = 0 (south side)
+    2.4384,                       !- Vertex 3 Z {m}  Derived from: Z = 8 ft = 2.4384 m (basement height, C42)
+    17.3688,                      !- Vertex 4 X {m}  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    0,                            !- Vertex 4 Y {m}  Derived from: Y = 0 (south side)
+    7.9248;                       !- Vertex 4 Z {m}  Derived from: Z = 8 ft + 2 x 9 ft = 26 ft = 7.9248 m (eave: two floors above ground C52 of 9 ft C63)
+
+  BuildingSurface:Detailed,
+    Wall East,                    !- Name
+    Wall,                         !- Surface Type  Derived from xlsx (see the note above).
+    Exterior Wall,                !- Construction Name
+    ,                             !- zone name
+    ,                             !- space name
+    ,                             !- outside boundary condition
+    ,                             !- outside boundary condition object
+    ,                             !- sun exposure
+    ,                             !- wind exposure
+    ,                             !- view factor to ground
+    5,                            !- Number of Vertices
+    17.3688,                      !- Vertex 1 X {m}  Derived from xlsx C29 / C31 / C28 / C42 / C52 / C63 / C244 (see the note above).  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    0,                            !- Vertex 1 Y {m}  Derived from: Y = 0 (south side)
+    7.9248,                       !- Vertex 1 Z {m}  Derived from: Z = 8 ft + 2 x 9 ft = 26 ft = 7.9248 m (eave: two floors above ground C52 of 9 ft C63)
+    17.3688,                      !- Vertex 2 X {m}  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    0,                            !- Vertex 2 Y {m}  Derived from: Y = 0 (south side)
+    2.4384,                       !- Vertex 2 Z {m}  Derived from: Z = 8 ft = 2.4384 m (basement height, C42)
+    17.3688,                      !- Vertex 3 X {m}  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    7.7772,                       !- Vertex 3 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    2.4384,                       !- Vertex 3 Z {m}  Derived from: Z = 8 ft = 2.4384 m (basement height, C42)
+    17.3688,                      !- Vertex 4 X {m}  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    7.7772,                       !- Vertex 4 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    7.9248,                       !- Vertex 4 Z {m}  Derived from: Z = 8 ft + 2 x 9 ft = 26 ft = 7.9248 m (eave: two floors above ground C52 of 9 ft C63)
+    17.3688,                      !- Vertex 5 X {m}  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    3.8886,                       !- Vertex 5 Y {m}  Derived from: Y = b / 2 = 3.8886 m (ridge along the long side)
+    8.5729;                       !- Vertex 5 Z {m}  Derived from: Z = eave + (b / 2) x 2 / 12 = 7.9248 + 0.6481 = 8.5729 m (roof slope 2:12, C244)
+
+  BuildingSurface:Detailed,
+    Wall North,                   !- Name
+    Wall,                         !- Surface Type  Derived from xlsx (see the note above).
+    Exterior Wall,                !- Construction Name
+    ,                             !- zone name
+    ,                             !- space name
+    ,                             !- outside boundary condition
+    ,                             !- outside boundary condition object
+    ,                             !- sun exposure
+    ,                             !- wind exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices
+    17.3688,                      !- Vertex 1 X {m}  Derived from xlsx C29 / C31 / C28 / C42 / C52 / C63 / C244 (see the note above).  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    7.7772,                       !- Vertex 1 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    7.9248,                       !- Vertex 1 Z {m}  Derived from: Z = 8 ft + 2 x 9 ft = 26 ft = 7.9248 m (eave: two floors above ground C52 of 9 ft C63)
+    17.3688,                      !- Vertex 2 X {m}  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    7.7772,                       !- Vertex 2 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    2.4384,                       !- Vertex 2 Z {m}  Derived from: Z = 8 ft = 2.4384 m (basement height, C42)
+    0,                            !- Vertex 3 X {m}  Derived from: X = 0 (west end)
+    7.7772,                       !- Vertex 3 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    2.4384,                       !- Vertex 3 Z {m}  Derived from: Z = 8 ft = 2.4384 m (basement height, C42)
+    0,                            !- Vertex 4 X {m}  Derived from: X = 0 (west end)
+    7.7772,                       !- Vertex 4 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    7.9248;                       !- Vertex 4 Z {m}  Derived from: Z = 8 ft + 2 x 9 ft = 26 ft = 7.9248 m (eave: two floors above ground C52 of 9 ft C63)
+
+  BuildingSurface:Detailed,
+    Wall West,                    !- Name
+    Wall,                         !- Surface Type  Derived from xlsx (see the note above).
+    Exterior Wall,                !- Construction Name
+    ,                             !- zone name
+    ,                             !- space name
+    ,                             !- outside boundary condition
+    ,                             !- outside boundary condition object
+    ,                             !- sun exposure
+    ,                             !- wind exposure
+    ,                             !- view factor to ground
+    5,                            !- Number of Vertices
+    0,                            !- Vertex 1 X {m}  Derived from xlsx C29 / C31 / C28 / C42 / C52 / C63 / C244 (see the note above).  Derived from: X = 0 (west end)
+    7.7772,                       !- Vertex 1 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    7.9248,                       !- Vertex 1 Z {m}  Derived from: Z = 8 ft + 2 x 9 ft = 26 ft = 7.9248 m (eave: two floors above ground C52 of 9 ft C63)
+    0,                            !- Vertex 2 X {m}  Derived from: X = 0 (west end)
+    7.7772,                       !- Vertex 2 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    2.4384,                       !- Vertex 2 Z {m}  Derived from: Z = 8 ft = 2.4384 m (basement height, C42)
+    0,                            !- Vertex 3 X {m}  Derived from: X = 0 (west end)
+    0,                            !- Vertex 3 Y {m}  Derived from: Y = 0 (south side)
+    2.4384,                       !- Vertex 3 Z {m}  Derived from: Z = 8 ft = 2.4384 m (basement height, C42)
+    0,                            !- Vertex 4 X {m}  Derived from: X = 0 (west end)
+    0,                            !- Vertex 4 Y {m}  Derived from: Y = 0 (south side)
+    7.9248,                       !- Vertex 4 Z {m}  Derived from: Z = 8 ft + 2 x 9 ft = 26 ft = 7.9248 m (eave: two floors above ground C52 of 9 ft C63)
+    0,                            !- Vertex 5 X {m}  Derived from: X = 0 (west end)
+    3.8886,                       !- Vertex 5 Y {m}  Derived from: Y = b / 2 = 3.8886 m (ridge along the long side)
+    8.5729;                       !- Vertex 5 Z {m}  Derived from: Z = eave + (b / 2) x 2 / 12 = 7.9248 + 0.6481 = 8.5729 m (roof slope 2:12, C244)
+
+  BuildingSurface:Detailed,
+    Roof South,                   !- Name
+    Roof,                         !- Surface Type  Derived from xlsx (see the note above).
+    Roof,                         !- Construction Name
+    ,                             !- zone name
+    ,                             !- space name
+    Outdoors,                     !- Outside Boundary Condition
+    ,                             !- outside boundary condition object
+    ,                             !- sun exposure
+    ,                             !- wind exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices
+    0,                            !- Vertex 1 X {m}  Derived from xlsx C29 / C31 / C28 / C42 / C52 / C63 / C244 (see the note above).  Derived from: X = 0 (west end)
+    3.8886,                       !- Vertex 1 Y {m}  Derived from: Y = b / 2 = 3.8886 m (ridge along the long side)
+    8.5729,                       !- Vertex 1 Z {m}  Derived from: Z = eave + (b / 2) x 2 / 12 = 7.9248 + 0.6481 = 8.5729 m (roof slope 2:12, C244)
+    0,                            !- Vertex 2 X {m}  Derived from: X = 0 (west end)
+    0,                            !- Vertex 2 Y {m}  Derived from: Y = 0 (south side)
+    7.9248,                       !- Vertex 2 Z {m}  Derived from: Z = 8 ft + 2 x 9 ft = 26 ft = 7.9248 m (eave: two floors above ground C52 of 9 ft C63)
+    17.3688,                      !- Vertex 3 X {m}  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    0,                            !- Vertex 3 Y {m}  Derived from: Y = 0 (south side)
+    7.9248,                       !- Vertex 3 Z {m}  Derived from: Z = 8 ft + 2 x 9 ft = 26 ft = 7.9248 m (eave: two floors above ground C52 of 9 ft C63)
+    17.3688,                      !- Vertex 4 X {m}  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    3.8886,                       !- Vertex 4 Y {m}  Derived from: Y = b / 2 = 3.8886 m (ridge along the long side)
+    8.5729;                       !- Vertex 4 Z {m}  Derived from: Z = eave + (b / 2) x 2 / 12 = 7.9248 + 0.6481 = 8.5729 m (roof slope 2:12, C244)
+
+  BuildingSurface:Detailed,
+    Roof North,                   !- Name
+    Roof,                         !- Surface Type  Derived from xlsx (see the note above).
+    Roof,                         !- Construction Name
+    ,                             !- zone name
+    ,                             !- space name
+    Outdoors,                     !- Outside Boundary Condition
+    ,                             !- outside boundary condition object
+    ,                             !- sun exposure
+    ,                             !- wind exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices
+    17.3688,                      !- Vertex 1 X {m}  Derived from xlsx C29 / C31 / C28 / C42 / C52 / C63 / C244 (see the note above).  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    3.8886,                       !- Vertex 1 Y {m}  Derived from: Y = b / 2 = 3.8886 m (ridge along the long side)
+    8.5729,                       !- Vertex 1 Z {m}  Derived from: Z = eave + (b / 2) x 2 / 12 = 7.9248 + 0.6481 = 8.5729 m (roof slope 2:12, C244)
+    17.3688,                      !- Vertex 2 X {m}  Derived from: X = a = 17.3688 m (long side east-west, C28; a and b solve a x b = 135.08 m2 (C29) and 2 (a + b) = 50.29 m (C31))
+    7.7772,                       !- Vertex 2 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    7.9248,                       !- Vertex 2 Z {m}  Derived from: Z = 8 ft + 2 x 9 ft = 26 ft = 7.9248 m (eave: two floors above ground C52 of 9 ft C63)
+    0,                            !- Vertex 3 X {m}  Derived from: X = 0 (west end)
+    7.7772,                       !- Vertex 3 Y {m}  Derived from: Y = b = P / 2 - a = 25.1460 - 17.3688 = 7.7772 m
+    7.9248,                       !- Vertex 3 Z {m}  Derived from: Z = 8 ft + 2 x 9 ft = 26 ft = 7.9248 m (eave: two floors above ground C52 of 9 ft C63)
+    0,                            !- Vertex 4 X {m}  Derived from: X = 0 (west end)
+    3.8886,                       !- Vertex 4 Y {m}  Derived from: Y = b / 2 = 3.8886 m (ridge along the long side)
+    8.5729;                       !- Vertex 4 Z {m}  Derived from: Z = eave + (b / 2) x 2 / 12 = 7.9248 + 0.6481 = 8.5729 m (roof slope 2:12, C244)
+
+  FenestrationSurface:Detailed,
+    Window1,                      !- Name  Kept: name chosen by the model.
+    Window,                       !- Surface Type  Source: xlsx C246 (window).
+    Window,                       !- Construction Name  Source: xlsx C246..C253 (Window Glazing).
+    Wall West,                    !- Building Surface Name
+    ,                             !- outside boundary condition object
+    ,                             !- view factor to ground
+    ,                             !- frame and divider name
+    ,                             !- multiplier
+    4,                            !- Number of Vertices
+    ,                             !- vertex 1 x coordinate
+    5.2878,                       !- Vertex 1 Y {m}  Derived from: yc + w / 2 = 3.8886 + 1.3992 = 5.2878 (w = 2.7984 m, see the other edge)
+    6.2312,                       !- Vertex 1 Z {m}  Derived from: zc + h / 2 = 5.1816 + 1.0496 = 6.2312
+    0,                            !- Vertex 2 X {m}  Derived from: X = 0 (west wall plane)
+    5.2878,                       !- Vertex 2 Y {m}  Derived from: yc + w / 2 = 3.8886 + 1.3992 = 5.2878 (w = 2.7984 m, see the other edge)
+    4.132,                        !- Vertex 2 Z {m}  Derived from: zc - h / 2 = 5.1816 - 1.0496 = 4.1320 (h = area / w = 2.0993 m; zc = (8 ft + 26 ft) / 2 = 5.1816, centred in the wall height)
+    0,                            !- Vertex 3 X {m}  Derived from: X = 0 (west wall plane)
+    ,                             !- vertex 3 y coordinate
+    4.132,                        !- Vertex 3 Z {m}  Derived from: zc - h / 2 = 5.1816 - 1.0496 = 4.1320 (h = area / w = 2.0993 m; zc = (8 ft + 26 ft) / 2 = 5.1816, centred in the wall height)
+    0,                            !- Vertex 4 X {m}  Derived from: X = 0 (west wall plane)
+    ,                             !- vertex 4 y coordinate
+    6.2312;                       !- Vertex 4 Z {m}  Derived from: zc + h / 2 = 5.1816 + 1.0496 = 6.2312
+
+  FenestrationSurface:Detailed,
+    Window2,                      !- Name  Kept: name chosen by the model.
+    Window,                       !- Surface Type  Source: xlsx C246 (window).
+    Window,                       !- Construction Name  Source: xlsx C246..C253 (Window Glazing).
+    Wall North,                   !- Building Surface Name
+    ,                             !- outside boundary condition object
+    ,                             !- view factor to ground
+    ,                             !- frame and divider name
+    ,                             !- multiplier
+    4,                            !- Number of Vertices
+    ,                             !- vertex 1 x coordinate
+    7.7772,                       !- Vertex 1 Y {m}  Derived from: Y = b = 7.7772 (north wall plane)
+    6.7058,                       !- Vertex 1 Z {m}  Derived from: zc + h / 2 = 5.1816 + 1.5242 = 6.7058
+    10.7162,                      !- Vertex 2 X {m}  Derived from: xc + w / 2 = 8.6844 + 2.0318 = 10.7162 (w = 4.0636 m, see the other edge)
+    7.7772,                       !- Vertex 2 Y {m}  Derived from: Y = b = 7.7772 (north wall plane)
+    3.6574,                       !- Vertex 2 Z {m}  Derived from: zc - h / 2 = 5.1816 - 1.5242 = 3.6574 (h = area / w = 3.0485 m; zc = (8 ft + 26 ft) / 2 = 5.1816, centred in the wall height)
+    ,                             !- vertex 3 x coordinate
+    7.7772,                       !- Vertex 3 Y {m}  Derived from: Y = b = 7.7772 (north wall plane)
+    3.6574,                       !- Vertex 3 Z {m}  Derived from: zc - h / 2 = 5.1816 - 1.5242 = 3.6574 (h = area / w = 3.0485 m; zc = (8 ft + 26 ft) / 2 = 5.1816, centred in the wall height)
+    ,                             !- vertex 4 x coordinate
+    7.7772,                       !- Vertex 4 Y {m}  Derived from: Y = b = 7.7772 (north wall plane)
+    6.7058;                       !- Vertex 4 Z {m}  Derived from: zc + h / 2 = 5.1816 + 1.5242 = 6.7058
+
+  FenestrationSurface:Detailed,
+    Window3,                      !- Name  Kept: name chosen by the model.
+    Window,                       !- Surface Type  Source: xlsx C246 (window).
+    Window,                       !- Construction Name  Source: xlsx C246..C253 (Window Glazing).
+    Wall East,                    !- Building Surface Name
+    ,                             !- outside boundary condition object
+    ,                             !- view factor to ground
+    ,                             !- frame and divider name
+    ,                             !- multiplier
+    4,                            !- Number of Vertices
+    ,                             !- vertex 1 x coordinate
+    ,                             !- vertex 1 y coordinate
+    6.2312,                       !- Vertex 1 Z {m}  Derived from: zc + h / 2 = 5.1816 + 1.0496 = 6.2312
+    17.3688,                      !- Vertex 2 X {m}  Derived from: X = a = 17.3688 (east wall plane)
+    ,                             !- vertex 2 y coordinate
+    4.132,                        !- Vertex 2 Z {m}  Derived from: zc - h / 2 = 5.1816 - 1.0496 = 4.1320 (h = area / w = 2.0993 m; zc = (8 ft + 26 ft) / 2 = 5.1816, centred in the wall height)
+    17.3688,                      !- Vertex 3 X {m}  Derived from: X = a = 17.3688 (east wall plane)
+    5.2878,                       !- Vertex 3 Y {m}  Derived from: yc + w / 2 = 3.8886 + 1.3992 = 5.2878 (w = 2.7984 m, see the other edge)
+    4.132,                        !- Vertex 3 Z {m}  Derived from: zc - h / 2 = 5.1816 - 1.0496 = 4.1320 (h = area / w = 2.0993 m; zc = (8 ft + 26 ft) / 2 = 5.1816, centred in the wall height)
+    17.3688,                      !- Vertex 4 X {m}  Derived from: X = a = 17.3688 (east wall plane)
+    5.2878,                       !- Vertex 4 Y {m}  Derived from: yc + w / 2 = 3.8886 + 1.3992 = 5.2878 (w = 2.7984 m, see the other edge)
+    6.2312;                       !- Vertex 4 Z {m}  Derived from: zc + h / 2 = 5.1816 + 1.0496 = 6.2312
+
+  FenestrationSurface:Detailed,
+    Window4,                      !- Name  Kept: name chosen by the model.
+    Window,                       !- Surface Type  Source: xlsx C246 (window).
+    Window,                       !- Construction Name  Source: xlsx C246..C253 (Window Glazing).
+    Wall South,                   !- Building Surface Name
+    ,                             !- outside boundary condition object
+    ,                             !- view factor to ground
+    ,                             !- frame and divider name
+    ,                             !- multiplier
+    4,                            !- Number of Vertices
+    ,                             !- vertex 1 x coordinate
+    0,                            !- Vertex 1 Y {m}  Derived from: Y = 0 (south wall plane)
+    6.7058,                       !- Vertex 1 Z {m}  Derived from: zc + h / 2 = 5.1816 + 1.5242 = 6.7058
+    ,                             !- vertex 2 x coordinate
+    0,                            !- Vertex 2 Y {m}  Derived from: Y = 0 (south wall plane)
+    3.6574,                       !- Vertex 2 Z {m}  Derived from: zc - h / 2 = 5.1816 - 1.5242 = 3.6574 (h = area / w = 3.0485 m; zc = (8 ft + 26 ft) / 2 = 5.1816, centred in the wall height)
+    13.7162,                      !- Vertex 3 X {m}  Derived from: xc + w / 2 = 11.6844 + 2.0318 = 13.7162 (w = 4.0636 m, see the other edge)
+    0,                            !- Vertex 3 Y {m}  Derived from: Y = 0 (south wall plane)
+    3.6574,                       !- Vertex 3 Z {m}  Derived from: zc - h / 2 = 5.1816 - 1.5242 = 3.6574 (h = area / w = 3.0485 m; zc = (8 ft + 26 ft) / 2 = 5.1816, centred in the wall height)
+    13.7162,                      !- Vertex 4 X {m}  Derived from: xc + w / 2 = 11.6844 + 2.0318 = 13.7162 (w = 4.0636 m, see the other edge)
+    0,                            !- Vertex 4 Y {m}  Derived from: Y = 0 (south wall plane)
+    6.7058;                       !- Vertex 4 Z {m}  Derived from: zc + h / 2 = 5.1816 + 1.5242 = 6.7058
+
+  FenestrationSurface:Detailed,
+    Door1,                        !- Name  Kept: name chosen by the model.
+    Door,                         !- Surface Type  Source: xlsx C266 (door).
+    Door,                         !- Construction Name  Source: xlsx C269 (Door Layer).
+    ,                             !- building surface name
+    ,                             !- outside boundary condition object
+    ,                             !- view factor to ground
+    ,                             !- frame and divider name
+    ,                             !- multiplier
+    4,                            !- Number of Vertices
+    ,                             !- vertex 1 x coordinate
+    0,                            !- Vertex 1 Y {m}  Derived from: Y = 0 (south wall plane)
+    4.4684,                       !- Vertex 1 Z {m}  Derived from: Z = 8 ft + 2.03 = 2.4384 + 2.03 = 4.4684 (door height 2.03 m)
+    ,                             !- vertex 2 x coordinate
+    0,                            !- Vertex 2 Y {m}  Derived from: Y = 0 (south wall plane)
+    2.4384,                       !- Vertex 2 Z {m}  Derived from: Z = 8 ft = 2.4384 m (the door stands on the first floor level, above the 8 ft basement)
+    3.33,                         !- Vertex 3 X {m}  Derived from: x2 = x1 + 1.83 = 1.5 + 1.83 = 3.33 (door width 1.83 m x height 2.03 m = 3.715 m2, C268 40 ft2 = 3.716 m2)
+    0,                            !- Vertex 3 Y {m}  Derived from: Y = 0 (south wall plane)
+    2.4384,                       !- Vertex 3 Z {m}  Derived from: Z = 8 ft = 2.4384 m (the door stands on the first floor level, above the 8 ft basement)
+    3.33,                         !- Vertex 4 X {m}  Derived from: x2 = x1 + 1.83 = 1.5 + 1.83 = 3.33 (door width 1.83 m x height 2.03 m = 3.715 m2, C268 40 ft2 = 3.716 m2)
+    0,                            !- Vertex 4 Y {m}  Derived from: Y = 0 (south wall plane)
+    4.4684;                       !- Vertex 4 Z {m}  Derived from: Z = 8 ft + 2.03 = 2.4384 + 2.03 = 4.4684 (door height 2.03 m)
+
+  People,
+    Residents,                    !- Name  Kept: name chosen by the model.
+    Conditioned Zone,             !- Zone Name
+    ,                             !- number of people schedule name
+    ,                             !- number of people calculation method
+    4;                            !- Number of People  Source: xlsx C54 = 4.
+
+  ElectricEquipment,
+    Refrigerator,                 !- Name
+    Conditioned Zone,             !- Zone Name
+    Appliance Sched,              !- Schedule Name
+    EquipmentLevel,               !- Design Level Calculation Method  Derived from xlsx C299 (annual kWh).
+    55.936;                       !- Design Level {W}  Derived from xlsx C299: 490 kWh/yr / 8760 h = 55.936 W.
+
+  ElectricEquipment,
+    Dishwasher,                   !- Name
+    Conditioned Zone,             !- Zone Name
+    Appliance Sched,              !- Schedule Name
+    EquipmentLevel,               !- Design Level Calculation Method  Derived from xlsx C306 (annual kWh).
+    35.046;                       !- Design Level {W}  Derived from xlsx C306: 307 kWh/yr / 8760 h = 35.046 W.
+
+  ElectricEquipment,
+    Clothes Washer,               !- Name
+    Conditioned Zone,             !- Zone Name
+    Appliance Sched,              !- Schedule Name
+    EquipmentLevel,               !- Design Level Calculation Method  Derived from xlsx C333 (annual kWh).
+    43.379;                       !- Design Level {W}  Derived from xlsx C333: 380 kWh/yr / 8760 h = 43.379 W.
+
+  ZoneInfiltration:DesignFlowRate,
+    Infiltration,                 !- Name
+    Conditioned Zone,             !- Zone Name
+    ,                             !- schedule name
+    AirChanges/Hour,              !- Design Flow Rate Calculation Method  Derived from xlsx C71 (unit ACH).
+    ,                             !- design flow rate
+    ,                             !- flow rate per floor area
+    ,                             !- flow rate per exterior surface area
+    0.0315;                       !- Air Changes per Hour  Derived from xlsx C71: 0.63 / 20 = 0.0315 ACH.
+
+  WaterHeater:Mixed,
+    DHW Heater,                   !- Name
+    0.189,                        !- Tank Volume {m3}  Source: xlsx C195 = 189 L (50 gal).
+    ,                             !- setpoint temperature schedule name
+    ,                             !- deadband temperature difference
+    ,                             !- maximum temperature limit
+    ,                             !- heater control type
+    4500,                         !- Heater Maximum Capacity {W}  Source: xlsx C197 = 4.5 kW.
+    ,                             !- heater minimum capacity
+    ,                             !- heater ignition minimum flow rate
+    ,                             !- heater ignition delay
+    Electricity,                  !- Heater Fuel Type  Source: xlsx C193 = Electricity.
+    1,                            !- Heater Thermal Efficiency  MISMATCH: xlsx C201 Energy Factor 2.5; EnergyPlus limit 1.0 for this object.
+    ,                             !- part load factor curve name
+    ,                             !- off cycle parasitic fuel consumption rate
+    ,                             !- off cycle parasitic fuel type
+    ,                             !- off cycle parasitic heat fraction to tank
+    ,                             !- on cycle parasitic fuel consumption rate
+    ,                             !- on cycle parasitic fuel type
+    ,                             !- on cycle parasitic heat fraction to tank
+    Zone,                         !- Ambient Temperature Indicator
+    ,                             !- ambient temperature schedule name
+    Conditioned Zone,             !- Ambient Temperature Zone Name  Source: xlsx C207 = Indoors (the conditioned zone).
+    ,                             !- ambient temperature outdoor air node name
+    ,                             !- off cycle loss coefficient to ambient temperature
+    ,                             !- off cycle loss fraction to zone
+    0.8911,                       !- On Cycle Loss Coefficient to Ambient Temperature {W/K}  Derived from xlsx C205 (same as the off cycle value).
+    ,                             !- on cycle loss fraction to zone
+    ,                             !- peak use flow rate
+    Always On;                    !- Use Flow Rate Fraction Schedule Name
+
+  Generator:PVWatts,
+    PV System,                    !- Name
+    5,                            !- PVWatts Version
+    10240;                        !- DC System Capacity {W}  Source: xlsx C338 = 10.24 kW.
+
+  ElectricLoadCenter:Generators,
+    PV List,                      !- Name
+    PV System,                    !- Generator 1 Name
+    Generator:PVWatts,            !- Generator 1 Object Type
+    10240;                        !- Generator 1 Rated Electric Power Output {W}  Source: xlsx C338 = 10.24 kW.
+
+  HeatExchanger:AirToAir:SensibleAndLatent,
+    ERV Heat Exchanger,           !- Name
+    Always On,                    !- Availability Schedule Name
+    0.0472,                       !- Nominal Supply Air Flow Rate {m3/s}  Derived from xlsx C90 / C97: 54 W / 0.54 W/cfm = 100 cfm = 0.0472 m3/s (C89 range 80..100 cfm).
+    0.78,                         !- Sensible Effectiveness at 100% Heating Air Flow  Source: xlsx C104 = 78 %.
+    ,                             !- latent effectiveness at 100 heating air flow
+    0.78,                         !- Sensible Effectiveness at 75% Heating Air Flow  Source: xlsx C104 = 78 %.
+    ,                             !- latent effectiveness at 75 heating air flow
+    0.78,                         !- Sensible Effectiveness at 100% Cooling Air Flow  Source: xlsx C104 = 78 %.
+    ,                             !- latent effectiveness at 100 cooling air flow
+    0.78,                         !- Sensible Effectiveness at 75% Cooling Air Flow  Source: xlsx C104 = 78 %.
+    ,                             !- latent effectiveness at 75 cooling air flow
+    ERV OA Inlet Node,            !- Supply Air Inlet Node Name
+    ERV Supply Fan Inlet Node,    !- Supply Air Outlet Node Name
+    ERV Exhaust Inlet Node,       !- Exhaust Air Inlet Node Name
+    ERV Exhaust Fan Inlet Node,   !- Exhaust Air Outlet Node Name
+    ,                             !- nominal electric power
+    ,                             !- supply air outlet temperature control
+    ,                             !- heat exchanger type
+    ,                             !- frost control type
+    ,                             !- threshold temperature
+    ,                             !- initial defrost time fraction
+    ,                             !- rate of defrost time fraction increase
+    No;                           !- Economizer Lockout
+
+  Fan:OnOff,
+    ERV Supply Fan,               !- Name
+    Always On,                    !- Availability Schedule Name
+    ,                             !- fan total efficiency
+    ,                             !- pressure rise
+    0.0472,                       !- Maximum Flow Rate {m3/s}  Derived from xlsx C90 / C97 (100 cfm).
+    1,                            !- Motor Efficiency
+    0,                            !- Motor In Airstream Fraction
+    ERV Supply Fan Inlet Node,    !- Air Inlet Node Name
+    ERV Supply Outlet Node,       !- Air Outlet Node Name
+    ,                             !- fan power ratio function of speed ratio curve name
+    ,                             !- fan efficiency ratio function of speed ratio curve name
+    Ventilation;                  !- End-Use Subcategory
+
+  Fan:OnOff,
+    ERV Exhaust Fan,              !- Name
+    Always On,                    !- Availability Schedule Name
+    ,                             !- fan total efficiency
+    ,                             !- pressure rise
+    0.0472,                       !- Maximum Flow Rate {m3/s}  Derived from xlsx C90 / C97 (100 cfm).
+    1,                            !- Motor Efficiency
+    0,                            !- Motor In Airstream Fraction
+    ERV Exhaust Fan Inlet Node,   !- Air Inlet Node Name
+    ERV Exhaust Outlet Node,      !- Air Outlet Node Name
+    ,                             !- fan power ratio function of speed ratio curve name
+    ,                             !- fan efficiency ratio function of speed ratio curve name
+    Ventilation;                  !- End-Use Subcategory
+
+  ZoneHVAC:EnergyRecoveryVentilator,
+    ERV,                          !- Name
+    Always On,                    !- Availability Schedule Name
+    ERV Heat Exchanger,           !- Heat Exchanger Name
+    0.0472,                       !- Supply Air Flow Rate {m3/s}  Derived from xlsx C90 / C97 (100 cfm).
+    0.0472,                       !- Exhaust Air Flow Rate {m3/s}  Derived from xlsx C90 / C97 (100 cfm).
+    ERV Supply Fan,               !- Supply Air Fan Name
+    ERV Exhaust Fan;              !- Exhaust Air Fan Name
+
+  ZoneHVAC:Dehumidifier:DX,
+    Dehumidifier,                 !- Name
+    Always On,                    !- Availability Schedule Name
+    Dehumidifier Inlet Node,      !- Air Inlet Node Name
+    Dehumidifier Outlet Node,     !- Air Outlet Node Name
+    63.9,                         !- Rated Water Removal {L/day}  Source: xlsx C181 = 63.9 L/day.
+    1.81,                         !- Rated Energy Factor {L/kWh}  Source: xlsx C188 = 1.81 L/kWh.
+    ,                             !- rated air flow rate
+    Dehumidifier Water Removal,   !- Water Removal Curve Name
+    Dehumidifier Energy Factor,   !- Energy Factor Curve Name
+    Dehumidifier PLF,             !- Part Load Fraction Correlation Curve Name
+    ,                             !- minimum dry bulb temperature for dehumidifier operation
+    32;                           !- Maximum Dry-Bulb Temperature for Dehumidifier Operation {C}
+
+  ThermostatSetpoint:DualSetpoint,
+    Thermostat Dual SP Control,   !- Name
+    HVACTemplate-Always 21,       !- Heating Setpoint Temperature Schedule Name  Source: xlsx C213 / C215 / C217 = 21 C.
+    HVACTemplate-Always 24;       !- Cooling Setpoint Temperature Schedule Name  Source: xlsx C214 / C216 / C218 = 24 C.
+
+  Sizing:System,
+    Heat Pump System,             !- AirLoop Name
+    ,                             !- type of load to size on
+    0,                            !- Design Outdoor Air Flow Rate {m3/s}
+    1,                            !- Central Heating Maximum System Air Flow Ratio
+    7,                            !- Preheat Design Set Temperature {C}
+    0.008,                        !- Preheat Design Humidity Ratio {kg-H2O/kg-air}
+    11,                           !- Precool Design Temperature {C}
+    0.008,                        !- Precool Design Humidity Ratio {kg-H2O/kg-air}
+    12.8,                         !- Central Cooling Design Supply Air Temperature {C}
+    50.0,                         !- Central Heating Design Supply Air Temperature {C}
+    ,                             !- type of zone sum to use
+    ,                             !- 100 outdoor air in cooling
+    ,                             !- 100 outdoor air in heating
+    ,                             !- central cooling design supply air humidity ratio
+    ,                             !- central heating design supply air humidity ratio
+    Flow/System,                  !- Cooling Supply Air Flow Rate Method
+    0.5667,                       !- Cooling Supply Air Flow Rate {m3/s}  Source: xlsx C119 = 34 m3/min = 0.5667 m3/s.
+    ,                             !- cooling supply air flow rate per floor area
+    ,                             !- cooling fraction of autosized cooling supply air flow rate
+    ,                             !- cooling supply air flow rate per unit cooling capacity
+    Flow/System,                  !- Heating Supply Air Flow Rate Method
+    0.5667;                       !- Heating Supply Air Flow Rate {m3/s}  Source: xlsx C119 = 34 m3/min = 0.5667 m3/s.
+
+  AirLoopHVAC:UnitaryHeatPump:AirToAir,
+    Heat Pump System Heat Pump,   !- Name
+    ,                             !- availability schedule name
+    Heat Pump System Mixed Air Outlet,!- Air Inlet Node Name
+    Heat Pump System Air Loop Outlet,!- Air Outlet Node Name
+    0.5667,                       !- Cooling Supply Air Flow Rate  Source: xlsx C119 = 34 m3/min = 0.5667 m3/s.
+    0.5667,                       !- Heating Supply Air Flow Rate  Source: xlsx C119 = 34 m3/min = 0.5667 m3/s.
+    0.5667,                       !- No Load Supply Air Flow Rate  Source: xlsx C119 = 34 m3/min = 0.5667 m3/s.
+    Conditioned Zone,             !- Controlling Zone or Thermostat Location
+    Fan:OnOff,                    !- Supply Air Fan Object Type
+    Heat Pump System Supply Fan,  !- Supply Air Fan Name
+    Coil:Heating:DX:SingleSpeed,  !- Heating Coil Object Type
+    Heat Pump System HP Heating Coil,!- Heating Coil Name
+    Coil:Cooling:DX:SingleSpeed,  !- Cooling Coil Object Type
+    Heat Pump System Cooling Coil,!- Cooling Coil Name
+    Coil:Heating:Electric,        !- Supplemental Heating Coil Object Type
+    Heat Pump System Sup Heat Coil,!- Supplemental Heating Coil Name
+    Autosize,                     !- Maximum Supply Air Temperature from Supplemental Heater
+    4.444,                        !- Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation
+    DrawThrough,                  !- Fan Placement
+    HVACTemplate-Always 0;        !- Supply Air Fan Operating Mode Schedule Name
+
+  Coil:Heating:DX:SingleSpeed,
+    Heat Pump System HP Heating Coil,!- Name
+    ,                             !- availability schedule name
+    7800,                         !- Rated Total Heating Capacity {W}  Source: xlsx C146 = 7.8 kW.
+    2.65,                         !- Rated COP  Source: xlsx C149 = 2.65 COP.
+    ,                             !- rated air flow rate
+    ,                             !- 2017 rated supply fan power per volume flow rate
+    ,                             !- 2023 rated supply fan power per volume flow rate
+    Heat Pump System Cooling Coil Outlet,!- Air Inlet Node Name
+    Heat Pump System Heating Coil Outlet,!- Air Outlet Node Name
+    Heat Pump System HP Heating Coil Cap-FT,!- Total Heating Capacity Function of Temperature Curve Name
+    Heat Pump System HP Heating Coil Cap-FF,!- Total Heating Capacity Function of Flow Fraction Curve Name
+    Heat Pump System HP Heating Coil EIR-FT,!- Energy Input Ratio Function of Temperature Curve Name
+    Heat Pump System HP Heating Coil EIR-FF,!- Energy Input Ratio Function of Flow Fraction Curve Name
+    Heat Pump System HP Heating Coil PLF,!- Part Load Fraction Correlation Curve Name
+    Heat Pump System HP Heating Coil DefrEIR-FT,!- Defrost Energy Input Ratio Function of Temperature Curve Name
+    ,                             !- minimum outdoor dry bulb temperature for compressor operation
+    ,                             !- outdoor dry bulb temperature to turn on compressor
+    ,                             !- maximum outdoor dry bulb temperature for defrost operation
+    ,                             !- crankcase heater capacity
+    0,                            !- Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater Operation {C}
+    ,                             !- defrost strategy
+    ,                             !- defrost control
+    ,                             !- defrost time period fraction
+    autosize;                     !- Resistive Defrost Heater Capacity {W}
+
+  Coil:Heating:Electric,
+    Heat Pump System Sup Heat Coil,!- Name
+    ,                             !- availability schedule name
+    1,                            !- Efficiency  Source: xlsx C158 = 1.
+    autosize,                     !- Nominal Capacity of the Coil {W}
+    Heat Pump System Supply Fan Outlet,!- Air Inlet Node Name
+    Heat Pump System Air Loop Outlet;!- Air Outlet Node Name
+
+  Coil:Cooling:DX:SingleSpeed,
+    Heat Pump System Cooling Coil,!- Name
+    ,                             !- availability schedule name
+    7700,                         !- Gross Rated Total Cooling Capacity {W}  Source: xlsx C165 = 7.7 kW.
+    autosize,                     !- Gross Rated Sensible Heat Ratio
+    3.82,                         !- Rated COP  Source: xlsx C166 = 3.82 COP.
+    ,                             !- rated air flow rate
+    ,                             !- 2017 rated evaporator fan power per volume flow rate
+    ,                             !- 2023 rated evaporator fan power per volume flow rate
+    Heat Pump System Mixed Air Outlet,!- Air Inlet Node Name
+    Heat Pump System Cooling Coil Outlet,!- Air Outlet Node Name
+    Heat Pump System Cool Coil Cap-FT,!- Total Cooling Capacity Function of Temperature Curve Name
+    Heat Pump System Cool Coil Cap-FF,!- Total Cooling Capacity Function of Flow Fraction Curve Name
+    Heat Pump System Cool Coil EIR-FT,!- Energy Input Ratio Function of Temperature Curve Name
+    Heat Pump System Cool Coil EIR-FF,!- Energy Input Ratio Function of Flow Fraction Curve Name
+    Heat Pump System Cool Coil PLF,!- Part Load Fraction Correlation Curve Name
+    ,                             !- minimum outdoor dry bulb temperature for compressor operation
+    ,                             !- nominal time for condensate removal to begin
+    ,                             !- ratio of initial moisture evaporation rate and steady state latent capacity
+    ,                             !- maximum cycling rate
+    ,                             !- latent capacity time constant
+    Heat Pump System Cooling Coil Condenser Inlet,!- Condenser Air Inlet Node Name
+    ,                             !- condenser type
+    0;                            !- Evaporative Condenser Effectiveness
+

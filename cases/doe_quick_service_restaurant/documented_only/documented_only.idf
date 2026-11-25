@@ -1,0 +1,817 @@
+! DOE Quick Service Restaurant, 90.1-2004, Buffalo: only the data of the input documents (xlsx = PNNL_Prototype_Scorecards.xlsx, PDF = NREL reference-building report).
+! Weather file: USA_NY_Buffalo.Niagara.Intl.AP.725280_TMY3.epw (xlsx sheet Climate Zone).
+! Only the fields that have a documentary basis are kept (tools/make_documented_only_idf.py); blank fields = not in the documents. Not meant to run.
+
+  Schedule:Compact,
+    BLDG_OCC_SCH,                 !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays SummerDesignDay WinterDesignDay,!- Field 2
+    Until: 1:00,                  !- Field 3  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    0.05,                         !- Field 3  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    Until: 5:00,                  !- Field 4  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    0,                            !- Field 4  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    Until: 6:00,                  !- Field 5  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    0.05,                         !- Field 5  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    Until: 7:00,                  !- Field 6  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    0.1,                          !- Field 6  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    Until: 10:00,                 !- Field 7  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    0.4,                          !- Field 7  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    Until: 11:00,                 !- Field 8  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    0.2,                          !- Field 8  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    Until: 12:00,                 !- Field 9  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    0.5,                          !- Field 9  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    Until: 13:00,                 !- Field 10  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    0.8,                          !- Field 10  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    Until: 14:00,                 !- Field 11  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    0.7,                          !- Field 11  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    Until: 15:00,                 !- Field 12  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    0.4,                          !- Field 12  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    Until: 16:00,                 !- Field 13  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    0.2,                          !- Field 13  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    Until: 17:00,                 !- Field 14  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    0.25,                         !- Field 14  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    Until: 18:00,                 !- Field 15  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    0.5,                          !- Field 15  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    Until: 21:00,                 !- Field 16  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    0.8,                          !- Field 16  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    Until: 22:00,                 !- Field 17  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    0.5,                          !- Field 17  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    Until: 23:00,                 !- Field 18  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    0.35,                         !- Field 18  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    Until: 24:00,                 !- Field 19  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    0.2,                          !- Field 19  Source: xlsx Schedule Summary row 611 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 20
+    Until: 1:00,                  !- Field 21  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    0.05,                         !- Field 21  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    Until: 6:00,                  !- Field 22  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    0,                            !- Field 22  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    Until: 7:00,                  !- Field 23  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    0.05,                         !- Field 23  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    Until: 9:00,                  !- Field 24  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    0.5,                          !- Field 24  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    Until: 10:00,                 !- Field 25  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    0.4,                          !- Field 25  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    Until: 11:00,                 !- Field 26  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    0.2,                          !- Field 26  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    Until: 12:00,                 !- Field 27  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    0.45,                         !- Field 27  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    Until: 14:00,                 !- Field 28  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    0.5,                          !- Field 28  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    Until: 15:00,                 !- Field 29  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    0.35,                         !- Field 29  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    Until: 18:00,                 !- Field 30  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    0.3,                          !- Field 30  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    Until: 19:00,                 !- Field 31  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    0.7,                          !- Field 31  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    Until: 20:00,                 !- Field 32  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    0.9,                          !- Field 32  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    Until: 21:00,                 !- Field 33  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    0.7,                          !- Field 33  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    Until: 22:00,                 !- Field 34  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    0.65,                         !- Field 34  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    Until: 23:00,                 !- Field 35  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    0.55,                         !- Field 35  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    Until: 24:00,                 !- Field 36  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    0.35,                         !- Field 36  Source: xlsx Schedule Summary row 612 (Sat), hours up to this time.
+    For: AllOtherDays,            !- Field 37
+    Until: 1:00,                  !- Field 38  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    0.05,                         !- Field 38  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    Until: 6:00,                  !- Field 39  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    0,                            !- Field 39  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    Until: 7:00,                  !- Field 40  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    0.05,                         !- Field 40  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    Until: 9:00,                  !- Field 41  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    0.5,                          !- Field 41  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    Until: 11:00,                 !- Field 42  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    0.2,                          !- Field 42  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    Until: 12:00,                 !- Field 43  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    0.3,                          !- Field 43  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    Until: 14:00,                 !- Field 44  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    0.5,                          !- Field 44  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    Until: 15:00,                 !- Field 45  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    0.3,                          !- Field 45  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    Until: 16:00,                 !- Field 46  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    0.2,                          !- Field 46  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    Until: 17:00,                 !- Field 47  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    0.25,                         !- Field 47  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    Until: 18:00,                 !- Field 48  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    0.35,                         !- Field 48  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    Until: 19:00,                 !- Field 49  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    0.55,                         !- Field 49  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    Until: 20:00,                 !- Field 50  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    0.65,                         !- Field 50  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    Until: 21:00,                 !- Field 51  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    0.7,                          !- Field 51  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    Until: 22:00,                 !- Field 52  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    0.35,                         !- Field 52  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    Until: 24:00,                 !- Field 53  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+    0.2;                          !- Field 53  Source: xlsx Schedule Summary row 613 (Sun), hours up to this time.
+
+  Schedule:Compact,
+    ltg_sch_dining,               !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays SummerDesignDay WinterDesignDay,!- Field 2
+    Until: 5:00,                  !- Field 3  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    0.15,                         !- Field 3  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    Until: 6:00,                  !- Field 4  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    0.2,                          !- Field 4  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    Until: 8:00,                  !- Field 5  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    0.4,                          !- Field 5  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    Until: 10:00,                 !- Field 6  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    0.6,                          !- Field 6  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    Until: 22:00,                 !- Field 7  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    0.9,                          !- Field 7  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    Until: 23:00,                 !- Field 8  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    0.5,                          !- Field 8  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    Until: 24:00,                 !- Field 9  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    0.3,                          !- Field 9  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 10
+    Until: 1:00,                  !- Field 11  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    0.2,                          !- Field 11  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    Until: 6:00,                  !- Field 12  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    0.15,                         !- Field 12  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    Until: 8:00,                  !- Field 13  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    0.3,                          !- Field 13  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    Until: 10:00,                 !- Field 14  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    0.6,                          !- Field 14  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    Until: 17:00,                 !- Field 15  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    0.8,                          !- Field 15  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    Until: 22:00,                 !- Field 16  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    0.9,                          !- Field 16  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    Until: 23:00,                 !- Field 17  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    0.5,                          !- Field 17  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    Until: 24:00,                 !- Field 18  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    0.3,                          !- Field 18  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    For: AllOtherDays,            !- Field 19
+    Until: 1:00,                  !- Field 20  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    0.2,                          !- Field 20  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    Until: 6:00,                  !- Field 21  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    0.15,                         !- Field 21  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    Until: 8:00,                  !- Field 22  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    0.3,                          !- Field 22  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    Until: 10:00,                 !- Field 23  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    0.5,                          !- Field 23  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    Until: 16:00,                 !- Field 24  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    0.7,                          !- Field 24  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    Until: 22:00,                 !- Field 25  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    0.6,                          !- Field 25  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    Until: 23:00,                 !- Field 26  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    0.5,                          !- Field 26  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    Until: 24:00,                 !- Field 27  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    0.3;                          !- Field 27  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+
+  Schedule:Compact,
+    ltg_sch_kitchen,              !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays SummerDesignDay WinterDesignDay,!- Field 2
+    Until: 5:00,                  !- Field 3  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    0.15,                         !- Field 3  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    Until: 6:00,                  !- Field 4  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    0.2,                          !- Field 4  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    Until: 8:00,                  !- Field 5  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    0.4,                          !- Field 5  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    Until: 10:00,                 !- Field 6  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    0.6,                          !- Field 6  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    Until: 22:00,                 !- Field 7  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    0.9,                          !- Field 7  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    Until: 23:00,                 !- Field 8  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    0.5,                          !- Field 8  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    Until: 24:00,                 !- Field 9  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    0.3,                          !- Field 9  Source: xlsx Schedule Summary row 614 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 10
+    Until: 1:00,                  !- Field 11  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    0.2,                          !- Field 11  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    Until: 6:00,                  !- Field 12  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    0.15,                         !- Field 12  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    Until: 8:00,                  !- Field 13  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    0.3,                          !- Field 13  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    Until: 10:00,                 !- Field 14  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    0.6,                          !- Field 14  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    Until: 17:00,                 !- Field 15  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    0.8,                          !- Field 15  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    Until: 22:00,                 !- Field 16  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    0.9,                          !- Field 16  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    Until: 23:00,                 !- Field 17  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    0.5,                          !- Field 17  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    Until: 24:00,                 !- Field 18  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    0.3,                          !- Field 18  Source: xlsx Schedule Summary row 615 (Sat), hours up to this time.
+    For: AllOtherDays,            !- Field 19
+    Until: 1:00,                  !- Field 20  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    0.2,                          !- Field 20  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    Until: 6:00,                  !- Field 21  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    0.15,                         !- Field 21  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    Until: 8:00,                  !- Field 22  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    0.3,                          !- Field 22  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    Until: 10:00,                 !- Field 23  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    0.5,                          !- Field 23  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    Until: 16:00,                 !- Field 24  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    0.7,                          !- Field 24  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    Until: 22:00,                 !- Field 25  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    0.6,                          !- Field 25  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    Until: 23:00,                 !- Field 26  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    0.5,                          !- Field 26  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    Until: 24:00,                 !- Field 27  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+    0.3;                          !- Field 27  Source: xlsx Schedule Summary row 616 (Sun), hours up to this time.
+
+  Schedule:Compact,
+    BLDG_EQUIP_SCH,               !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays SummerDesignDay WinterDesignDay,!- Field 2
+    Until: 1:00,                  !- Field 3  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.03,                         !- Field 3  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 2:00,                  !- Field 4  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.02,                         !- Field 4  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 3:00,                  !- Field 5  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.03,                         !- Field 5  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 4:00,                  !- Field 6  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.02,                         !- Field 6  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 5:00,                  !- Field 7  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.05,                         !- Field 7  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 6:00,                  !- Field 8  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.12,                         !- Field 8  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 7:00,                  !- Field 9  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.13,                         !- Field 9  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 8:00,                  !- Field 10  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.15,                         !- Field 10  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 9:00,                  !- Field 11  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.18,                         !- Field 11  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 10:00,                 !- Field 12  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.21,                         !- Field 12  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 11:00,                 !- Field 13  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.26,                         !- Field 13  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 12:00,                 !- Field 14  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.29,                         !- Field 14  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 13:00,                 !- Field 15  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.27,                         !- Field 15  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 14:00,                 !- Field 16  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.25,                         !- Field 16  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 16:00,                 !- Field 17  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.23,                         !- Field 17  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 18:00,                 !- Field 18  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.26,                         !- Field 18  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 19:00,                 !- Field 19  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.24,                         !- Field 19  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 20:00,                 !- Field 20  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.22,                         !- Field 20  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 21:00,                 !- Field 21  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.2,                          !- Field 21  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 22:00,                 !- Field 22  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.18,                         !- Field 22  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 23:00,                 !- Field 23  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.09,                         !- Field 23  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    Until: 24:00,                 !- Field 24  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    0.03,                         !- Field 24  Source: xlsx Schedule Summary row 617 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 25
+    Until: 1:00,                  !- Field 26  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.03,                         !- Field 26  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 2:00,                  !- Field 27  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.02,                         !- Field 27  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 3:00,                  !- Field 28  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.03,                         !- Field 28  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 4:00,                  !- Field 29  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.02,                         !- Field 29  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 5:00,                  !- Field 30  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.05,                         !- Field 30  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 6:00,                  !- Field 31  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.12,                         !- Field 31  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 7:00,                  !- Field 32  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.13,                         !- Field 32  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 8:00,                  !- Field 33  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.15,                         !- Field 33  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 9:00,                  !- Field 34  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.18,                         !- Field 34  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 10:00,                 !- Field 35  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.21,                         !- Field 35  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 11:00,                 !- Field 36  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.26,                         !- Field 36  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 12:00,                 !- Field 37  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.29,                         !- Field 37  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 13:00,                 !- Field 38  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.27,                         !- Field 38  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 14:00,                 !- Field 39  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.25,                         !- Field 39  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 16:00,                 !- Field 40  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.23,                         !- Field 40  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 18:00,                 !- Field 41  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.26,                         !- Field 41  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 19:00,                 !- Field 42  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.24,                         !- Field 42  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 20:00,                 !- Field 43  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.22,                         !- Field 43  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 21:00,                 !- Field 44  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.2,                          !- Field 44  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 22:00,                 !- Field 45  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.18,                         !- Field 45  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 23:00,                 !- Field 46  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.09,                         !- Field 46  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    Until: 24:00,                 !- Field 47  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    0.03,                         !- Field 47  Source: xlsx Schedule Summary row 618 (Sat), hours up to this time.
+    For: AllOtherDays,            !- Field 48
+    Until: 1:00,                  !- Field 49  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.03,                         !- Field 49  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 2:00,                  !- Field 50  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.02,                         !- Field 50  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 3:00,                  !- Field 51  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.03,                         !- Field 51  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 4:00,                  !- Field 52  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.02,                         !- Field 52  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 5:00,                  !- Field 53  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.05,                         !- Field 53  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 6:00,                  !- Field 54  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.12,                         !- Field 54  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 7:00,                  !- Field 55  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.13,                         !- Field 55  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 8:00,                  !- Field 56  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.15,                         !- Field 56  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 9:00,                  !- Field 57  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.18,                         !- Field 57  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 10:00,                 !- Field 58  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.21,                         !- Field 58  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 11:00,                 !- Field 59  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.26,                         !- Field 59  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 12:00,                 !- Field 60  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.29,                         !- Field 60  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 13:00,                 !- Field 61  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.27,                         !- Field 61  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 14:00,                 !- Field 62  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.25,                         !- Field 62  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 16:00,                 !- Field 63  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.23,                         !- Field 63  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 18:00,                 !- Field 64  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.26,                         !- Field 64  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 19:00,                 !- Field 65  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.24,                         !- Field 65  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 20:00,                 !- Field 66  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.22,                         !- Field 66  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 21:00,                 !- Field 67  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.2,                          !- Field 67  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 22:00,                 !- Field 68  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.18,                         !- Field 68  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 23:00,                 !- Field 69  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.09,                         !- Field 69  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    Until: 24:00,                 !- Field 70  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+    0.03;                         !- Field 70  Source: xlsx Schedule Summary row 619 (Sun), hours up to this time.
+
+  Schedule:Compact,
+    FF_GAS_EQUIP_SCH,             !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays SummerDesignDay WinterDesignDay,!- Field 2
+    Until: 1:00,                  !- Field 3  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.03,                         !- Field 3  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 2:00,                  !- Field 4  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.02,                         !- Field 4  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 3:00,                  !- Field 5  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.03,                         !- Field 5  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 4:00,                  !- Field 6  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.02,                         !- Field 6  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 5:00,                  !- Field 7  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.05,                         !- Field 7  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 6:00,                  !- Field 8  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.12,                         !- Field 8  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 7:00,                  !- Field 9  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.13,                         !- Field 9  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 8:00,                  !- Field 10  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.15,                         !- Field 10  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 9:00,                  !- Field 11  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.18,                         !- Field 11  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 10:00,                 !- Field 12  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.21,                         !- Field 12  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 11:00,                 !- Field 13  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.26,                         !- Field 13  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 12:00,                 !- Field 14  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.29,                         !- Field 14  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 13:00,                 !- Field 15  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.27,                         !- Field 15  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 14:00,                 !- Field 16  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.25,                         !- Field 16  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 16:00,                 !- Field 17  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.23,                         !- Field 17  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 18:00,                 !- Field 18  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.26,                         !- Field 18  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 19:00,                 !- Field 19  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.24,                         !- Field 19  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 20:00,                 !- Field 20  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.22,                         !- Field 20  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 21:00,                 !- Field 21  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.2,                          !- Field 21  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 22:00,                 !- Field 22  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.18,                         !- Field 22  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 23:00,                 !- Field 23  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.09,                         !- Field 23  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    Until: 24:00,                 !- Field 24  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    0.03,                         !- Field 24  Source: xlsx Schedule Summary row 620 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 25
+    Until: 1:00,                  !- Field 26  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.03,                         !- Field 26  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 2:00,                  !- Field 27  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.02,                         !- Field 27  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 3:00,                  !- Field 28  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.03,                         !- Field 28  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 4:00,                  !- Field 29  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.02,                         !- Field 29  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 5:00,                  !- Field 30  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.05,                         !- Field 30  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 6:00,                  !- Field 31  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.12,                         !- Field 31  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 7:00,                  !- Field 32  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.13,                         !- Field 32  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 8:00,                  !- Field 33  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.15,                         !- Field 33  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 9:00,                  !- Field 34  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.18,                         !- Field 34  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 10:00,                 !- Field 35  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.21,                         !- Field 35  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 11:00,                 !- Field 36  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.26,                         !- Field 36  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 12:00,                 !- Field 37  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.29,                         !- Field 37  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 13:00,                 !- Field 38  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.27,                         !- Field 38  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 14:00,                 !- Field 39  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.25,                         !- Field 39  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 16:00,                 !- Field 40  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.23,                         !- Field 40  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 18:00,                 !- Field 41  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.26,                         !- Field 41  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 19:00,                 !- Field 42  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.24,                         !- Field 42  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 20:00,                 !- Field 43  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.22,                         !- Field 43  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 21:00,                 !- Field 44  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.2,                          !- Field 44  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 22:00,                 !- Field 45  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.18,                         !- Field 45  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 23:00,                 !- Field 46  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.09,                         !- Field 46  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    Until: 24:00,                 !- Field 47  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    0.03,                         !- Field 47  Source: xlsx Schedule Summary row 621 (Sat), hours up to this time.
+    For: AllOtherDays,            !- Field 48
+    Until: 1:00,                  !- Field 49  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.03,                         !- Field 49  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 2:00,                  !- Field 50  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.02,                         !- Field 50  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 3:00,                  !- Field 51  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.03,                         !- Field 51  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 4:00,                  !- Field 52  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.02,                         !- Field 52  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 5:00,                  !- Field 53  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.05,                         !- Field 53  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 6:00,                  !- Field 54  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.12,                         !- Field 54  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 7:00,                  !- Field 55  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.13,                         !- Field 55  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 8:00,                  !- Field 56  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.15,                         !- Field 56  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 9:00,                  !- Field 57  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.18,                         !- Field 57  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 10:00,                 !- Field 58  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.21,                         !- Field 58  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 11:00,                 !- Field 59  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.26,                         !- Field 59  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 12:00,                 !- Field 60  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.29,                         !- Field 60  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 13:00,                 !- Field 61  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.27,                         !- Field 61  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 14:00,                 !- Field 62  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.25,                         !- Field 62  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 16:00,                 !- Field 63  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.23,                         !- Field 63  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 18:00,                 !- Field 64  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.26,                         !- Field 64  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 19:00,                 !- Field 65  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.24,                         !- Field 65  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 20:00,                 !- Field 66  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.22,                         !- Field 66  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 21:00,                 !- Field 67  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.2,                          !- Field 67  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 22:00,                 !- Field 68  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.18,                         !- Field 68  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 23:00,                 !- Field 69  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.09,                         !- Field 69  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    Until: 24:00,                 !- Field 70  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+    0.03;                         !- Field 70  Source: xlsx Schedule Summary row 622 (Sun), hours up to this time.
+
+  Schedule:Compact,
+    INFIL_SCH_PNNL,               !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays SummerDesignDay WinterDesignDay,!- Field 2
+    Until: 1:00,                  !- Field 3  Source: xlsx Schedule Summary row 629 (Mon - Fri), hours up to this time.
+    0.25,                         !- Field 3  Source: xlsx Schedule Summary row 629 (Mon - Fri), hours up to this time.
+    Until: 5:00,                  !- Field 4  Source: xlsx Schedule Summary row 629 (Mon - Fri), hours up to this time.
+    1,                            !- Field 4  Source: xlsx Schedule Summary row 629 (Mon - Fri), hours up to this time.
+    Until: 24:00,                 !- Field 5  Source: xlsx Schedule Summary row 629 (Mon - Fri), hours up to this time.
+    0.25,                         !- Field 5  Source: xlsx Schedule Summary row 629 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 6
+    Until: 1:00,                  !- Field 7  Source: xlsx Schedule Summary row 630 (Sat), hours up to this time.
+    0.25,                         !- Field 7  Source: xlsx Schedule Summary row 630 (Sat), hours up to this time.
+    Until: 5:00,                  !- Field 8  Source: xlsx Schedule Summary row 630 (Sat), hours up to this time.
+    1,                            !- Field 8  Source: xlsx Schedule Summary row 630 (Sat), hours up to this time.
+    Until: 24:00,                 !- Field 9  Source: xlsx Schedule Summary row 630 (Sat), hours up to this time.
+    0.25,                         !- Field 9  Source: xlsx Schedule Summary row 630 (Sat), hours up to this time.
+    For: AllOtherDays,            !- Field 10
+    Until: 1:00,                  !- Field 11  Source: xlsx Schedule Summary row 631 (Sun), hours up to this time.
+    0.25,                         !- Field 11  Source: xlsx Schedule Summary row 631 (Sun), hours up to this time.
+    Until: 5:00,                  !- Field 12  Source: xlsx Schedule Summary row 631 (Sun), hours up to this time.
+    1,                            !- Field 12  Source: xlsx Schedule Summary row 631 (Sun), hours up to this time.
+    Until: 24:00,                 !- Field 13  Source: xlsx Schedule Summary row 631 (Sun), hours up to this time.
+    0.25;                         !- Field 13  Source: xlsx Schedule Summary row 631 (Sun), hours up to this time.
+
+  Schedule:Compact,
+    HVACOperationSchd,            !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays SummerDesignDay WinterDesignDay,!- Field 2
+    Until: 1:00,                  !- Field 3  Source: xlsx Schedule Summary row 623 (Mon - Fri), hours up to this time.
+    1,                            !- Field 3  Source: xlsx Schedule Summary row 623 (Mon - Fri), hours up to this time.
+    Until: 5:00,                  !- Field 4  Source: xlsx Schedule Summary row 623 (Mon - Fri), hours up to this time.
+    0,                            !- Field 4  Source: xlsx Schedule Summary row 623 (Mon - Fri), hours up to this time.
+    Until: 24:00,                 !- Field 5  Source: xlsx Schedule Summary row 623 (Mon - Fri), hours up to this time.
+    1,                            !- Field 5  Source: xlsx Schedule Summary row 623 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 6
+    Until: 1:00,                  !- Field 7  Source: xlsx Schedule Summary row 624 (Sat), hours up to this time.
+    1,                            !- Field 7  Source: xlsx Schedule Summary row 624 (Sat), hours up to this time.
+    Until: 5:00,                  !- Field 8  Source: xlsx Schedule Summary row 624 (Sat), hours up to this time.
+    0,                            !- Field 8  Source: xlsx Schedule Summary row 624 (Sat), hours up to this time.
+    Until: 24:00,                 !- Field 9  Source: xlsx Schedule Summary row 624 (Sat), hours up to this time.
+    1,                            !- Field 9  Source: xlsx Schedule Summary row 624 (Sat), hours up to this time.
+    For: AllOtherDays,            !- Field 10
+    Until: 1:00,                  !- Field 11  Source: xlsx Schedule Summary row 625 (Sun), hours up to this time.
+    1,                            !- Field 11  Source: xlsx Schedule Summary row 625 (Sun), hours up to this time.
+    Until: 5:00,                  !- Field 12  Source: xlsx Schedule Summary row 625 (Sun), hours up to this time.
+    0,                            !- Field 12  Source: xlsx Schedule Summary row 625 (Sun), hours up to this time.
+    Until: 24:00,                 !- Field 13  Source: xlsx Schedule Summary row 625 (Sun), hours up to this time.
+    1;                            !- Field 13  Source: xlsx Schedule Summary row 625 (Sun), hours up to this time.
+
+  Schedule:Compact,
+    HTGSETP_SCH_NO_OPTIMUM,       !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays SummerDesignDay WinterDesignDay,!- Field 2
+    Until: 3:00,                  !- Field 3  Source: xlsx Schedule Summary row 638 (Mon - Fri), hours up to this time.
+    15.56,                        !- Field 3  Source: xlsx Schedule Summary row 638 (Mon - Fri), hours up to this time.
+    Until: 24:00,                 !- Field 4  Source: xlsx Schedule Summary row 638 (Mon - Fri), hours up to this time.
+    21.11,                        !- Field 4  Source: xlsx Schedule Summary row 638 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 5
+    Until: 3:00,                  !- Field 6  Source: xlsx Schedule Summary row 639 (Sat), hours up to this time.
+    15.56,                        !- Field 6  Source: xlsx Schedule Summary row 639 (Sat), hours up to this time.
+    Until: 24:00,                 !- Field 7  Source: xlsx Schedule Summary row 639 (Sat), hours up to this time.
+    21.11,                        !- Field 7  Source: xlsx Schedule Summary row 639 (Sat), hours up to this time.
+    For: AllOtherDays,            !- Field 8
+    Until: 3:00,                  !- Field 9  Source: xlsx Schedule Summary row 640 (Sun), hours up to this time.
+    15.56,                        !- Field 9  Source: xlsx Schedule Summary row 640 (Sun), hours up to this time.
+    Until: 24:00,                 !- Field 10  Source: xlsx Schedule Summary row 640 (Sun), hours up to this time.
+    21.11;                        !- Field 10  Source: xlsx Schedule Summary row 640 (Sun), hours up to this time.
+
+  Schedule:Compact,
+    CLGSETP_SCH_NO_SETBACK,       !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays SummerDesignDay WinterDesignDay,!- Field 2
+    Until: 24:00,                 !- Field 3  Source: xlsx Schedule Summary row 632 (Mon - Fri), hours up to this time.
+    23.89,                        !- Field 3  Source: xlsx Schedule Summary row 632 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 4
+    Until: 24:00,                 !- Field 5  Source: xlsx Schedule Summary row 633 (Sat), hours up to this time.
+    23.89,                        !- Field 5  Source: xlsx Schedule Summary row 633 (Sat), hours up to this time.
+    For: AllOtherDays,            !- Field 6
+    Until: 24:00,                 !- Field 7  Source: xlsx Schedule Summary row 634 (Sun), hours up to this time.
+    23.89;                        !- Field 7  Source: xlsx Schedule Summary row 634 (Sun), hours up to this time.
+
+  Schedule:Compact,
+    HTGSETP_KITCHEN_SCH_NO_OPTIMUM,!- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays SummerDesignDay WinterDesignDay,!- Field 2
+    Until: 3:00,                  !- Field 3  Source: xlsx Schedule Summary row 641 (Mon - Fri), hours up to this time.
+    15.56,                        !- Field 3  Source: xlsx Schedule Summary row 641 (Mon - Fri), hours up to this time.
+    Until: 24:00,                 !- Field 4  Source: xlsx Schedule Summary row 641 (Mon - Fri), hours up to this time.
+    18.89,                        !- Field 4  Source: xlsx Schedule Summary row 641 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 5
+    Until: 3:00,                  !- Field 6  Source: xlsx Schedule Summary row 642 (Sat), hours up to this time.
+    15.56,                        !- Field 6  Source: xlsx Schedule Summary row 642 (Sat), hours up to this time.
+    Until: 24:00,                 !- Field 7  Source: xlsx Schedule Summary row 642 (Sat), hours up to this time.
+    18.89,                        !- Field 7  Source: xlsx Schedule Summary row 642 (Sat), hours up to this time.
+    For: AllOtherDays,            !- Field 8
+    Until: 3:00,                  !- Field 9  Source: xlsx Schedule Summary row 643 (Sun), hours up to this time.
+    15.56,                        !- Field 9  Source: xlsx Schedule Summary row 643 (Sun), hours up to this time.
+    Until: 24:00,                 !- Field 10  Source: xlsx Schedule Summary row 643 (Sun), hours up to this time.
+    18.89;                        !- Field 10  Source: xlsx Schedule Summary row 643 (Sun), hours up to this time.
+
+  Schedule:Compact,
+    CLGSETP_KITCHEN_SCH_NO_SETBACK,!- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays SummerDesignDay WinterDesignDay,!- Field 2
+    Until: 24:00,                 !- Field 3  Source: xlsx Schedule Summary row 635 (Mon - Fri), hours up to this time.
+    26.11,                        !- Field 3  Source: xlsx Schedule Summary row 635 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 4
+    Until: 24:00,                 !- Field 5  Source: xlsx Schedule Summary row 636 (Sat), hours up to this time.
+    26.11,                        !- Field 5  Source: xlsx Schedule Summary row 636 (Sat), hours up to this time.
+    For: AllOtherDays,            !- Field 6
+    Until: 24:00,                 !- Field 7  Source: xlsx Schedule Summary row 637 (Sun), hours up to this time.
+    26.11;                        !- Field 7  Source: xlsx Schedule Summary row 637 (Sun), hours up to this time.
+
+  Zone,
+    Dining,                       !- Name  Source: xlsx raw_data!E401 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    1;                            !- Multiplier  Source: xlsx raw_data!G401 Multipliers = 1.
+
+  Zone,
+    Kitchen,                      !- Name  Source: xlsx raw_data!E402 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    1;                            !- Multiplier  Source: xlsx raw_data!G402 Multipliers = 1.
+
+  Zone,
+    attic,                        !- Name  Source: xlsx raw_data!E403 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    3.0488,                       !- Z Origin  Derived from: Z = h = 10 ft x 0.3048 = 3.0488 m (the attic stands on the ceiling of the zones).
+    ,                             !- type
+    1;                            !- Multiplier  Source: xlsx raw_data!G403 Multipliers = 1.
+
+  WindowMaterial:SimpleGlazingSystem,
+    Glazing,                      !- Name
+    3.2366,                       !- U-Factor {W/m2-K}  Source: NREL PDF Table 24, p.38: window overall U = 0.57 Btu/h-ft2-F = 3.2366 W/m2-K.
+    0.39;                         !- Solar Heat Gain Coefficient  Source: NREL PDF Table 25, p.39: SHGC = 0.39.
+
+  People,
+    Dining_People,                !- Name
+    Dining,                       !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH,                 !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 611/612/613 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    1.33,                         !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M401 Design Occupancy Density = 1.33 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    Dining_Lights,                !- Name
+    Dining,                       !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_dining,               !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 614/615/616 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    9.2637;                       !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L401 Lighting Power Density = 9.2637 W/m2.
+
+  ElectricEquipment,
+    Dining_Equipment,             !- Name
+    Dining,                       !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_EQUIP_SCH,               !- Schedule Name  Source: xlsx Schedule Summary 'Electric Equipment', rows 617/618/619 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    116.787;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N401 Plug and Process = 116.787 W/m2.
+
+  People,
+    Kitchen_People,               !- Name
+    Kitchen,                      !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH,                 !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 611/612/613 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.52,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M402 Design Occupancy Density = 18.52 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    Kitchen_Lights,               !- Name
+    Kitchen,                      !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_kitchen,              !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 614/615/616 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    11.9458;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L402 Lighting Power Density = 11.9458 W/m2.
+
+  ElectricEquipment,
+    Kitchen_Equipment,            !- Name
+    Kitchen,                      !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_EQUIP_SCH,               !- Schedule Name  Source: xlsx Schedule Summary 'Electric Equipment', rows 617/618/619 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    1074.01;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N402 Plug and Process = 1074.01 W/m2.
+
+  GasEquipment,
+    Kitchen_Gas_Equipment,        !- Name
+    Kitchen,                      !- Zone or ZoneList or Space or SpaceList Name
+    FF_GAS_EQUIP_SCH,             !- Schedule Name  Source: xlsx Schedule Summary 'Gas Equipment', rows 620/621/622 (Mon - Fri/Sat/Sun).
+    ,                             !- design level calculation method
+    91932.6;                      !- Design Level {W}  Source: xlsx raw_data!O402 Gas Power = 91932.6 W.
+
+  ZoneInfiltration:DesignFlowRate,
+    Dining_Infiltration,          !- Name
+    Dining,                       !- Zone or ZoneList or Space or SpaceList Name
+    INFIL_SCH_PNNL,               !- Schedule Name  Source: xlsx Schedule Summary 'Infiltration', rows 629/630/631 (Mon - Fri/Sat/Sun).
+    Flow/ExteriorWallArea,        !- Design Flow Rate Calculation Method
+    ,                             !- design flow rate
+    ,                             !- flow rate per floor area
+    0.00102523;                   !- Flow Rate per Exterior Surface Area {m3/s-m2}  Source: xlsx raw_data!R401 Envelope Infiltration = 0.00102523 m3/s-m2.
+
+  ZoneInfiltration:DesignFlowRate,
+    Dining_Door_Infiltration,     !- Name
+    Dining,                       !- Zone or ZoneList or Space or SpaceList Name
+    ,                             !- schedule name
+    ,                             !- design flow rate calculation method
+    0.902835;                     !- Design Flow Rate {m3/s}  Source: xlsx raw_data!T401 Infiltration Through Entrances = 0.902835 m3/s.
+
+  ZoneInfiltration:DesignFlowRate,
+    Kitchen_Infiltration,         !- Name
+    Kitchen,                      !- Zone or ZoneList or Space or SpaceList Name
+    INFIL_SCH_PNNL,               !- Schedule Name  Source: xlsx Schedule Summary 'Infiltration', rows 629/630/631 (Mon - Fri/Sat/Sun).
+    Flow/ExteriorWallArea,        !- Design Flow Rate Calculation Method
+    ,                             !- design flow rate
+    ,                             !- flow rate per floor area
+    0.00102523;                   !- Flow Rate per Exterior Surface Area {m3/s-m2}  Source: xlsx raw_data!R402 Envelope Infiltration = 0.00102523 m3/s-m2.
+
+  ZoneInfiltration:DesignFlowRate,
+    attic_Zone_Infiltration,      !- Name
+    attic,                        !- Zone or ZoneList or Space or SpaceList Name
+    ,                             !- schedule name
+    ,                             !- design flow rate calculation method
+    0.0729;                       !- Design Flow Rate {m3/s}  Source: xlsx raw_data!S403 Envelope Infiltration (Flow/Zone) = 0.0729 m3/s.
+
+  HVACTemplate:Thermostat,
+    DiningThermostat,             !- Name
+    HTGSETP_SCH_NO_OPTIMUM,       !- Heating Setpoint Schedule Name  Source: xlsx Schedule Summary 'Heating Set Point', rows 638 (Mon - Fri) (Dining), rows 638/639/640 (Mon - Fri/Sat/Sun).
+    ,                             !- constant heating setpoint
+    CLGSETP_SCH_NO_SETBACK;       !- Cooling Setpoint Schedule Name  Source: xlsx Schedule Summary 'Cooling Set Point', rows 632 (Mon - Fri) (Dining), rows 632/633/634 (Mon - Fri/Sat/Sun).
+
+  HVACTemplate:Thermostat,
+    KitchenThermostat,            !- Name
+    HTGSETP_KITCHEN_SCH_NO_OPTIMUM,!- Heating Setpoint Schedule Name  Source: xlsx Schedule Summary 'Heating Set Point', rows 641 (Mon - Fri) (Kitchen), rows 641/642/643 (Mon - Fri/Sat/Sun).
+    ,                             !- constant heating setpoint
+    CLGSETP_KITCHEN_SCH_NO_SETBACK;!- Cooling Setpoint Schedule Name  Source: xlsx Schedule Summary 'Cooling Set Point', rows 635 (Mon - Fri) (Kitchen), rows 635/636/637 (Mon - Fri/Sat/Sun).
+
+  HVACTemplate:System:Unitary,
+    PSZ-AC_1:1,                   !- Name  Source: xlsx raw_data!I401 HVAC System Name = PSZ-AC_1:1.
+    HVACOperationSchd,            !- System Availability Schedule Name  Source: xlsx Schedule Summary 'HVAC', rows 623/624/625 (Mon - Fri/Sat/Sun).
+    Dining,                       !- Control Zone or Thermostat Location Name
+    ,                             !- supply fan maximum flow rate
+    ,                             !- supply fan operating mode schedule name
+    ,                             !- supply fan total efficiency
+    ,                             !- supply fan delta pressure
+    ,                             !- supply fan motor efficiency
+    ,                             !- supply fan motor in air stream fraction
+    ,                             !- cooling coil type
+    ,                             !- cooling coil availability schedule name
+    ,                             !- cooling design supply air temperature
+    ,                             !- cooling coil gross rated total capacity
+    ,                             !- cooling coil gross rated sensible heat ratio
+    ,                             !- cooling coil gross rated cop
+    Gas;                          !- Heating Coil Type  Source: xlsx HVAC System Type 3 (gas furnace): HVAC System Type Dictionary row 5; Zone and HVAC System Summary column G row 450.
+
+  HVACTemplate:Zone:Unitary,
+    Dining,                       !- Zone Name
+    PSZ-AC_1:1,                   !- Template Unitary System Name
+    DiningThermostat,             !- Template Thermostat Name
+    ,                             !- supply air maximum flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    Flow/Zone,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    ,                             !- outdoor air flow rate per zone floor area
+    0.8262;                       !- Outdoor Air Flow Rate per Zone {m3/s}  Source: xlsx raw_data!P401 Total OSA Ventilation = 0.8262 m3/s.
+
+  HVACTemplate:System:Unitary,
+    PSZ-AC_2:2,                   !- Name  Source: xlsx raw_data!I402 HVAC System Name = PSZ-AC_2:2.
+    HVACOperationSchd,            !- System Availability Schedule Name  Source: xlsx Schedule Summary 'HVAC', rows 623/624/625 (Mon - Fri/Sat/Sun).
+    Kitchen,                      !- Control Zone or Thermostat Location Name
+    ,                             !- supply fan maximum flow rate
+    ,                             !- supply fan operating mode schedule name
+    ,                             !- supply fan total efficiency
+    ,                             !- supply fan delta pressure
+    ,                             !- supply fan motor efficiency
+    ,                             !- supply fan motor in air stream fraction
+    ,                             !- cooling coil type
+    ,                             !- cooling coil availability schedule name
+    ,                             !- cooling design supply air temperature
+    ,                             !- cooling coil gross rated total capacity
+    ,                             !- cooling coil gross rated sensible heat ratio
+    ,                             !- cooling coil gross rated cop
+    Gas;                          !- Heating Coil Type  Source: xlsx HVAC System Type 3 (gas furnace): HVAC System Type Dictionary row 5; Zone and HVAC System Summary column G row 451.
+
+  HVACTemplate:Zone:Unitary,
+    Kitchen,                      !- Zone Name
+    PSZ-AC_2:2,                   !- Template Unitary System Name
+    KitchenThermostat,            !- Template Thermostat Name
+    ,                             !- supply air maximum flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    Flow/Zone,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    ,                             !- outdoor air flow rate per zone floor area
+    0.1017;                       !- Outdoor Air Flow Rate per Zone {m3/s}  Source: xlsx raw_data!P402 Total OSA Ventilation = 0.1017 m3/s.
+

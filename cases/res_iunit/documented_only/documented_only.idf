@@ -1,0 +1,467 @@
+! Vertex formulas: every Vertex coordinate carries its formula; the IDF values are the results rounded to 5 decimals. Origin at the south-west corner of the floor, X to the east, Y to the north, Z up.
+! H = ceiling height = 2.743 m (xlsx C9); L = length of the east and west walls = wall area 22.57 m2 (xlsx G46, G50) / H = 8.22822 m; W = width of the south and north walls = roof area 35.113 m2 (xlsx G52) / L = 4.26739 m.
+! Window (xlsx I44: area 4.2 m2; shape and position ASSUMED): 3.0 m x 1.4 m = 4.2 m2, centred on the south wall: x1 = (W - 3.0) / 2 = 0.63369, x2 = x1 + 3.0 = 3.63369; sill 0.6 m, head = sill + 1.4 = 2.0 m.
+! Only the fields that have a documentary basis are kept (tools/make_documented_only_idf.py); blank fields = not in the documents. Not meant to run.
+
+  Building,
+    iUnit,                        !- Name  Source: xlsx C6 Building Name = iUnit.
+    ,                             !- north axis
+    City;                         !- Terrain  Source: xlsx C7  Urban / City
+
+  Schedule:Compact,
+    Occupancy Sched,              !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays,                !- Field 2  Source: xlsx Occ_WD (weekdays).
+    Until: 07:00,                 !- Field 3
+    0.3,                          !- Field 4  Source: xlsx M: Occ_WD hours 0-1 to 6-7 = 0.3.
+    Until: 17:00,                 !- Field 5
+    0.4,                          !- Field 6  Source: xlsx M: Occ_WD hours 7-8 to 16-17 = 0.4.
+    Until: 24:00,                 !- Field 7
+    0.3,                          !- Field 8  Source: xlsx M: Occ_WD hours 17-18 to 23-24 = 0.3.
+    ,                             !- data[8]
+    Until: 07:00,                 !- Field 10
+    0.5,                          !- Field 11  Source: xlsx N: Occ_WE hours 0-1 to 6-7 = 0.5.
+    Until: 17:00,                 !- Field 12
+    0.6,                          !- Field 13  Source: xlsx N: Occ_WE hours 7-8 to 16-17 = 0.6.
+    Until: 24:00,                 !- Field 14
+    0.5;                          !- Field 15  Source: xlsx N: Occ_WE hours 17-18 to 23-24 = 0.5.
+
+  Schedule:Compact,
+    Appliance Sched,              !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays,                !- Field 2  Source: xlsx App_WD (weekdays).
+    Until: 07:00,                 !- Field 3
+    0.4,                          !- Field 4  Source: xlsx O: App_WD hours 0-1 to 6-7 = 0.4.
+    Until: 17:00,                 !- Field 5
+    0.5,                          !- Field 6  Source: xlsx O: App_WD hours 7-8 to 16-17 = 0.5.
+    Until: 24:00,                 !- Field 7
+    0.4,                          !- Field 8  Source: xlsx O: App_WD hours 17-18 to 23-24 = 0.4.
+    ,                             !- data[8]
+    Until: 07:00,                 !- Field 10
+    0.6,                          !- Field 11  Source: xlsx P: App_WE hours 0-1 to 6-7 = 0.6.
+    Until: 17:00,                 !- Field 12
+    0.7,                          !- Field 13  Source: xlsx P: App_WE hours 7-8 to 16-17 = 0.7.
+    Until: 24:00,                 !- Field 14
+    0.6;                          !- Field 15  Source: xlsx P: App_WE hours 17-18 to 23-24 = 0.6.
+
+  Schedule:Compact,
+    Lighting Sched,               !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays,                !- Field 2  Source: xlsx Light_WD (weekdays).
+    Until: 07:00,                 !- Field 3
+    0.5,                          !- Field 4  Source: xlsx Q: Light_WD hours 0-1 to 6-7 = 0.5.
+    Until: 17:00,                 !- Field 5
+    0.6,                          !- Field 6  Source: xlsx Q: Light_WD hours 7-8 to 16-17 = 0.6.
+    Until: 24:00,                 !- Field 7
+    0.5,                          !- Field 8  Source: xlsx Q: Light_WD hours 17-18 to 23-24 = 0.5.
+    ,                             !- data[8]
+    Until: 07:00,                 !- Field 10
+    0.7,                          !- Field 11  Source: xlsx R: Light_WE hours 0-1 to 6-7 = 0.7.
+    Until: 17:00,                 !- Field 12
+    0.8,                          !- Field 13  Source: xlsx R: Light_WE hours 7-8 to 16-17 = 0.8.
+    Until: 24:00,                 !- Field 14
+    0.7;                          !- Field 15  Source: xlsx R: Light_WE hours 17-18 to 23-24 = 0.7.
+
+  Schedule:Compact,
+    Heating Setpoint Sched,       !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: AllDays,                 !- Field 2
+    Until: 24:00,                 !- Field 3
+    20;                           !- Field 4  Source: xlsx G/H hours 0-1 to 23-24 = 20 C (weekdays and weekend are equal, so one value for all days).
+
+  Schedule:Compact,
+    Cooling Setpoint Sched,       !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: AllDays,                 !- Field 2
+    Until: 24:00,                 !- Field 3
+    24;                           !- Field 4  Source: xlsx I/J hours 0-1 to 23-24 = 24 C (weekdays and weekend are equal, so one value for all days).
+
+  Schedule:Constant,
+    Activity Level Sched,         !- Name
+    ,                             !- schedule type limits name
+    70;                           !- Hourly Value {W/person}  Source: xlsx G6 = 70 W/person.
+
+  Material:NoMass,
+    Wall Insulation,              !- Name
+    ,                             !- roughness
+    ,                             !- thermal resistance
+    0.9,                          !- Thermal Absorptance  Source: xlsx I60 emissivity = 0.9.
+    0.5;                          !- Solar Absorptance  Source: xlsx H60 absorption coefficient = 0.5.
+
+  Material:NoMass,
+    Roof Insulation,              !- Name
+    ,                             !- roughness
+    ,                             !- thermal resistance
+    0.9,                          !- Thermal Absorptance  Source: xlsx I58 emissivity = 0.9.
+    0.5;                          !- Solar Absorptance  Source: xlsx H58 absorption coefficient = 0.5.
+
+  WindowMaterial:SimpleGlazingSystem,
+    Window1 Glazing,              !- Name
+    1.265;                        !- U-Factor {W/m2-K}  Source: xlsx G62 = 1.265 W/m2K.
+
+  Zone,
+    Zone1,                        !- Name  Source: xlsx G2 = Zone1 (space name G3 = Living Room).
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    ,                             !- multiplier
+    2.743,                        !- Ceiling Height {m}  Source: xlsx C9 Building Height = 2.743 m.
+    96.315,                       !- Volume {m3}  Source: xlsx C8 Building total ventilated volume = 96.315 m3.
+    37.67;                        !- Floor Area {m2}  Source: xlsx G4 Gross Floor Area = 37.67 m2 (the floor polygon is 35.113 m2, see Floor).
+
+  BuildingSurface:Detailed,
+    Floor,                        !- Name
+    Floor,                        !- Surface Type  Source: xlsx F53 'Below grade' (floor against the ground).
+    Floor,                        !- Construction Name  Derived from the xlsx envelope table (the construction of the U-value row named above).
+    Zone1,                        !- Zone Name  Source: xlsx G2 Zone1.
+    ,                             !- space name
+    Ground,                       !- Outside Boundary Condition  Derived from the xlsx envelope row (below grade).
+    ,                             !- outside boundary condition object
+    ,                             !- sun exposure
+    ,                             !- wind exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices
+    0,                            !- Vertex 1 X {m}  Floor polygon = roof polygon = 35.113 m2; xlsx F53 'Below grade' says 50.0 m2 (G53) and G4 says 37.67 m2: the xlsx is inconsistent, the polygon follows Roof(Hor) 35.113 m2 and volume / height (96.315 / 2.743).  Derived from: X = 0 (west edge)
+    0,                            !- Vertex 1 Y {m}  Derived from: Y = 0 (south edge)
+    0,                            !- Vertex 1 Z {m}  Derived from: Z = 0 (ground level)
+    0,                            !- Vertex 2 X {m}  Derived from: X = 0 (west edge)
+    8.22822,                      !- Vertex 2 Y {m}  Derived from: Y = L = 22.57 / H = 22.57 / 2.743 = 8.22822 (north edge)
+    0,                            !- Vertex 2 Z {m}  Derived from: Z = 0 (ground level)
+    4.26739,                      !- Vertex 3 X {m}  Derived from: X = W = 35.113 / L = 35.113 / 8.22822 = 4.26739 (east edge)
+    8.22822,                      !- Vertex 3 Y {m}  Derived from: Y = L = 22.57 / H = 22.57 / 2.743 = 8.22822 (north edge)
+    0,                            !- Vertex 3 Z {m}  Derived from: Z = 0 (ground level)
+    4.26739,                      !- Vertex 4 X {m}  Derived from: X = W = 35.113 / L = 35.113 / 8.22822 = 4.26739 (east edge)
+    0,                            !- Vertex 4 Y {m}  Derived from: Y = 0 (south edge)
+    0;                            !- Vertex 4 Z {m}  Derived from: Z = 0 (ground level)
+
+  BuildingSurface:Detailed,
+    Roof,                         !- Name
+    Roof,                         !- Surface Type  Source: xlsx F52 Roof(Hor), horizontal.
+    Roof,                         !- Construction Name  Derived from the xlsx envelope table (the construction of the U-value row named above).
+    Zone1,                        !- Zone Name  Source: xlsx G2 Zone1.
+    ,                             !- space name
+    Outdoors,                     !- Outside Boundary Condition  Derived from the xlsx envelope row (exterior wall / roof).
+    ,                             !- outside boundary condition object
+    ,                             !- sun exposure
+    ,                             !- wind exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices
+    0,                            !- Vertex 1 X {m}  Derived from: X = 0 (west edge)
+    0,                            !- Vertex 1 Y {m}  Derived from: Y = 0 (south edge)
+    2.743,                        !- Vertex 1 Z {m}  Derived from: Z = H = 2.743 (xlsx C9)
+    4.26739,                      !- Vertex 2 X {m}  Derived from: X = W = 35.113 / L = 35.113 / 8.22822 = 4.26739 (east edge)
+    0,                            !- Vertex 2 Y {m}  Derived from: Y = 0 (south edge)
+    2.743,                        !- Vertex 2 Z {m}  Derived from: Z = H = 2.743 (xlsx C9)
+    4.26739,                      !- Vertex 3 X {m}  Derived from: X = W = 35.113 / L = 35.113 / 8.22822 = 4.26739 (east edge)
+    8.22822,                      !- Vertex 3 Y {m}  Derived from: Y = L = 22.57 / H = 22.57 / 2.743 = 8.22822 (north edge)
+    2.743,                        !- Vertex 3 Z {m}  Derived from: Z = H = 2.743 (xlsx C9)
+    0,                            !- Vertex 4 X {m}  Derived from: X = 0 (west edge)
+    8.22822,                      !- Vertex 4 Y {m}  Derived from: Y = L = 22.57 / H = 22.57 / 2.743 = 8.22822 (north edge)
+    2.743;                        !- Vertex 4 Z {m}  Derived from: Z = H = 2.743 (xlsx C9)
+
+  BuildingSurface:Detailed,
+    South Wall,                   !- Name
+    Wall,                         !- Surface Type  Source: xlsx row S.
+    Exterior Wall,                !- Construction Name  Derived from the xlsx envelope table (the construction of the U-value row named above).
+    Zone1,                        !- Zone Name  Source: xlsx G2 Zone1.
+    ,                             !- space name
+    Outdoors,                     !- Outside Boundary Condition  Derived from the xlsx envelope row (exterior wall / roof).
+    ,                             !- outside boundary condition object
+    ,                             !- sun exposure
+    ,                             !- wind exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices
+    0,                            !- Vertex 1 X {m}  Derived from: X = 0 (west edge)
+    0,                            !- Vertex 1 Y {m}  Derived from: Y = 0 (south edge)
+    2.743,                        !- Vertex 1 Z {m}  Derived from: Z = H = 2.743 (xlsx C9)
+    0,                            !- Vertex 2 X {m}  Derived from: X = 0 (west edge)
+    0,                            !- Vertex 2 Y {m}  Derived from: Y = 0 (south edge)
+    0,                            !- Vertex 2 Z {m}  Derived from: Z = 0 (ground level)
+    4.26739,                      !- Vertex 3 X {m}  Derived from: X = W = 35.113 / L = 35.113 / 8.22822 = 4.26739 (east edge)
+    0,                            !- Vertex 3 Y {m}  Derived from: Y = 0 (south edge)
+    0,                            !- Vertex 3 Z {m}  Derived from: Z = 0 (ground level)
+    4.26739,                      !- Vertex 4 X {m}  Derived from: X = W = 35.113 / L = 35.113 / 8.22822 = 4.26739 (east edge)
+    0,                            !- Vertex 4 Y {m}  Derived from: Y = 0 (south edge)
+    2.743;                        !- Vertex 4 Z {m}  Derived from: Z = H = 2.743 (xlsx C9)
+
+  BuildingSurface:Detailed,
+    East Wall,                    !- Name
+    Wall,                         !- Surface Type  Source: xlsx row E.
+    Exterior Wall,                !- Construction Name  Derived from the xlsx envelope table (the construction of the U-value row named above).
+    Zone1,                        !- Zone Name  Source: xlsx G2 Zone1.
+    ,                             !- space name
+    Outdoors,                     !- Outside Boundary Condition  Derived from the xlsx envelope row (exterior wall / roof).
+    ,                             !- outside boundary condition object
+    ,                             !- sun exposure
+    ,                             !- wind exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices
+    4.26739,                      !- Vertex 1 X {m}  Derived from: X = W = 35.113 / L = 35.113 / 8.22822 = 4.26739 (east edge)
+    0,                            !- Vertex 1 Y {m}  Derived from: Y = 0 (south edge)
+    2.743,                        !- Vertex 1 Z {m}  Derived from: Z = H = 2.743 (xlsx C9)
+    4.26739,                      !- Vertex 2 X {m}  Derived from: X = W = 35.113 / L = 35.113 / 8.22822 = 4.26739 (east edge)
+    0,                            !- Vertex 2 Y {m}  Derived from: Y = 0 (south edge)
+    0,                            !- Vertex 2 Z {m}  Derived from: Z = 0 (ground level)
+    4.26739,                      !- Vertex 3 X {m}  Derived from: X = W = 35.113 / L = 35.113 / 8.22822 = 4.26739 (east edge)
+    8.22822,                      !- Vertex 3 Y {m}  Derived from: Y = L = 22.57 / H = 22.57 / 2.743 = 8.22822 (north edge)
+    0,                            !- Vertex 3 Z {m}  Derived from: Z = 0 (ground level)
+    4.26739,                      !- Vertex 4 X {m}  Derived from: X = W = 35.113 / L = 35.113 / 8.22822 = 4.26739 (east edge)
+    8.22822,                      !- Vertex 4 Y {m}  Derived from: Y = L = 22.57 / H = 22.57 / 2.743 = 8.22822 (north edge)
+    2.743;                        !- Vertex 4 Z {m}  Derived from: Z = H = 2.743 (xlsx C9)
+
+  BuildingSurface:Detailed,
+    North Wall,                   !- Name
+    Wall,                         !- Surface Type  Source: xlsx row N.
+    Exterior Wall,                !- Construction Name  Derived from the xlsx envelope table (the construction of the U-value row named above).
+    Zone1,                        !- Zone Name  Source: xlsx G2 Zone1.
+    ,                             !- space name
+    Outdoors,                     !- Outside Boundary Condition  Derived from the xlsx envelope row (exterior wall / roof).
+    ,                             !- outside boundary condition object
+    ,                             !- sun exposure
+    ,                             !- wind exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices
+    4.26739,                      !- Vertex 1 X {m}  Derived from: X = W = 35.113 / L = 35.113 / 8.22822 = 4.26739 (east edge)
+    8.22822,                      !- Vertex 1 Y {m}  Derived from: Y = L = 22.57 / H = 22.57 / 2.743 = 8.22822 (north edge)
+    2.743,                        !- Vertex 1 Z {m}  Derived from: Z = H = 2.743 (xlsx C9)
+    4.26739,                      !- Vertex 2 X {m}  Derived from: X = W = 35.113 / L = 35.113 / 8.22822 = 4.26739 (east edge)
+    8.22822,                      !- Vertex 2 Y {m}  Derived from: Y = L = 22.57 / H = 22.57 / 2.743 = 8.22822 (north edge)
+    0,                            !- Vertex 2 Z {m}  Derived from: Z = 0 (ground level)
+    0,                            !- Vertex 3 X {m}  Derived from: X = 0 (west edge)
+    8.22822,                      !- Vertex 3 Y {m}  Derived from: Y = L = 22.57 / H = 22.57 / 2.743 = 8.22822 (north edge)
+    0,                            !- Vertex 3 Z {m}  Derived from: Z = 0 (ground level)
+    0,                            !- Vertex 4 X {m}  Derived from: X = 0 (west edge)
+    8.22822,                      !- Vertex 4 Y {m}  Derived from: Y = L = 22.57 / H = 22.57 / 2.743 = 8.22822 (north edge)
+    2.743;                        !- Vertex 4 Z {m}  Derived from: Z = H = 2.743 (xlsx C9)
+
+  BuildingSurface:Detailed,
+    West Wall,                    !- Name
+    Wall,                         !- Surface Type  Source: xlsx row W.
+    Exterior Wall,                !- Construction Name  Derived from the xlsx envelope table (the construction of the U-value row named above).
+    Zone1,                        !- Zone Name  Source: xlsx G2 Zone1.
+    ,                             !- space name
+    Outdoors,                     !- Outside Boundary Condition  Derived from the xlsx envelope row (exterior wall / roof).
+    ,                             !- outside boundary condition object
+    ,                             !- sun exposure
+    ,                             !- wind exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices
+    0,                            !- Vertex 1 X {m}  Derived from: X = 0 (west edge)
+    8.22822,                      !- Vertex 1 Y {m}  Derived from: Y = L = 22.57 / H = 22.57 / 2.743 = 8.22822 (north edge)
+    2.743,                        !- Vertex 1 Z {m}  Derived from: Z = H = 2.743 (xlsx C9)
+    0,                            !- Vertex 2 X {m}  Derived from: X = 0 (west edge)
+    8.22822,                      !- Vertex 2 Y {m}  Derived from: Y = L = 22.57 / H = 22.57 / 2.743 = 8.22822 (north edge)
+    0,                            !- Vertex 2 Z {m}  Derived from: Z = 0 (ground level)
+    0,                            !- Vertex 3 X {m}  Derived from: X = 0 (west edge)
+    0,                            !- Vertex 3 Y {m}  Derived from: Y = 0 (south edge)
+    0,                            !- Vertex 3 Z {m}  Derived from: Z = 0 (ground level)
+    0,                            !- Vertex 4 X {m}  Derived from: X = 0 (west edge)
+    0,                            !- Vertex 4 Y {m}  Derived from: Y = 0 (south edge)
+    2.743;                        !- Vertex 4 Z {m}  Derived from: Z = H = 2.743 (xlsx C9)
+
+  InternalMass,
+    Zone1 Internal Mass,          !- Name
+    Mass Construction,            !- Construction Name
+    Zone1;                        !- Zone or ZoneList Name  Source: xlsx G2 Zone1.
+
+  FenestrationSurface:Detailed,
+    South Window,                 !- Name
+    Window,                       !- Surface Type  Source: xlsx Window1 (I42).
+    South Window,                 !- Construction Name  Source: xlsx Window1 U 1.265 / solar transmittance 0.4 (row 62).
+    South Wall,                   !- Building Surface Name  Source: xlsx F44 S row.
+    ,                             !- outside boundary condition object
+    ,                             !- view factor to ground
+    ,                             !- frame and divider name
+    ,                             !- multiplier
+    4,                            !- Number of Vertices
+    ,                             !- vertex 1 x coordinate
+    0,                            !- Vertex 1 Y {m}  Derived from: Y = 0 (the window lies in the south wall)
+    ,                             !- vertex 1 z coordinate
+    ,                             !- vertex 2 x coordinate
+    0,                            !- Vertex 2 Y {m}  Derived from: Y = 0 (the window lies in the south wall)
+    ,                             !- vertex 2 z coordinate
+    3.63369,                      !- Vertex 3 X {m}  Derived from: x2 = x1 + 3.0 = 0.63369 + 3.0 = 3.63369
+    0,                            !- Vertex 3 Y {m}  Derived from: Y = 0 (the window lies in the south wall)
+    ,                             !- vertex 3 z coordinate
+    3.63369,                      !- Vertex 4 X {m}  Derived from: x2 = x1 + 3.0 = 0.63369 + 3.0 = 3.63369
+    0;                            !- Vertex 4 Y {m}  Derived from: Y = 0 (the window lies in the south wall)
+
+  People,
+    Zone1 People,                 !- Name  Kept: name chosen by the model.
+    Zone1,                        !- Zone Name  Source: xlsx G2 Zone1.
+    Occupancy Sched,              !- Number of People Schedule Name  Source: xlsx L12..N37 Occ_WD / Occ_WE.
+    Area/Person,                  !- Number of People Calculation Method  Derived from xlsx G5 (unit m2/person).
+    ,                             !- number of people
+    ,                             !- people per floor area
+    10000,                        !- Floor Area per Person  Source: xlsx G5 = 10000 m2/person (with 37.67 m2 = 0.003767 persons, practically none).
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    Activity Level Sched;         !- Activity Level Schedule Name  Source: xlsx G6 = 70 W/person.
+
+  Lights,
+    Zone1 Lights,                 !- Name
+    Zone1,                        !- Zone Name  Source: xlsx G2 Zone1.
+    Lighting Sched,               !- Schedule Name  Source: xlsx Q13..R37 Light_WD / Light_WE.
+    Watts/Area,                   !- Design Level Calculation Method  Derived from xlsx G8 (unit W/m2).
+    ,                             !- lighting level
+    0;                            !- Watts per Zone Floor Area {W/m2}  Source: xlsx G8 = 0.0 W/m2.
+
+  ElectricEquipment,
+    Zone1 Appliances,             !- Name
+    Zone1,                        !- Zone Name  Source: xlsx G2 Zone1.
+    Appliance Sched,              !- Schedule Name  Source: xlsx O13..P37 App_WD / App_WE.
+    Watts/Area,                   !- Design Level Calculation Method  Derived from xlsx G7 (unit W/m2).
+    ,                             !- design level
+    26.55;                        !- Watts per Zone Floor Area  Source: xlsx G7 = 26.55 W/m2 (x 37.67 m2 = 1000.14 W).
+
+  ZoneInfiltration:DesignFlowRate,
+    Zone1 Infiltration,           !- Name
+    Zone1,                        !- Zone Name  Source: xlsx G2 Zone1.
+    ,                             !- schedule name
+    Flow/Area;                    !- Design Flow Rate Calculation Method  Derived from xlsx C39 (unit m3/h per m2 floor).
+
+  ZoneVentilation:DesignFlowRate,
+    Zone1 Mechanical Ventilation, !- Name
+    Zone1,                        !- Zone Name  Source: xlsx G2 Zone1.
+    ,                             !- schedule name
+    Flow/Zone,                    !- Design Flow Rate Calculation Method  Derived from xlsx C32 (flow in L/s for the whole zone).  Source: xlsx C32 supply = C33 exhaust = 20 L/s = 0.02 m3/s.
+    0.02,                         !- Design Flow Rate {m3/s}
+    ,                             !- flow rate per floor area
+    ,                             !- flow rate per person
+    ,                             !- air changes per hour
+    Balanced,                     !- Ventilation Type  Derived from xlsx C32 = C33 (balanced), C34 no heat recovery.
+    1050;                         !- Fan Pressure Rise {Pa}  Derived from xlsx C40 1.5 W/(L/s) = 1500 W/(m3/s) = pressure rise / total efficiency 0.7 -> 1050 Pa.
+
+  WaterHeater:Mixed,
+    DHW Heater,                   !- Name
+    ,                             !- tank volume
+    ,                             !- setpoint temperature schedule name
+    ,                             !- deadband temperature difference
+    ,                             !- maximum temperature limit
+    ,                             !- heater control type
+    ,                             !- heater maximum capacity
+    ,                             !- heater minimum capacity
+    ,                             !- heater ignition minimum flow rate
+    ,                             !- heater ignition delay
+    Electricity,                  !- Heater Fuel Type  Source: xlsx C67 Primary energy source for DHW = Electricity.
+    1,                            !- Heater Thermal Efficiency  MISMATCH: xlsx C46 Heat Pump (1.4); EnergyPlus limit 1.0 for this object.
+    ,                             !- part load factor curve name
+    ,                             !- off cycle parasitic fuel consumption rate
+    ,                             !- off cycle parasitic fuel type
+    ,                             !- off cycle parasitic heat fraction to tank
+    ,                             !- on cycle parasitic fuel consumption rate
+    ,                             !- on cycle parasitic fuel type
+    ,                             !- on cycle parasitic heat fraction to tank
+    ,                             !- ambient temperature indicator
+    ,                             !- ambient temperature schedule name
+    Zone1;                        !- Ambient Temperature Zone Name  Source: xlsx G2 Zone1.
+
+  FuelFactors,
+    Electricity,                  !- Existing Fuel Resource Name
+    2.5,                          !- Source Energy Factor {J/J}  Source: xlsx C71 = 2.5.
+    ,                             !- source energy schedule name
+    111.1111;                     !- CO2 Emission Factor {g/MJ}  Derived from xlsx D71: 400 g/kWh / 3.6 = 111.1111 g/MJ.
+
+  FuelFactors,
+    NaturalGas,                   !- Existing Fuel Resource Name
+    1.1,                          !- Source Energy Factor {J/J}  Source: xlsx C72 = 1.1.
+    ,                             !- source energy schedule name
+    55.5556;                      !- CO2 Emission Factor {g/MJ}  Derived from xlsx D72: 200 g/kWh / 3.6 = 55.5556 g/MJ.
+
+  FuelFactors,
+    FuelOilNo1,                   !- Existing Fuel Resource Name  Derived from xlsx B73 'Fuel' (the only liquid fuel of EnergyPlus's fuel list that the xlsx 'Fuel' can map to; modelling choice).
+    1.2,                          !- Source Energy Factor {J/J}  Source: xlsx C73 = 1.2.
+    ,                             !- source energy schedule name
+    69.4444;                      !- CO2 Emission Factor {g/MJ}  Derived from xlsx D73: 250 g/kWh / 3.6 = 69.4444 g/MJ.
+
+  UtilityCost:Charge:Simple,
+    FlatEnergyCharge,             !- Name
+    Electricity Flat,             !- Tariff Name
+    totalEnergy,                  !- Source Variable
+    Annual,                       !- Season
+    EnergyCharges,                !- Category Variable Name
+    0.12;                         !- Cost per Unit {USD/kWh}  Source: xlsx J73 = 0.12 per kWh.
+
+  ThermostatSetpoint:DualSetpoint,
+    Zone1 Thermostat Dual SP Control,!- Name
+    Heating Setpoint Sched,       !- Heating Setpoint Temperature Schedule Name  Source: xlsx G13:H37 (20 C).
+    Cooling Setpoint Sched;       !- Cooling Setpoint Temperature Schedule Name  Source: xlsx I13:J37 (24 C).
+
+  ZoneControl:Thermostat,
+    Zone1 Thermostat,             !- Name
+    Zone1,                        !- Zone or ZoneList Name
+    HVACTemplate-Always 4,        !- Control Type Schedule Name
+    ThermostatSetpoint:DualSetpoint,!- Control Object Type  Source: xlsx F12 Building Temperature Set-point Schedule (heating and cooling set points).
+    Zone1 Thermostat Dual SP Control;!- Control Name
+
+  DesignSpecification:OutdoorAir,
+    SZ DSOA Zone1,                !- Name
+    Flow/Person,                  !- Outdoor Air Method  Derived from xlsx G9 (unit L/s per person).
+    0.0;                          !- Outdoor Air Flow per Person {m3/s}  Source: xlsx G9 Outdoor Air = 0.0 L/s/person (the mechanical 20 L/s of C32 is in ZoneVentilation).
+
+  Coil:Cooling:DX:SingleSpeed,
+    Zone1 PTHP Cooling Coil,      !- Name
+    ,                             !- availability schedule name
+    autosize,                     !- Gross Rated Total Cooling Capacity {W}
+    autosize,                     !- Gross Rated Sensible Heat Ratio
+    3,                            !- Rated COP  Source: xlsx C21 Cooling System Full Load COP = 3.0.
+    autosize,                     !- Rated Air Volume Flow Rate {m3/s}
+    ,                             !- 2017 rated evaporator fan power per volume flow rate
+    ,                             !- 2023 rated evaporator fan power per volume flow rate
+    Zone1 PTHP Mixed Air Outlet,  !- Air Inlet Node Name
+    Zone1 PTHP Cooling Coil Outlet,!- Air Outlet Node Name
+    Zone1 PTHP Cooling Coil Cap-FT,!- Total Cooling Capacity Modifier Curve (function of temperature)
+    Zone1 PTHP Cooling Coil Cap-FF,!- Total Cooling Capacity Modifier Curve (function of flow fraction)
+    Zone1 PTHP Cooling Coil EIR-FT,!- Energy Input Ratio Modifier Curve (function of temperature)
+    Zone1 PTHP Cooling Coil EIR-FF,!- Energy Input Ratio Modifier Curve (function of flow fraction)
+    Zone1 PTHP Cooling Coil Coil PLF,!- Part Load Fraction Correlation (function of part load ratio)
+    ,                             !- minimum outdoor dry bulb temperature for compressor operation
+    ,                             !- nominal time for condensate removal to begin
+    ,                             !- ratio of initial moisture evaporation rate and steady state latent capacity
+    ,                             !- maximum cycling rate
+    ,                             !- latent capacity time constant
+    Zone1 PTHP Cooling Coil Condenser Inlet,!- Condenser Air Inlet Node Name
+    ,                             !- condenser type
+    0;                            !- Evaporative Condenser Effectiveness
+
+  Curve:Quadratic,
+    Zone1 PTHP Cooling Coil Coil PLF,!- Name
+    0.678947,                     !- Coefficient1 Constant  Derived from xlsx C22..C25.
+    0.3,                          !- Coefficient2 x  Derived from xlsx C22..C25.
+    0.0210526,                    !- Coefficient3 x**2  Derived from xlsx C22..C25.
+    0.1,                          !- Minimum Value of x  Derived from xlsx C22..C25.
+    1;                            !- Maximum Value of x  Derived from xlsx C22..C25.
+
+  Coil:Heating:DX:SingleSpeed,
+    Zone1 PTHP Heating Coil,      !- Name
+    ,                             !- availability schedule name
+    autosize,                     !- Rated Total Heating Capacity {W}
+    3.5,                          !- Rated COP  Source: xlsx C20 Heating System COP = 3.5.
+    autosize,                     !- Rated Air Volume Flow Rate {m3/s}
+    ,                             !- 2017 rated supply fan power per volume flow rate
+    ,                             !- 2023 rated supply fan power per volume flow rate
+    Zone1 PTHP Cooling Coil Outlet,!- Air Inlet Node Name
+    Zone1 PTHP Heating Coil Outlet,!- Air Outlet Node Name
+    Zone1 PTHP Heating Coil Cap-FT,!- Total heating capacity modifier curve (function of temperature)
+    Zone1 PTHP Heating Coil Cap-FF,!- Total heating capacity modifier curve (function of flow fraction)
+    Zone1 PTHP Heating Coil EIR-FT,!- Energy input ratio modifier curve (function of temperature)
+    Zone1 PTHP Heating Coil EIR-FF,!- Energy input ratio modifier curve (function of flow fraction)
+    Zone1 PTHP Heating Coil PLF,  !- Part load fraction correlation (function of part load ratio)
+    Zone1 PTHP Heating Coil DefrEIR-FT,!- Defrost energy input ratio modifier curve (function of temperature)
+    ,                             !- minimum outdoor dry bulb temperature for compressor operation
+    ,                             !- outdoor dry bulb temperature to turn on compressor
+    ,                             !- maximum outdoor dry bulb temperature for defrost operation
+    ,                             !- crankcase heater capacity
+    0,                            !- Maximum Outdoor Dry-bulb Temperature for Crankcase Heater Operation {C}
+    ,                             !- defrost strategy
+    ,                             !- defrost control
+    ,                             !- defrost time period fraction
+    autosize;                     !- Resistive Defrost Heater Capacity {W}
+

@@ -1,0 +1,281 @@
+! Mini Room: only the data of the input document (building.txt) are marked as such; everything else is an EnergyPlus requirement or an assumption.
+! A teaching example of BEMGenBench, not a benchmark case.
+
+  Version,
+    23.1;                         !- Version Identifier  Not in the documents: EnergyPlus requires it.
+
+  Building,
+    Mini Room,                    !- Name  Source: building.txt (title).
+    0,                            !- North Axis  Not in the documents: assumption.
+    City;                         !- Terrain  Not in the documents: assumption.
+
+  SimulationControl,
+    No,                           !- Do Zone Sizing Calculation  Not in the documents: the ideal loads need no sizing.
+    No,                           !- Do System Sizing Calculation  Not in the documents: the ideal loads need no sizing.
+    No,                           !- Do Plant Sizing Calculation  Not in the documents: the ideal loads need no sizing.
+    No,                           !- Run Simulation for Sizing Periods  Not in the documents: assumption.
+    Yes;                          !- Run Simulation for Weather File Run Periods  Not in the documents: assumption.
+
+  Timestep,
+    4;                            !- Number of Timesteps per Hour  Not in the documents: assumption.
+
+  Site:Location,
+    Tucson,                       !- Name  Source: building.txt, Site.
+    32.17,                        !- Latitude  Source: building.txt, Site.
+    -110.88,                      !- Longitude  Source: building.txt, Site.
+    -7,                           !- Time Zone  Source: building.txt, Site.
+    824;                          !- Elevation  Source: building.txt, Site.
+
+  RunPeriod,
+    Annual,                       !- Name  Not in the documents: a name is needed.
+    1,                            !- Begin Month  Source: building.txt, Site (whole year).
+    1,                            !- Begin Day of Month  Source: building.txt, Site (whole year).
+    2025,                         !- Begin Year  Source: building.txt, Site (year 2025).
+    12,                           !- End Month  Source: building.txt, Site (whole year).
+    31,                           !- End Day of Month  Source: building.txt, Site (whole year).
+    2025;                         !- End Year  Source: building.txt, Site (year 2025).
+
+  GlobalGeometryRules,
+    UpperLeftCorner,              !- Starting Vertex Position  Not in the documents: EnergyPlus requires it.
+    Counterclockwise,             !- Vertex Entry Direction  Not in the documents: EnergyPlus requires it.
+    Relative;                     !- Coordinate System  Not in the documents: EnergyPlus requires it.
+
+  ScheduleTypeLimits,
+    Fraction,                     !- Name  Not in the documents: EnergyPlus requires it.
+    0,                            !- Lower Limit Value  Not in the documents: EnergyPlus requires it.
+    1,                            !- Upper Limit Value  Not in the documents: EnergyPlus requires it.
+    Continuous;                   !- Numeric Type  Not in the documents: EnergyPlus requires it.
+
+  ScheduleTypeLimits,
+    Any Number;                   !- Name  Not in the documents: EnergyPlus requires it.
+
+  Schedule:Compact,
+    Lights Schedule,              !- Name  Not in the documents: a name is needed.
+    Fraction,                     !- Schedule Type Limits Name  Not in the documents: EnergyPlus requires it.
+    Through: 12/31,               !- Field 1
+    For: Weekdays,                !- Field 2
+    Until: 08:00,                 !- Field 3
+    0,                            !- Field 4  Source: building.txt, Internal loads (off before 8:00).
+    Until: 18:00,                 !- Field 5
+    1,                            !- Field 6  Source: building.txt, Internal loads (on from 8:00 to 18:00).
+    Until: 24:00,                 !- Field 7
+    0,                            !- Field 8  Source: building.txt, Internal loads (off after 18:00).
+    For: AllOtherDays,            !- Field 9
+    Until: 24:00,                 !- Field 10
+    0;                            !- Field 11  Source: building.txt, Internal loads (off at weekends).
+
+  Schedule:Constant,
+    Equipment Schedule,           !- Name  Not in the documents: a name is needed.
+    Fraction,                     !- Schedule Type Limits Name  Not in the documents: EnergyPlus requires it.
+    1;                            !- Hourly Value  Source: building.txt, Internal loads (full power all the time).
+
+  Schedule:Constant,
+    Heating Setpoint Schedule,    !- Name  Not in the documents: a name is needed.
+    Any Number,                   !- Schedule Type Limits Name  Not in the documents: EnergyPlus requires it.
+    21;                           !- Hourly Value  Source: building.txt, Heating and cooling (heating setpoint 21 C).
+
+  Schedule:Constant,
+    Cooling Setpoint Schedule,    !- Name  Not in the documents: a name is needed.
+    Any Number,                   !- Schedule Type Limits Name  Not in the documents: EnergyPlus requires it.
+    24;                           !- Hourly Value  Source: building.txt, Heating and cooling (cooling setpoint 24 C).
+
+  Schedule:Constant,
+    Thermostat Control Type,      !- Name  Not in the documents: a name is needed.
+    Any Number,                   !- Schedule Type Limits Name  Not in the documents: EnergyPlus requires it.
+    4;                            !- Hourly Value  Not in the documents: 4 = dual setpoint, chosen to hold both setpoints.
+
+  Material,
+    Brick 200mm,                  !- Name  Not in the documents: a name is needed.
+    MediumRough,                  !- Roughness  Not in the documents: assumption.
+    0.2,                          !- Thickness  Source: building.txt, Envelope (200 mm).
+    0.9,                          !- Conductivity  Source: building.txt, Envelope.
+    1800,                         !- Density  Source: building.txt, Envelope.
+    900;                          !- Specific Heat  Source: building.txt, Envelope.
+
+  Construction,
+    Envelope Construction,        !- Name  Not in the documents: a name is needed.
+    Brick 200mm;                  !- Outside Layer  Source: building.txt, Envelope (one layer of brick).
+
+  Zone,
+    Office,                       !- Name  Source: building.txt, Geometry.
+    0,                            !- Direction of Relative North  Not in the documents: assumption.
+    0,                            !- X Origin  Not in the documents: the origin is chosen.
+    0,                            !- Y Origin  Not in the documents: the origin is chosen.
+    0,                            !- Z Origin  Not in the documents: the origin is chosen.
+    1,                            !- Type  Not in the documents: EnergyPlus requires it.
+    1,                            !- Multiplier  Not in the documents: assumption.
+    3;                            !- Ceiling Height  Source: building.txt, Geometry (3 m high).
+
+  BuildingSurface:Detailed,
+    Floor,                        !- Name  Not in the documents: a name is needed.
+    Floor,                        !- Surface Type  Source: building.txt, Geometry.
+    Envelope Construction,        !- Construction Name  Source: building.txt, Envelope.
+    Office,                       !- Zone Name  Source: building.txt, Geometry.
+    ,                             !- Space Name
+    Ground,                       !- Outside Boundary Condition  Source: building.txt, Geometry (the floor is on the ground).
+    ,                             !- Outside Boundary Condition Object
+    NoSun,                        !- Sun Exposure  Not in the documents: follows from the ground.
+    NoWind,                       !- Wind Exposure  Not in the documents: follows from the ground.
+    AutoCalculate,                !- View Factor to Ground  Not in the documents: EnergyPlus default.
+    4,                            !- Number of Vertices  Source: building.txt, Geometry (a rectangle).
+    0, 0, 0,                      !- Vertex 1  Source: building.txt, Geometry (10 m x 5 m).
+    0, 5, 0,                      !- Vertex 2  Source: building.txt, Geometry (10 m x 5 m).
+    10, 5, 0,                     !- Vertex 3  Source: building.txt, Geometry (10 m x 5 m).
+    10, 0, 0;                     !- Vertex 4  Source: building.txt, Geometry (10 m x 5 m).
+
+  BuildingSurface:Detailed,
+    Roof,                         !- Name  Not in the documents: a name is needed.
+    Roof,                         !- Surface Type  Source: building.txt, Geometry.
+    Envelope Construction,        !- Construction Name  Source: building.txt, Envelope.
+    Office,                       !- Zone Name  Source: building.txt, Geometry.
+    ,                             !- Space Name
+    Outdoors,                     !- Outside Boundary Condition  Source: building.txt, Geometry.
+    ,                             !- Outside Boundary Condition Object
+    SunExposed,                   !- Sun Exposure  Not in the documents: follows from the outdoors.
+    WindExposed,                  !- Wind Exposure  Not in the documents: follows from the outdoors.
+    AutoCalculate,                !- View Factor to Ground  Not in the documents: EnergyPlus default.
+    4,                            !- Number of Vertices  Source: building.txt, Geometry (a rectangle).
+    0, 0, 3,                      !- Vertex 1  Source: building.txt, Geometry (10 m x 5 m x 3 m).
+    10, 0, 3,                     !- Vertex 2  Source: building.txt, Geometry (10 m x 5 m x 3 m).
+    10, 5, 3,                     !- Vertex 3  Source: building.txt, Geometry (10 m x 5 m x 3 m).
+    0, 5, 3;                      !- Vertex 4  Source: building.txt, Geometry (10 m x 5 m x 3 m).
+
+  BuildingSurface:Detailed,
+    South Wall,                   !- Name  Not in the documents: a name is needed.
+    Wall,                         !- Surface Type  Source: building.txt, Geometry.
+    Envelope Construction,        !- Construction Name  Source: building.txt, Envelope.
+    Office,                       !- Zone Name  Source: building.txt, Geometry.
+    ,                             !- Space Name
+    Outdoors,                     !- Outside Boundary Condition  Source: building.txt, Geometry.
+    ,                             !- Outside Boundary Condition Object
+    SunExposed,                   !- Sun Exposure  Not in the documents: follows from the outdoors.
+    WindExposed,                  !- Wind Exposure  Not in the documents: follows from the outdoors.
+    AutoCalculate,                !- View Factor to Ground  Not in the documents: EnergyPlus default.
+    4,                            !- Number of Vertices  Source: building.txt, Geometry (a rectangle).
+    0, 0, 3,                      !- Vertex 1  Source: building.txt, Geometry (10 m x 3 m).
+    0, 0, 0,                      !- Vertex 2  Source: building.txt, Geometry (10 m x 3 m).
+    10, 0, 0,                     !- Vertex 3  Source: building.txt, Geometry (10 m x 3 m).
+    10, 0, 3;                     !- Vertex 4  Source: building.txt, Geometry (10 m x 3 m).
+
+  BuildingSurface:Detailed,
+    East Wall,                    !- Name  Not in the documents: a name is needed.
+    Wall,                         !- Surface Type  Source: building.txt, Geometry.
+    Envelope Construction,        !- Construction Name  Source: building.txt, Envelope.
+    Office,                       !- Zone Name  Source: building.txt, Geometry.
+    ,                             !- Space Name
+    Outdoors,                     !- Outside Boundary Condition  Source: building.txt, Geometry.
+    ,                             !- Outside Boundary Condition Object
+    SunExposed,                   !- Sun Exposure  Not in the documents: follows from the outdoors.
+    WindExposed,                  !- Wind Exposure  Not in the documents: follows from the outdoors.
+    AutoCalculate,                !- View Factor to Ground  Not in the documents: EnergyPlus default.
+    4,                            !- Number of Vertices  Source: building.txt, Geometry (a rectangle).
+    10, 0, 3,                     !- Vertex 1  Source: building.txt, Geometry (5 m x 3 m).
+    10, 0, 0,                     !- Vertex 2  Source: building.txt, Geometry (5 m x 3 m).
+    10, 5, 0,                     !- Vertex 3  Source: building.txt, Geometry (5 m x 3 m).
+    10, 5, 3;                     !- Vertex 4  Source: building.txt, Geometry (5 m x 3 m).
+
+  BuildingSurface:Detailed,
+    North Wall,                   !- Name  Not in the documents: a name is needed.
+    Wall,                         !- Surface Type  Source: building.txt, Geometry.
+    Envelope Construction,        !- Construction Name  Source: building.txt, Envelope.
+    Office,                       !- Zone Name  Source: building.txt, Geometry.
+    ,                             !- Space Name
+    Outdoors,                     !- Outside Boundary Condition  Source: building.txt, Geometry.
+    ,                             !- Outside Boundary Condition Object
+    SunExposed,                   !- Sun Exposure  Not in the documents: follows from the outdoors.
+    WindExposed,                  !- Wind Exposure  Not in the documents: follows from the outdoors.
+    AutoCalculate,                !- View Factor to Ground  Not in the documents: EnergyPlus default.
+    4,                            !- Number of Vertices  Source: building.txt, Geometry (a rectangle).
+    10, 5, 3,                     !- Vertex 1  Source: building.txt, Geometry (10 m x 3 m).
+    10, 5, 0,                     !- Vertex 2  Source: building.txt, Geometry (10 m x 3 m).
+    0, 5, 0,                      !- Vertex 3  Source: building.txt, Geometry (10 m x 3 m).
+    0, 5, 3;                      !- Vertex 4  Source: building.txt, Geometry (10 m x 3 m).
+
+  BuildingSurface:Detailed,
+    West Wall,                    !- Name  Not in the documents: a name is needed.
+    Wall,                         !- Surface Type  Source: building.txt, Geometry.
+    Envelope Construction,        !- Construction Name  Source: building.txt, Envelope.
+    Office,                       !- Zone Name  Source: building.txt, Geometry.
+    ,                             !- Space Name
+    Outdoors,                     !- Outside Boundary Condition  Source: building.txt, Geometry.
+    ,                             !- Outside Boundary Condition Object
+    SunExposed,                   !- Sun Exposure  Not in the documents: follows from the outdoors.
+    WindExposed,                  !- Wind Exposure  Not in the documents: follows from the outdoors.
+    AutoCalculate,                !- View Factor to Ground  Not in the documents: EnergyPlus default.
+    4,                            !- Number of Vertices  Source: building.txt, Geometry (a rectangle).
+    0, 5, 3,                      !- Vertex 1  Source: building.txt, Geometry (5 m x 3 m).
+    0, 5, 0,                      !- Vertex 2  Source: building.txt, Geometry (5 m x 3 m).
+    0, 0, 0,                      !- Vertex 3  Source: building.txt, Geometry (5 m x 3 m).
+    0, 0, 3;                      !- Vertex 4  Source: building.txt, Geometry (5 m x 3 m).
+
+  Lights,
+    Office Lights,                !- Name  Not in the documents: a name is needed.
+    Office,                       !- Zone or ZoneList Name  Source: building.txt, Internal loads.
+    Lights Schedule,              !- Schedule Name  Source: building.txt, Internal loads.
+    Watts/Area,                   !- Design Level Calculation Method  Source: building.txt, Internal loads (W per m2).
+    ,                             !- Lighting Level
+    10,                           !- Watts per Zone Floor Area  Source: building.txt, Internal loads (10 W per m2).
+    ,                             !- Watts per Person
+    0,                            !- Return Air Fraction  Not in the documents: assumption.
+    0.42,                         !- Fraction Radiant  Not in the documents: assumption.
+    0.18;                         !- Fraction Visible  Not in the documents: assumption.
+
+  ElectricEquipment,
+    Office Equipment,             !- Name  Not in the documents: a name is needed.
+    Office,                       !- Zone or ZoneList Name  Source: building.txt, Internal loads.
+    Equipment Schedule,           !- Schedule Name  Source: building.txt, Internal loads.
+    Watts/Area,                   !- Design Level Calculation Method  Source: building.txt, Internal loads (W per m2).
+    ,                             !- Design Level
+    8,                            !- Watts per Zone Floor Area  Source: building.txt, Internal loads (8 W per m2).
+    ,                             !- Watts per Person
+    0,                            !- Fraction Latent  Not in the documents: assumption.
+    0.3,                          !- Fraction Radiant  Not in the documents: assumption.
+    0;                            !- Fraction Lost  Not in the documents: assumption.
+
+  Schedule:Constant,
+    Always On,                    !- Name  Not in the documents: needed by the assumed infiltration.
+    Fraction,                     !- Schedule Type Limits Name  Not in the documents: EnergyPlus requires it.
+    1;                            !- Hourly Value  Not in the documents: needed by the assumed infiltration.
+
+  ZoneInfiltration:DesignFlowRate,
+    Office Infiltration,          !- Name  Not in the documents: a name is needed.
+    Office,                       !- Zone or ZoneList Name  Not in the documents: follows from the assumed infiltration.
+    Always On,                    !- Schedule Name  Not in the documents: assumption.
+    AirChanges/Hour,              !- Design Flow Rate Calculation Method  Not in the documents: assumption.
+    ,                             !- Design Flow Rate
+    ,                             !- Flow Rate per Zone Floor Area
+    ,                             !- Flow Rate per Exterior Surface Area
+    0.3;                          !- Air Changes per Hour  Not in the documents: assumption.
+
+  ThermostatSetpoint:DualSetpoint,
+    Office Setpoints,             !- Name  Not in the documents: a name is needed.
+    Heating Setpoint Schedule,    !- Heating Setpoint Temperature Schedule Name  Source: building.txt, Heating and cooling.
+    Cooling Setpoint Schedule;    !- Cooling Setpoint Temperature Schedule Name  Source: building.txt, Heating and cooling.
+
+  ZoneControl:Thermostat,
+    Office Thermostat,            !- Name  Not in the documents: a name is needed.
+    Office,                       !- Zone or ZoneList Name  Source: building.txt, Heating and cooling.
+    Thermostat Control Type,      !- Control Type Schedule Name  Not in the documents: EnergyPlus requires it.
+    ThermostatSetpoint:DualSetpoint, !- Control 1 Object Type  Not in the documents: EnergyPlus requires it.
+    Office Setpoints;             !- Control 1 Name  Not in the documents: EnergyPlus requires it.
+
+  ZoneHVAC:IdealLoadsAirSystem,
+    Office Ideal Loads,           !- Name  Not in the documents: assumption (an ideal system stands for the HVAC).
+    ,                             !- Availability Schedule Name
+    Office Supply Node;           !- Zone Supply Air Node Name  Not in the documents: EnergyPlus requires it.
+
+  ZoneHVAC:EquipmentList,
+    Office Equipment List,        !- Name  Not in the documents: EnergyPlus requires it.
+    SequentialLoad,               !- Load Distribution Scheme  Not in the documents: EnergyPlus requires it.
+    ZoneHVAC:IdealLoadsAirSystem, !- Zone Equipment 1 Object Type  Not in the documents: EnergyPlus requires it.
+    Office Ideal Loads,           !- Zone Equipment 1 Name  Not in the documents: EnergyPlus requires it.
+    1,                            !- Zone Equipment 1 Cooling Sequence  Not in the documents: EnergyPlus requires it.
+    1;                            !- Zone Equipment 1 Heating or No-Load Sequence  Not in the documents: EnergyPlus requires it.
+
+  ZoneHVAC:EquipmentConnections,
+    Office,                       !- Zone Name  Not in the documents: EnergyPlus requires it.
+    Office Equipment List,        !- Zone Conditioning Equipment List Name  Not in the documents: EnergyPlus requires it.
+    Office Supply Node,           !- Zone Air Inlet Node or NodeList Name  Not in the documents: EnergyPlus requires it.
+    ,                             !- Zone Air Exhaust Node or NodeList Name
+    Office Zone Node,             !- Zone Air Node Name  Not in the documents: EnergyPlus requires it.
+    Office Return Node;           !- Zone Return Air Node or NodeList Name  Not in the documents: EnergyPlus requires it.

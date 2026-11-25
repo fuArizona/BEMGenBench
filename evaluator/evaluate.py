@@ -144,6 +144,11 @@ def evaluate_case(case_dir, candidate, out_dir, a):
         res["notes"].append("no candidate IDF for this case: the case scores 0")
         return res
     res["candidate"]["sha256"] = sha256(candidate)
+    if _has_no_version(candidate):
+        base = os.path.join(case_dir, "documented_only", "documented_only.idf") if getattr(a, "base", "reference") == "documented_only" else ref
+        return no_version_branch(res, base, candidate, a)
+    if getattr(a, "base", "reference") != "reference":
+        res["notes"].append("--base %s is used only for a candidate without a Version object; this candidate has one and is compared with reference.idf" % a.base)
     tmp = tempfile.mkdtemp()
     clean = os.path.join(tmp, case_id + ".candidate_without_comments.idf")
     strip_comments(candidate, clean)            # the comments of the candidate are never read
@@ -330,6 +335,45 @@ def evaluate_case(case_dir, candidate, out_dir, a):
     return with_labels(res)
 
 
+def _has_no_version(path):
+    import idf_flatten
+    try:
+        return idf_flatten.version_of(open(path, "rb").read().decode("latin-1")) is None
+    except OSError:
+        return False
+
+
+def no_version_branch(res, ref, candidate, a):
+    """The candidate has no Version object: it is a list of values, not a model. Compared without EnergyPlus (engine/idf_noversion.py):
+    Field KVOR = counted candidate fields (document-supported in the reference) with the same value / counted candidate fields; Object KVOR likewise for objects; runs in EnergyPlus = No."""
+    import idf_noversion
+    import idf_schema
+    base_name = os.path.basename(ref)
+    if not os.path.isfile(ref):
+        res["status"] = "error"
+        res["notes"].append("the no-Version comparison needs %s, which does not exist (make it with tools/make_documented_only_idf.py, or use --base reference)" % ref)
+        return res
+    try:
+        schema = idf_schema.Schema(root=a.energyplus)
+        r = idf_noversion.compare(open(ref, "rb").read().decode("utf8", errors="replace"), open(candidate, "rb").read().decode("utf8", errors="replace"), schema)
+    except Exception as e:      # no schema / unreadable file
+        res["status"] = "error"
+        res["notes"].append("the no-Version comparison could not be made: %s" % str(e)[:300])
+        return res
+    nf, fok = r["fields"]
+    no, ook = r["objects"]
+    res["status"] = "scored"
+    res["mode"] = "no_version"
+    res["score"] = dict(keys=nf, same=fok, rate=round(fok / nf, 4) if nf else 0.0)
+    res["object_score"] = dict(objects=no, same=ook, rate=round(ook / no, 4) if no else None)
+    res["no_version"] = dict(base=base_name, excluded_fields_not_from_documents=r["excluded_fields"], excluded_objects=r["excluded_objects"], missing_fields=r["missing_fields"][:a.top], different_fields=r["different_fields"][:a.top], missing_objects=r["missing_objects"][:a.top], different_objects=r["different_objects"][:a.top], per_class=r["per_class"])
+    res["breakdown"] = []
+    res["simulation"] = dict(runs="No", severe=None, fatal=None, reason="the candidate has no Version object: compared without EnergyPlus, not run")
+    res["notes"].insert(0, "the candidate has no Version object: no-Version branch (no EnergyPlus), compared with %s. Only the fields that the reference gives as document values count (a candidate field whose reference counterpart is nodoc or undet, or that has no counterpart in the reference, is neutral, and so is an object with only such fields). Field KVOR = counted candidate fields with the same value as the reference / counted candidate fields; Object KVOR = counted candidate objects whose counted fields are all the same / counted candidate objects; runs in EnergyPlus = No" % base_name)
+    res["notes"] += r["notes"]
+    return with_labels(res)
+
+
 def with_labels(res):
     """The two rates by their names, right after `status` (user request 2026-11-22: `score` alone does not say which rate it is).
     `field_kvor` = the score of the benchmark (the same numbers as `score`); `object_kvor` = the share of the objects that are the same (next to the score, not part of it)."""
@@ -354,6 +398,7 @@ def main(argv=None):
     ap.add_argument("--all", action="store_true")
     ap.add_argument("--candidates-dir")
     ap.add_argument("--self-check", action="store_true")
+    ap.add_argument("--base", choices=["reference", "documented_only"], default="reference", help="the file a candidate WITHOUT a Version object is compared with (the no-Version branch only; default reference = cases/<id>/reference/reference.idf; documented_only = cases/<id>/documented_only/documented_only.idf, the reference with only the document values: the same numbers). A candidate with a Version is always compared with reference.idf")
     ap.add_argument("--geom-tol", type=float, default=0.05, help="relative tolerance of the geometry totals (default 0.05 = 5 %%)")
     ap.add_argument("--cases", help="comma separated case ids (with --all or --self-check)")
     ap.add_argument("--out", required=True)

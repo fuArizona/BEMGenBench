@@ -1,0 +1,247 @@
+! Mini Room: only the data of the input document (building.txt) are marked as such; everything else is an EnergyPlus requirement or an assumption.
+! A teaching example of BEMGenBench, not a benchmark case.
+! Only the fields that have a documentary basis are kept (tools/make_documented_only_idf.py); blank fields = not in the documents. Not meant to run.
+
+  Site:Location,
+    Tucson,                       !- Name  Source: building.txt, Site.
+    32.17,                        !- Latitude  Source: building.txt, Site.
+    -110.88,                      !- Longitude  Source: building.txt, Site.
+    -7,                           !- Time Zone  Source: building.txt, Site.
+    824;                          !- Elevation  Source: building.txt, Site.
+
+  RunPeriod,
+    Annual,                       !- Name  Not in the documents: a name is needed.
+    1,                            !- Begin Month  Source: building.txt, Site (whole year).
+    1,                            !- Begin Day of Month  Source: building.txt, Site (whole year).
+    2025,                         !- Begin Year  Source: building.txt, Site (year 2025).
+    12,                           !- End Month  Source: building.txt, Site (whole year).
+    31,                           !- End Day of Month  Source: building.txt, Site (whole year).
+    2025;                         !- End Year  Source: building.txt, Site (year 2025).
+
+  Schedule:Compact,
+    Lights Schedule,              !- Name  Not in the documents: a name is needed.
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays,                !- Field 2
+    Until: 08:00,                 !- Field 3
+    0,                            !- Field 4  Source: building.txt, Internal loads (off before 8:00).
+    Until: 18:00,                 !- Field 5
+    1,                            !- Field 6  Source: building.txt, Internal loads (on from 8:00 to 18:00).
+    Until: 24:00,                 !- Field 7
+    0,                            !- Field 8  Source: building.txt, Internal loads (off after 18:00).
+    For: AllOtherDays,            !- Field 9
+    Until: 24:00,                 !- Field 10
+    0;                            !- Field 11  Source: building.txt, Internal loads (off at weekends).
+
+  Schedule:Constant,
+    Equipment Schedule,           !- Name  Not in the documents: a name is needed.
+    ,                             !- schedule type limits name
+    1;                            !- Hourly Value  Source: building.txt, Internal loads (full power all the time).
+
+  Schedule:Constant,
+    Heating Setpoint Schedule,    !- Name  Not in the documents: a name is needed.
+    ,                             !- schedule type limits name
+    21;                           !- Hourly Value  Source: building.txt, Heating and cooling (heating setpoint 21 C).
+
+  Schedule:Constant,
+    Cooling Setpoint Schedule,    !- Name  Not in the documents: a name is needed.
+    ,                             !- schedule type limits name
+    24;                           !- Hourly Value  Source: building.txt, Heating and cooling (cooling setpoint 24 C).
+
+  Material,
+    Brick 200mm,                  !- Name  Not in the documents: a name is needed.
+    ,                             !- roughness
+    0.2,                          !- Thickness  Source: building.txt, Envelope (200 mm).
+    0.9,                          !- Conductivity  Source: building.txt, Envelope.
+    1800,                         !- Density  Source: building.txt, Envelope.
+    900;                          !- Specific Heat  Source: building.txt, Envelope.
+
+  Construction,
+    Envelope Construction,        !- Name  Not in the documents: a name is needed.
+    Brick 200mm;                  !- Outside Layer  Source: building.txt, Envelope (one layer of brick).
+
+  Zone,
+    Office,                       !- Name  Source: building.txt, Geometry.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    ,                             !- multiplier
+    3;                            !- Ceiling Height  Source: building.txt, Geometry (3 m high).
+
+  BuildingSurface:Detailed,
+    Floor,                        !- Name  Not in the documents: a name is needed.
+    Floor,                        !- Surface Type  Source: building.txt, Geometry.
+    Envelope Construction,        !- Construction Name  Source: building.txt, Envelope.
+    Office,                       !- Zone Name  Source: building.txt, Geometry.
+    ,                             !- space name
+    Ground,                       !- Outside Boundary Condition  Source: building.txt, Geometry (the floor is on the ground).
+    ,                             !- outside boundary condition object
+    ,                             !- sun exposure
+    ,                             !- wind exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices  Source: building.txt, Geometry (a rectangle).
+    0,                            !- Vertex 1  Source: building.txt, Geometry (10 m x 5 m).
+    0,                            !- Vertex 1  Source: building.txt, Geometry (10 m x 5 m).
+    0,                            !- Vertex 1  Source: building.txt, Geometry (10 m x 5 m).
+    0,                            !- Vertex 2  Source: building.txt, Geometry (10 m x 5 m).
+    5,                            !- Vertex 2  Source: building.txt, Geometry (10 m x 5 m).
+    0,                            !- Vertex 2  Source: building.txt, Geometry (10 m x 5 m).
+    10,                           !- Vertex 3  Source: building.txt, Geometry (10 m x 5 m).
+    5,                            !- Vertex 3  Source: building.txt, Geometry (10 m x 5 m).
+    0,                            !- Vertex 3  Source: building.txt, Geometry (10 m x 5 m).
+    10,                           !- Vertex 4  Source: building.txt, Geometry (10 m x 5 m).
+    0,                            !- Vertex 4  Source: building.txt, Geometry (10 m x 5 m).
+    0;                            !- Vertex 4  Source: building.txt, Geometry (10 m x 5 m).
+
+  BuildingSurface:Detailed,
+    Roof,                         !- Name  Not in the documents: a name is needed.
+    Roof,                         !- Surface Type  Source: building.txt, Geometry.
+    Envelope Construction,        !- Construction Name  Source: building.txt, Envelope.
+    Office,                       !- Zone Name  Source: building.txt, Geometry.
+    ,                             !- space name
+    Outdoors,                     !- Outside Boundary Condition  Source: building.txt, Geometry.
+    ,                             !- outside boundary condition object
+    ,                             !- sun exposure
+    ,                             !- wind exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices  Source: building.txt, Geometry (a rectangle).
+    0,                            !- Vertex 1  Source: building.txt, Geometry (10 m x 5 m x 3 m).
+    0,                            !- Vertex 1  Source: building.txt, Geometry (10 m x 5 m x 3 m).
+    3,                            !- Vertex 1  Source: building.txt, Geometry (10 m x 5 m x 3 m).
+    10,                           !- Vertex 2  Source: building.txt, Geometry (10 m x 5 m x 3 m).
+    0,                            !- Vertex 2  Source: building.txt, Geometry (10 m x 5 m x 3 m).
+    3,                            !- Vertex 2  Source: building.txt, Geometry (10 m x 5 m x 3 m).
+    10,                           !- Vertex 3  Source: building.txt, Geometry (10 m x 5 m x 3 m).
+    5,                            !- Vertex 3  Source: building.txt, Geometry (10 m x 5 m x 3 m).
+    3,                            !- Vertex 3  Source: building.txt, Geometry (10 m x 5 m x 3 m).
+    0,                            !- Vertex 4  Source: building.txt, Geometry (10 m x 5 m x 3 m).
+    5,                            !- Vertex 4  Source: building.txt, Geometry (10 m x 5 m x 3 m).
+    3;                            !- Vertex 4  Source: building.txt, Geometry (10 m x 5 m x 3 m).
+
+  BuildingSurface:Detailed,
+    South Wall,                   !- Name  Not in the documents: a name is needed.
+    Wall,                         !- Surface Type  Source: building.txt, Geometry.
+    Envelope Construction,        !- Construction Name  Source: building.txt, Envelope.
+    Office,                       !- Zone Name  Source: building.txt, Geometry.
+    ,                             !- space name
+    Outdoors,                     !- Outside Boundary Condition  Source: building.txt, Geometry.
+    ,                             !- outside boundary condition object
+    ,                             !- sun exposure
+    ,                             !- wind exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices  Source: building.txt, Geometry (a rectangle).
+    0,                            !- Vertex 1  Source: building.txt, Geometry (10 m x 3 m).
+    0,                            !- Vertex 1  Source: building.txt, Geometry (10 m x 3 m).
+    3,                            !- Vertex 1  Source: building.txt, Geometry (10 m x 3 m).
+    0,                            !- Vertex 2  Source: building.txt, Geometry (10 m x 3 m).
+    0,                            !- Vertex 2  Source: building.txt, Geometry (10 m x 3 m).
+    0,                            !- Vertex 2  Source: building.txt, Geometry (10 m x 3 m).
+    10,                           !- Vertex 3  Source: building.txt, Geometry (10 m x 3 m).
+    0,                            !- Vertex 3  Source: building.txt, Geometry (10 m x 3 m).
+    0,                            !- Vertex 3  Source: building.txt, Geometry (10 m x 3 m).
+    10,                           !- Vertex 4  Source: building.txt, Geometry (10 m x 3 m).
+    0,                            !- Vertex 4  Source: building.txt, Geometry (10 m x 3 m).
+    3;                            !- Vertex 4  Source: building.txt, Geometry (10 m x 3 m).
+
+  BuildingSurface:Detailed,
+    East Wall,                    !- Name  Not in the documents: a name is needed.
+    Wall,                         !- Surface Type  Source: building.txt, Geometry.
+    Envelope Construction,        !- Construction Name  Source: building.txt, Envelope.
+    Office,                       !- Zone Name  Source: building.txt, Geometry.
+    ,                             !- space name
+    Outdoors,                     !- Outside Boundary Condition  Source: building.txt, Geometry.
+    ,                             !- outside boundary condition object
+    ,                             !- sun exposure
+    ,                             !- wind exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices  Source: building.txt, Geometry (a rectangle).
+    10,                           !- Vertex 1  Source: building.txt, Geometry (5 m x 3 m).
+    0,                            !- Vertex 1  Source: building.txt, Geometry (5 m x 3 m).
+    3,                            !- Vertex 1  Source: building.txt, Geometry (5 m x 3 m).
+    10,                           !- Vertex 2  Source: building.txt, Geometry (5 m x 3 m).
+    0,                            !- Vertex 2  Source: building.txt, Geometry (5 m x 3 m).
+    0,                            !- Vertex 2  Source: building.txt, Geometry (5 m x 3 m).
+    10,                           !- Vertex 3  Source: building.txt, Geometry (5 m x 3 m).
+    5,                            !- Vertex 3  Source: building.txt, Geometry (5 m x 3 m).
+    0,                            !- Vertex 3  Source: building.txt, Geometry (5 m x 3 m).
+    10,                           !- Vertex 4  Source: building.txt, Geometry (5 m x 3 m).
+    5,                            !- Vertex 4  Source: building.txt, Geometry (5 m x 3 m).
+    3;                            !- Vertex 4  Source: building.txt, Geometry (5 m x 3 m).
+
+  BuildingSurface:Detailed,
+    North Wall,                   !- Name  Not in the documents: a name is needed.
+    Wall,                         !- Surface Type  Source: building.txt, Geometry.
+    Envelope Construction,        !- Construction Name  Source: building.txt, Envelope.
+    Office,                       !- Zone Name  Source: building.txt, Geometry.
+    ,                             !- space name
+    Outdoors,                     !- Outside Boundary Condition  Source: building.txt, Geometry.
+    ,                             !- outside boundary condition object
+    ,                             !- sun exposure
+    ,                             !- wind exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices  Source: building.txt, Geometry (a rectangle).
+    10,                           !- Vertex 1  Source: building.txt, Geometry (10 m x 3 m).
+    5,                            !- Vertex 1  Source: building.txt, Geometry (10 m x 3 m).
+    3,                            !- Vertex 1  Source: building.txt, Geometry (10 m x 3 m).
+    10,                           !- Vertex 2  Source: building.txt, Geometry (10 m x 3 m).
+    5,                            !- Vertex 2  Source: building.txt, Geometry (10 m x 3 m).
+    0,                            !- Vertex 2  Source: building.txt, Geometry (10 m x 3 m).
+    0,                            !- Vertex 3  Source: building.txt, Geometry (10 m x 3 m).
+    5,                            !- Vertex 3  Source: building.txt, Geometry (10 m x 3 m).
+    0,                            !- Vertex 3  Source: building.txt, Geometry (10 m x 3 m).
+    0,                            !- Vertex 4  Source: building.txt, Geometry (10 m x 3 m).
+    5,                            !- Vertex 4  Source: building.txt, Geometry (10 m x 3 m).
+    3;                            !- Vertex 4  Source: building.txt, Geometry (10 m x 3 m).
+
+  BuildingSurface:Detailed,
+    West Wall,                    !- Name  Not in the documents: a name is needed.
+    Wall,                         !- Surface Type  Source: building.txt, Geometry.
+    Envelope Construction,        !- Construction Name  Source: building.txt, Envelope.
+    Office,                       !- Zone Name  Source: building.txt, Geometry.
+    ,                             !- space name
+    Outdoors,                     !- Outside Boundary Condition  Source: building.txt, Geometry.
+    ,                             !- outside boundary condition object
+    ,                             !- sun exposure
+    ,                             !- wind exposure
+    ,                             !- view factor to ground
+    4,                            !- Number of Vertices  Source: building.txt, Geometry (a rectangle).
+    0,                            !- Vertex 1  Source: building.txt, Geometry (5 m x 3 m).
+    5,                            !- Vertex 1  Source: building.txt, Geometry (5 m x 3 m).
+    3,                            !- Vertex 1  Source: building.txt, Geometry (5 m x 3 m).
+    0,                            !- Vertex 2  Source: building.txt, Geometry (5 m x 3 m).
+    5,                            !- Vertex 2  Source: building.txt, Geometry (5 m x 3 m).
+    0,                            !- Vertex 2  Source: building.txt, Geometry (5 m x 3 m).
+    0,                            !- Vertex 3  Source: building.txt, Geometry (5 m x 3 m).
+    0,                            !- Vertex 3  Source: building.txt, Geometry (5 m x 3 m).
+    0,                            !- Vertex 3  Source: building.txt, Geometry (5 m x 3 m).
+    0,                            !- Vertex 4  Source: building.txt, Geometry (5 m x 3 m).
+    0,                            !- Vertex 4  Source: building.txt, Geometry (5 m x 3 m).
+    3;                            !- Vertex 4  Source: building.txt, Geometry (5 m x 3 m).
+
+  Lights,
+    Office Lights,                !- Name  Not in the documents: a name is needed.
+    Office,                       !- Zone or ZoneList Name  Source: building.txt, Internal loads.
+    Lights Schedule,              !- Schedule Name  Source: building.txt, Internal loads.
+    Watts/Area,                   !- Design Level Calculation Method  Source: building.txt, Internal loads (W per m2).
+    ,                             !- lighting level
+    10;                           !- Watts per Zone Floor Area  Source: building.txt, Internal loads (10 W per m2).
+
+  ElectricEquipment,
+    Office Equipment,             !- Name  Not in the documents: a name is needed.
+    Office,                       !- Zone or ZoneList Name  Source: building.txt, Internal loads.
+    Equipment Schedule,           !- Schedule Name  Source: building.txt, Internal loads.
+    Watts/Area,                   !- Design Level Calculation Method  Source: building.txt, Internal loads (W per m2).
+    ,                             !- design level
+    8;                            !- Watts per Zone Floor Area  Source: building.txt, Internal loads (8 W per m2).
+
+  ThermostatSetpoint:DualSetpoint,
+    Office Setpoints,             !- Name  Not in the documents: a name is needed.
+    Heating Setpoint Schedule,    !- Heating Setpoint Temperature Schedule Name  Source: building.txt, Heating and cooling.
+    Cooling Setpoint Schedule;    !- Cooling Setpoint Temperature Schedule Name  Source: building.txt, Heating and cooling.
+
+  ZoneControl:Thermostat,
+    Office Thermostat,            !- Name  Not in the documents: a name is needed.
+    Office;                       !- Zone or ZoneList Name  Source: building.txt, Heating and cooling.
+

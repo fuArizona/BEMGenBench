@@ -1,0 +1,1808 @@
+! DOE Large Office, 90.1-2004, Buffalo: only the data of the input documents (xlsx = PNNL_Prototype_Scorecards.xlsx, PDF = NREL reference-building report).
+! Weather file: USA_NY_Buffalo.Niagara.Intl.AP.725280_TMY3.epw (xlsx sheet Climate Zone).
+! Only the fields that have a documentary basis are kept (tools/make_documented_only_idf.py); blank fields = not in the documents. Not meant to run.
+
+  Schedule:Compact,
+    BLDG_OCC_SCH_wo_SB,           !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays SummerDesignDay WinterDesignDay,!- Field 2
+    Until: 01:00,                 !- Field 3  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0,                            !- Field 3  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 02:00,                 !- Field 4  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0,                            !- Field 4  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 03:00,                 !- Field 5  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0,                            !- Field 5  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 04:00,                 !- Field 6  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0,                            !- Field 6  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 05:00,                 !- Field 7  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0,                            !- Field 7  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 06:00,                 !- Field 8  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0,                            !- Field 8  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 07:00,                 !- Field 9  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0.1,                          !- Field 9  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 08:00,                 !- Field 10  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0.2,                          !- Field 10  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 09:00,                 !- Field 11  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0.95,                         !- Field 11  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 10:00,                 !- Field 12  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0.95,                         !- Field 12  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 11:00,                 !- Field 13  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0.993313428402066,            !- Field 13  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 12:00,                 !- Field 14  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0.95,                         !- Field 14  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 13:00,                 !- Field 15  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0.522796541264245,            !- Field 15  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 14:00,                 !- Field 16  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0.95,                         !- Field 16  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 15:00,                 !- Field 17  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0.993313428402066,            !- Field 17  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 16:00,                 !- Field 18  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0.95,                         !- Field 18  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 17:00,                 !- Field 19  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0.95,                         !- Field 19  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 18:00,                 !- Field 20  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0.3,                          !- Field 20  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 19:00,                 !- Field 21  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0.1,                          !- Field 21  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 20:00,                 !- Field 22  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0.1,                          !- Field 22  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 21:00,                 !- Field 23  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0.1,                          !- Field 23  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 22:00,                 !- Field 24  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0.1,                          !- Field 24  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 23:00,                 !- Field 25  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0.05,                         !- Field 25  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    Until: 24:00,                 !- Field 26  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    0.05,                         !- Field 26  Source: xlsx Schedule Summary row 53 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 27
+    Until: 01:00,                 !- Field 28  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0,                            !- Field 28  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 02:00,                 !- Field 29  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0,                            !- Field 29  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 03:00,                 !- Field 30  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0,                            !- Field 30  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 04:00,                 !- Field 31  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0,                            !- Field 31  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 05:00,                 !- Field 32  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0,                            !- Field 32  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 06:00,                 !- Field 33  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0,                            !- Field 33  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 07:00,                 !- Field 34  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0.1,                          !- Field 34  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 08:00,                 !- Field 35  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0.1,                          !- Field 35  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 09:00,                 !- Field 36  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0.3,                          !- Field 36  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 10:00,                 !- Field 37  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0.3,                          !- Field 37  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 11:00,                 !- Field 38  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0.313677924758547,            !- Field 38  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 12:00,                 !- Field 39  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0.3,                          !- Field 39  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 13:00,                 !- Field 40  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0.104559308252849,            !- Field 40  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 14:00,                 !- Field 41  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0.1,                          !- Field 41  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 15:00,                 !- Field 42  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0.104559308252849,            !- Field 42  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 16:00,                 !- Field 43  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0.1,                          !- Field 43  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 17:00,                 !- Field 44  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0.1,                          !- Field 44  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 18:00,                 !- Field 45  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0.05,                         !- Field 45  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 19:00,                 !- Field 46  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0.05,                         !- Field 46  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 20:00,                 !- Field 47  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0,                            !- Field 47  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 21:00,                 !- Field 48  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0,                            !- Field 48  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 22:00,                 !- Field 49  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0,                            !- Field 49  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 23:00,                 !- Field 50  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0,                            !- Field 50  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    Until: 24:00,                 !- Field 51  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    0,                            !- Field 51  Source: xlsx Schedule Summary row 54 (Sat), hours up to this time.
+    For: Sunday Holidays AllOtherDays,!- Field 52
+    Until: 06:00,                 !- Field 53  Source: xlsx Schedule Summary row 53/54/55 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.0,                          !- Field 53  Source: xlsx Schedule Summary row 53/54/55 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 18:00,                 !- Field 54  Source: xlsx Schedule Summary row 53/54/55 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.05,                         !- Field 54  Source: xlsx Schedule Summary row 53/54/55 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 24:00,                 !- Field 55  Source: xlsx Schedule Summary row 53/54/55 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.0;                          !- Field 55  Source: xlsx Schedule Summary row 53/54/55 (Mon - Fri/Sat/Sun), hours up to this time.
+
+  Schedule:Compact,
+    ltg_sch_office,               !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays SummerDesignDay WinterDesignDay,!- Field 2
+    Until: 5:00,                  !- Field 3  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    0.05,                         !- Field 3  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    Until: 7:00,                  !- Field 4  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    0.1,                          !- Field 4  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    Until: 8:00,                  !- Field 5  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    0.3,                          !- Field 5  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    Until: 17:00,                 !- Field 6  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    0.9,                          !- Field 6  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    Until: 18:00,                 !- Field 7  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    0.5,                          !- Field 7  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    Until: 20:00,                 !- Field 8  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    0.3,                          !- Field 8  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    Until: 22:00,                 !- Field 9  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    0.2,                          !- Field 9  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    Until: 23:00,                 !- Field 10  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    0.1,                          !- Field 10  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    Until: 24:00,                 !- Field 11  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    0.05,                         !- Field 11  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 12
+    Until: 6:00,                  !- Field 13  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    0.05,                         !- Field 13  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    Until: 8:00,                  !- Field 14  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    0.1,                          !- Field 14  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    Until: 12:00,                 !- Field 15  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    0.3,                          !- Field 15  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    Until: 17:00,                 !- Field 16  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    0.15,                         !- Field 16  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    Until: 24:00,                 !- Field 17  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    0.05,                         !- Field 17  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    For: AllOtherDays,            !- Field 18
+    Until: 24:00,                 !- Field 19  Source: xlsx Schedule Summary row 56/57/58 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.05;                         !- Field 19  Source: xlsx Schedule Summary row 56/57/58 (Mon - Fri/Sat/Sun), hours up to this time.
+
+  Schedule:Compact,
+    BLDG_EQUIP_SCH,               !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays SummerDesignDay WinterDesignDay,!- Field 2
+    Until: 06:00,                 !- Field 3  Source: xlsx Schedule Summary row 59 (Mon - Fri), hours up to this time.
+    0.4,                          !- Field 3  Source: xlsx Schedule Summary row 59 (Mon - Fri), hours up to this time.
+    Until: 08:00,                 !- Field 4  Source: xlsx Schedule Summary row 59 (Mon - Fri), hours up to this time.
+    0.4,                          !- Field 4  Source: xlsx Schedule Summary row 59 (Mon - Fri), hours up to this time.
+    Until: 12:00,                 !- Field 5  Source: xlsx Schedule Summary row 59 (Mon - Fri), hours up to this time.
+    0.9,                          !- Field 5  Source: xlsx Schedule Summary row 59 (Mon - Fri), hours up to this time.
+    Until: 13:00,                 !- Field 6  Source: xlsx Schedule Summary row 59 (Mon - Fri), hours up to this time.
+    0.8,                          !- Field 6  Source: xlsx Schedule Summary row 59 (Mon - Fri), hours up to this time.
+    Until: 17:00,                 !- Field 7  Source: xlsx Schedule Summary row 59 (Mon - Fri), hours up to this time.
+    0.9,                          !- Field 7  Source: xlsx Schedule Summary row 59 (Mon - Fri), hours up to this time.
+    Until: 18:00,                 !- Field 8  Source: xlsx Schedule Summary row 59 (Mon - Fri), hours up to this time.
+    0.5,                          !- Field 8  Source: xlsx Schedule Summary row 59 (Mon - Fri), hours up to this time.
+    Until: 24:00,                 !- Field 9  Source: xlsx Schedule Summary row 59 (Mon - Fri), hours up to this time.
+    0.4,                          !- Field 9  Source: xlsx Schedule Summary row 59 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 10
+    Until: 06:00,                 !- Field 11  Source: xlsx Schedule Summary row 60 (Sat), hours up to this time.
+    0.3,                          !- Field 11  Source: xlsx Schedule Summary row 60 (Sat), hours up to this time.
+    Until: 08:00,                 !- Field 12  Source: xlsx Schedule Summary row 60 (Sat), hours up to this time.
+    0.4,                          !- Field 12  Source: xlsx Schedule Summary row 60 (Sat), hours up to this time.
+    Until: 12:00,                 !- Field 13  Source: xlsx Schedule Summary row 60 (Sat), hours up to this time.
+    0.5,                          !- Field 13  Source: xlsx Schedule Summary row 60 (Sat), hours up to this time.
+    Until: 17:00,                 !- Field 14  Source: xlsx Schedule Summary row 60 (Sat), hours up to this time.
+    0.35,                         !- Field 14  Source: xlsx Schedule Summary row 60 (Sat), hours up to this time.
+    Until: 19:00,                 !- Field 15  Source: xlsx Schedule Summary row 60 (Sat), hours up to this time.
+    0.3,                          !- Field 15  Source: xlsx Schedule Summary row 60 (Sat), hours up to this time.
+    Until: 24:00,                 !- Field 16  Source: xlsx Schedule Summary row 60 (Sat), hours up to this time.
+    0.3,                          !- Field 16  Source: xlsx Schedule Summary row 60 (Sat), hours up to this time.
+    For: Sunday Holidays AllOtherDays,!- Field 17
+    Until: 06:00,                 !- Field 18  Source: xlsx Schedule Summary row 59/60/61 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.3,                          !- Field 18  Source: xlsx Schedule Summary row 59/60/61 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 18:00,                 !- Field 19  Source: xlsx Schedule Summary row 59/60/61 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.3,                          !- Field 19  Source: xlsx Schedule Summary row 59/60/61 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 24:00,                 !- Field 20  Source: xlsx Schedule Summary row 59/60/61 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.3;                          !- Field 20  Source: xlsx Schedule Summary row 59/60/61 (Mon - Fri/Sat/Sun), hours up to this time.
+
+  Schedule:Compact,
+    INFIL_SCH_PNNL,               !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays WinterDesignDay SummerDesignDay,!- Field 2
+    Until: 06:00,                 !- Field 3  Source: xlsx Schedule Summary row 71 (Mon - Fri), hours up to this time.
+    1.0,                          !- Field 3  Source: xlsx Schedule Summary row 71 (Mon - Fri), hours up to this time.
+    Until: 22:00,                 !- Field 4  Source: xlsx Schedule Summary row 71 (Mon - Fri), hours up to this time.
+    0.25,                         !- Field 4  Source: xlsx Schedule Summary row 71 (Mon - Fri), hours up to this time.
+    Until: 24:00,                 !- Field 5  Source: xlsx Schedule Summary row 71 (Mon - Fri), hours up to this time.
+    1.0,                          !- Field 5  Source: xlsx Schedule Summary row 71 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 6
+    Until: 06:00,                 !- Field 7  Source: xlsx Schedule Summary row 72 (Sat), hours up to this time.
+    1.0,                          !- Field 7  Source: xlsx Schedule Summary row 72 (Sat), hours up to this time.
+    Until: 18:00,                 !- Field 8  Source: xlsx Schedule Summary row 72 (Sat), hours up to this time.
+    0.25,                         !- Field 8  Source: xlsx Schedule Summary row 72 (Sat), hours up to this time.
+    Until: 24:00,                 !- Field 9  Source: xlsx Schedule Summary row 72 (Sat), hours up to this time.
+    1.0,                          !- Field 9  Source: xlsx Schedule Summary row 72 (Sat), hours up to this time.
+    For: Sunday Holidays AllOtherDays,!- Field 10
+    Until: 24:00,                 !- Field 11  Source: xlsx Schedule Summary row 71/72/73 (Mon - Fri/Sat/Sun), hours up to this time.
+    1.0;                          !- Field 11  Source: xlsx Schedule Summary row 71/72/73 (Mon - Fri/Sat/Sun), hours up to this time.
+
+  Schedule:Compact,
+    ltg_sch_datacenter,           !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays SummerDesignDay WinterDesignDay,!- Field 2
+    Until: 5:00,                  !- Field 3  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    0.05,                         !- Field 3  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    Until: 7:00,                  !- Field 4  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    0.1,                          !- Field 4  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    Until: 8:00,                  !- Field 5  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    0.3,                          !- Field 5  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    Until: 17:00,                 !- Field 6  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    0.9,                          !- Field 6  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    Until: 18:00,                 !- Field 7  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    0.5,                          !- Field 7  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    Until: 20:00,                 !- Field 8  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    0.3,                          !- Field 8  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    Until: 22:00,                 !- Field 9  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    0.2,                          !- Field 9  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    Until: 23:00,                 !- Field 10  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    0.1,                          !- Field 10  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    Until: 24:00,                 !- Field 11  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    0.05,                         !- Field 11  Source: xlsx Schedule Summary row 56 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 12
+    Until: 6:00,                  !- Field 13  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    0.05,                         !- Field 13  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    Until: 8:00,                  !- Field 14  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    0.1,                          !- Field 14  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    Until: 12:00,                 !- Field 15  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    0.3,                          !- Field 15  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    Until: 17:00,                 !- Field 16  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    0.15,                         !- Field 16  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    Until: 24:00,                 !- Field 17  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    0.05,                         !- Field 17  Source: xlsx Schedule Summary row 57 (Sat), hours up to this time.
+    For: AllOtherDays,            !- Field 18
+    Until: 24:00,                 !- Field 19  Source: xlsx Schedule Summary row 56/57/58 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.05;                         !- Field 19  Source: xlsx Schedule Summary row 56/57/58 (Mon - Fri/Sat/Sun), hours up to this time.
+
+  Schedule:Compact,
+    HTGSETP_SCH_YES_OPTIMUM,      !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays WinterDesignDay SummerDesignDay,!- Field 2
+    Until: 04:00,                 !- Field 3  Source: xlsx Schedule Summary row 77 (Mon - Fri), hours up to this time.
+    15.6,                         !- Field 3  Source: xlsx Schedule Summary row 77 (Mon - Fri), hours up to this time.
+    Until: 05:00,                 !- Field 4  Source: xlsx Schedule Summary row 77 (Mon - Fri), hours up to this time.
+    17.8,                         !- Field 4  Source: xlsx Schedule Summary row 77 (Mon - Fri), hours up to this time.
+    Until: 06:00,                 !- Field 5  Source: xlsx Schedule Summary row 77 (Mon - Fri), hours up to this time.
+    20.0,                         !- Field 5  Source: xlsx Schedule Summary row 77 (Mon - Fri), hours up to this time.
+    Until: 22:00,                 !- Field 6  Source: xlsx Schedule Summary row 77 (Mon - Fri), hours up to this time.
+    21.0,                         !- Field 6  Source: xlsx Schedule Summary row 77 (Mon - Fri), hours up to this time.
+    Until: 24:00,                 !- Field 7  Source: xlsx Schedule Summary row 77 (Mon - Fri), hours up to this time.
+    15.6,                         !- Field 7  Source: xlsx Schedule Summary row 77 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 8
+    Until: 04:00,                 !- Field 9  Source: xlsx Schedule Summary row 78 (Sat), hours up to this time.
+    15.6,                         !- Field 9  Source: xlsx Schedule Summary row 78 (Sat), hours up to this time.
+    Until: 05:00,                 !- Field 10  Source: xlsx Schedule Summary row 78 (Sat), hours up to this time.
+    17.8,                         !- Field 10  Source: xlsx Schedule Summary row 78 (Sat), hours up to this time.
+    Until: 06:00,                 !- Field 11  Source: xlsx Schedule Summary row 78 (Sat), hours up to this time.
+    20.0,                         !- Field 11  Source: xlsx Schedule Summary row 78 (Sat), hours up to this time.
+    Until: 17:00,                 !- Field 12  Source: xlsx Schedule Summary row 78 (Sat), hours up to this time.
+    21.0,                         !- Field 12  Source: xlsx Schedule Summary row 78 (Sat), hours up to this time.
+    Until: 24:00,                 !- Field 13  Source: xlsx Schedule Summary row 78 (Sat), hours up to this time.
+    15.6,                         !- Field 13  Source: xlsx Schedule Summary row 78 (Sat), hours up to this time.
+    For: Sunday Holidays AllOtherDays,!- Field 14
+    Until: 24:00,                 !- Field 15  Source: xlsx Schedule Summary row 77/78/79 (Mon - Fri/Sat/Sun), hours up to this time.
+    15.6;                         !- Field 15  Source: xlsx Schedule Summary row 77/78/79 (Mon - Fri/Sat/Sun), hours up to this time.
+
+  Schedule:Compact,
+    CLGSETP_SCH_NO_SETBACK,       !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays SummerDesignDay WinterDesignDay,!- Field 2
+    Until: 05:00,                 !- Field 3  Source: xlsx Schedule Summary row 74 (Mon - Fri), hours up to this time.
+    24.0,                         !- Field 3  Source: xlsx Schedule Summary row 74 (Mon - Fri), hours up to this time.
+    Until: 06:00,                 !- Field 4  Source: xlsx Schedule Summary row 74 (Mon - Fri), hours up to this time.
+    24.0,                         !- Field 4  Source: xlsx Schedule Summary row 74 (Mon - Fri), hours up to this time.
+    Until: 07:00,                 !- Field 5  Source: xlsx Schedule Summary row 74 (Mon - Fri), hours up to this time.
+    24.0,                         !- Field 5  Source: xlsx Schedule Summary row 74 (Mon - Fri), hours up to this time.
+    Until: 22:00,                 !- Field 6  Source: xlsx Schedule Summary row 74 (Mon - Fri), hours up to this time.
+    24.0,                         !- Field 6  Source: xlsx Schedule Summary row 74 (Mon - Fri), hours up to this time.
+    Until: 24:00,                 !- Field 7  Source: xlsx Schedule Summary row 74 (Mon - Fri), hours up to this time.
+    24.0,                         !- Field 7  Source: xlsx Schedule Summary row 74 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 8
+    Until: 05:00,                 !- Field 9  Source: xlsx Schedule Summary row 75 (Sat), hours up to this time.
+    24.0,                         !- Field 9  Source: xlsx Schedule Summary row 75 (Sat), hours up to this time.
+    Until: 06:00,                 !- Field 10  Source: xlsx Schedule Summary row 75 (Sat), hours up to this time.
+    24.0,                         !- Field 10  Source: xlsx Schedule Summary row 75 (Sat), hours up to this time.
+    Until: 07:00,                 !- Field 11  Source: xlsx Schedule Summary row 75 (Sat), hours up to this time.
+    24.0,                         !- Field 11  Source: xlsx Schedule Summary row 75 (Sat), hours up to this time.
+    Until: 17:00,                 !- Field 12  Source: xlsx Schedule Summary row 75 (Sat), hours up to this time.
+    24.0,                         !- Field 12  Source: xlsx Schedule Summary row 75 (Sat), hours up to this time.
+    Until: 24:00,                 !- Field 13  Source: xlsx Schedule Summary row 75 (Sat), hours up to this time.
+    24.0,                         !- Field 13  Source: xlsx Schedule Summary row 75 (Sat), hours up to this time.
+    For: Sunday Holidays AllOtherDays,!- Field 14
+    Until: 24:00,                 !- Field 15  Source: xlsx Schedule Summary row 74/75/76 (Mon - Fri/Sat/Sun), hours up to this time.
+    24.0;                         !- Field 15  Source: xlsx Schedule Summary row 74/75/76 (Mon - Fri/Sat/Sun), hours up to this time.
+
+  Schedule:Compact,
+    HVACOperationSchd,            !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays SummerDesignDay WinterDesignDay,!- Field 2
+    Until: 06:00,                 !- Field 3  Source: xlsx Schedule Summary row 62 (Mon - Fri), hours up to this time.
+    0.0,                          !- Field 3  Source: xlsx Schedule Summary row 62 (Mon - Fri), hours up to this time.
+    Until: 22:00,                 !- Field 4  Source: xlsx Schedule Summary row 62 (Mon - Fri), hours up to this time.
+    1.0,                          !- Field 4  Source: xlsx Schedule Summary row 62 (Mon - Fri), hours up to this time.
+    Until: 24:00,                 !- Field 5  Source: xlsx Schedule Summary row 62 (Mon - Fri), hours up to this time.
+    0.0,                          !- Field 5  Source: xlsx Schedule Summary row 62 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 6
+    Until: 06:00,                 !- Field 7  Source: xlsx Schedule Summary row 63 (Sat), hours up to this time.
+    0.0,                          !- Field 7  Source: xlsx Schedule Summary row 63 (Sat), hours up to this time.
+    Until: 18:00,                 !- Field 8  Source: xlsx Schedule Summary row 63 (Sat), hours up to this time.
+    1.0,                          !- Field 8  Source: xlsx Schedule Summary row 63 (Sat), hours up to this time.
+    Until: 24:00,                 !- Field 9  Source: xlsx Schedule Summary row 63 (Sat), hours up to this time.
+    0.0,                          !- Field 9  Source: xlsx Schedule Summary row 63 (Sat), hours up to this time.
+    For: Sunday Holidays AllOtherDays,!- Field 10
+    Until: 24:00,                 !- Field 11  Source: xlsx Schedule Summary row 62/63/64 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.0;                          !- Field 11  Source: xlsx Schedule Summary row 62/63/64 (Mon - Fri/Sat/Sun), hours up to this time.
+
+  Schedule:Compact,
+    BLDG_SWH_SCH,                 !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: Weekdays SummerDesignDay WinterDesignDay,!- Field 2
+    Until: 05:00,                 !- Field 3  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    0.00,                         !- Field 3  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    Until: 06:00,                 !- Field 4  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    0.00,                         !- Field 4  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    Until: 07:00,                 !- Field 5  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    0.07,                         !- Field 5  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    Until: 08:00,                 !- Field 6  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    0.19,                         !- Field 6  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    Until: 09:00,                 !- Field 7  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    0.35,                         !- Field 7  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    Until: 10:00,                 !- Field 8  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    0.38,                         !- Field 8  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    Until: 11:00,                 !- Field 9  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    0.39,                         !- Field 9  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    Until: 12:00,                 !- Field 10  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    0.47,                         !- Field 10  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    Until: 13:00,                 !- Field 11  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    0.57,                         !- Field 11  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    Until: 14:00,                 !- Field 12  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    0.54,                         !- Field 12  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    Until: 15:00,                 !- Field 13  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    0.34,                         !- Field 13  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    Until: 16:00,                 !- Field 14  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    0.33,                         !- Field 14  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    Until: 17:00,                 !- Field 15  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    0.44,                         !- Field 15  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    Until: 18:00,                 !- Field 16  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    0.26,                         !- Field 16  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    Until: 19:00,                 !- Field 17  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    0.21,                         !- Field 17  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    Until: 20:00,                 !- Field 18  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    0.15,                         !- Field 18  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    Until: 21:00,                 !- Field 19  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    0.17,                         !- Field 19  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    Until: 22:00,                 !- Field 20  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    0.08,                         !- Field 20  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    Until: 24:00,                 !- Field 21  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    0.05,                         !- Field 21  Source: xlsx Schedule Summary row 65 (Mon - Fri), hours up to this time.
+    For: Saturday,                !- Field 22
+    Until: 05:00,                 !- Field 23  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    0.00,                         !- Field 23  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    Until: 06:00,                 !- Field 24  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    0.00,                         !- Field 24  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    Until: 07:00,                 !- Field 25  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    0.07,                         !- Field 25  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    Until: 08:00,                 !- Field 26  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    0.11,                         !- Field 26  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    Until: 09:00,                 !- Field 27  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    0.15,                         !- Field 27  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    Until: 10:00,                 !- Field 28  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    0.21,                         !- Field 28  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    Until: 11:00,                 !- Field 29  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    0.19,                         !- Field 29  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    Until: 12:00,                 !- Field 30  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    0.23,                         !- Field 30  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    Until: 13:00,                 !- Field 31  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    0.20,                         !- Field 31  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    Until: 14:00,                 !- Field 32  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    0.19,                         !- Field 32  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    Until: 15:00,                 !- Field 33  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    0.15,                         !- Field 33  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    Until: 16:00,                 !- Field 34  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    0.13,                         !- Field 34  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    Until: 17:00,                 !- Field 35  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    0.14,                         !- Field 35  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    Until: 21:00,                 !- Field 36  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    0.07,                         !- Field 36  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    Until: 22:00,                 !- Field 37  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    0.09,                         !- Field 37  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    Until: 24:00,                 !- Field 38  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    0.05,                         !- Field 38  Source: xlsx Schedule Summary row 66 (Sat), hours up to this time.
+    For: Sunday Holidays AllOtherDays,!- Field 39
+    Until: 06:00,                 !- Field 40  Source: xlsx Schedule Summary row 65/66/67 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.00,                         !- Field 40  Source: xlsx Schedule Summary row 65/66/67 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 07:00,                 !- Field 41  Source: xlsx Schedule Summary row 65/66/67 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.07,                         !- Field 41  Source: xlsx Schedule Summary row 65/66/67 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 11:00,                 !- Field 42  Source: xlsx Schedule Summary row 65/66/67 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.04,                         !- Field 42  Source: xlsx Schedule Summary row 65/66/67 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 13:00,                 !- Field 43  Source: xlsx Schedule Summary row 65/66/67 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.06,                         !- Field 43  Source: xlsx Schedule Summary row 65/66/67 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 14:00,                 !- Field 44  Source: xlsx Schedule Summary row 65/66/67 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.09,                         !- Field 44  Source: xlsx Schedule Summary row 65/66/67 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 15:00,                 !- Field 45  Source: xlsx Schedule Summary row 65/66/67 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.06,                         !- Field 45  Source: xlsx Schedule Summary row 65/66/67 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 21:00,                 !- Field 46  Source: xlsx Schedule Summary row 65/66/67 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.04,                         !- Field 46  Source: xlsx Schedule Summary row 65/66/67 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 22:00,                 !- Field 47  Source: xlsx Schedule Summary row 65/66/67 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.07,                         !- Field 47  Source: xlsx Schedule Summary row 65/66/67 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 24:00,                 !- Field 48  Source: xlsx Schedule Summary row 65/66/67 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.04;                         !- Field 48  Source: xlsx Schedule Summary row 65/66/67 (Mon - Fri/Sat/Sun), hours up to this time.
+
+  Schedule:Compact,
+    BLDG_ELEVATORS,               !- Name
+    ,                             !- schedule type limits name
+    Through: 12/31,               !- Field 1
+    For: AllOtherDays,            !- Field 2
+    Until: 04:00,                 !- Field 3  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.12,                         !- Field 3  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 05:00,                 !- Field 4  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.12,                         !- Field 4  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 06:00,                 !- Field 5  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.20,                         !- Field 5  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 07:00,                 !- Field 6  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.40,                         !- Field 6  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 09:00,                 !- Field 7  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.50,                         !- Field 7  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 10:00,                 !- Field 8  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.35,                         !- Field 8  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 16:00,                 !- Field 9  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.15,                         !- Field 9  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 17:00,                 !- Field 10  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.35,                         !- Field 10  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 19:00,                 !- Field 11  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.50,                         !- Field 11  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 21:00,                 !- Field 12  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.40,                         !- Field 12  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 22:00,                 !- Field 13  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.30,                         !- Field 13  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 23:00,                 !- Field 14  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.20,                         !- Field 14  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    Until: 24:00,                 !- Field 15  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+    0.12;                         !- Field 15  Source: xlsx Schedule Summary row 68/69/70 (Mon - Fri/Sat/Sun), hours up to this time.
+
+  Zone,
+    Basement,                     !- Name  Source: xlsx raw_data!E220 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    1;                            !- Multiplier  Source: xlsx raw_data!G220 Multipliers = 1.
+
+  Zone,
+    Core_bottom,                  !- Name  Source: xlsx raw_data!E221 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    1;                            !- Multiplier  Source: xlsx raw_data!G221 Multipliers = 1.
+
+  Zone,
+    Core_mid,                     !- Name  Source: xlsx raw_data!E222 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    10;                           !- Multiplier  Source: xlsx raw_data!G222 Multipliers = 10.
+
+  Zone,
+    Core_top,                     !- Name  Source: xlsx raw_data!E223 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    1;                            !- Multiplier  Source: xlsx raw_data!G223 Multipliers = 1.
+
+  Zone,
+    Perimeter_bot_ZN_3,           !- Name  Source: xlsx raw_data!E224 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    1;                            !- Multiplier  Source: xlsx raw_data!G224 Multipliers = 1.
+
+  Zone,
+    Perimeter_bot_ZN_2,           !- Name  Source: xlsx raw_data!E225 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    1;                            !- Multiplier  Source: xlsx raw_data!G225 Multipliers = 1.
+
+  Zone,
+    Perimeter_bot_ZN_1,           !- Name  Source: xlsx raw_data!E226 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    1;                            !- Multiplier  Source: xlsx raw_data!G226 Multipliers = 1.
+
+  Zone,
+    Perimeter_bot_ZN_4,           !- Name  Source: xlsx raw_data!E227 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    1;                            !- Multiplier  Source: xlsx raw_data!G227 Multipliers = 1.
+
+  Zone,
+    Perimeter_mid_ZN_3,           !- Name  Source: xlsx raw_data!E228 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    10;                           !- Multiplier  Source: xlsx raw_data!G228 Multipliers = 10.
+
+  Zone,
+    Perimeter_mid_ZN_2,           !- Name  Source: xlsx raw_data!E229 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    10;                           !- Multiplier  Source: xlsx raw_data!G229 Multipliers = 10.
+
+  Zone,
+    Perimeter_mid_ZN_1,           !- Name  Source: xlsx raw_data!E230 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    10;                           !- Multiplier  Source: xlsx raw_data!G230 Multipliers = 10.
+
+  Zone,
+    Perimeter_mid_ZN_4,           !- Name  Source: xlsx raw_data!E231 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    10;                           !- Multiplier  Source: xlsx raw_data!G231 Multipliers = 10.
+
+  Zone,
+    Perimeter_top_ZN_3,           !- Name  Source: xlsx raw_data!E232 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    1;                            !- Multiplier  Source: xlsx raw_data!G232 Multipliers = 1.
+
+  Zone,
+    Perimeter_top_ZN_2,           !- Name  Source: xlsx raw_data!E233 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    1;                            !- Multiplier  Source: xlsx raw_data!G233 Multipliers = 1.
+
+  Zone,
+    Perimeter_top_ZN_1,           !- Name  Source: xlsx raw_data!E234 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    1;                            !- Multiplier  Source: xlsx raw_data!G234 Multipliers = 1.
+
+  Zone,
+    Perimeter_top_ZN_4,           !- Name  Source: xlsx raw_data!E235 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    1;                            !- Multiplier  Source: xlsx raw_data!G235 Multipliers = 1.
+
+  Zone,
+    GroundFloor_Plenum,           !- Name  Source: xlsx raw_data!E236 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    1;                            !- Multiplier  Source: xlsx raw_data!G236 Multipliers = 1.
+
+  Zone,
+    MidFloor_Plenum,              !- Name  Source: xlsx raw_data!E237 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    10;                           !- Multiplier  Source: xlsx raw_data!G237 Multipliers = 10.
+
+  Zone,
+    TopFloor_Plenum,              !- Name  Source: xlsx raw_data!E238 Thermal Zone.
+    ,                             !- direction of relative north
+    ,                             !- x origin
+    ,                             !- y origin
+    ,                             !- z origin
+    ,                             !- type
+    1;                            !- Multiplier  Source: xlsx raw_data!G238 Multipliers = 1.
+
+  Zone,
+    DataCenter_bot_ZN_6,          !- Name  Source: xlsx raw_data!E239 Thermal Zone.
+    ,                             !- direction of relative north
+    5.4876,                       !- X Origin  Derived from: X = 18 ft x 0.3048 x k = 5.4876 m (k = 1.0002455).
+    44.165,                       !- Y Origin  Derived from: Y = 144.8627 ft x 0.3048 x k = 44.165 m (k = 1.0002455); the position is not a whole number of feet.
+    ,                             !- z origin
+    ,                             !- type
+    1;                            !- Multiplier  Source: xlsx raw_data!G239 Multipliers = 1.
+
+  Zone,
+    DataCenter_mid_ZN_6,          !- Name  Source: xlsx raw_data!E240 Thermal Zone.
+    ,                             !- direction of relative north
+    4.5732,                       !- X Origin  Derived from: X = 15 ft x 0.3048 x k = 4.5732 m (k = 1.0002455).
+    4.5732,                       !- Y Origin  Derived from: Y = 15 ft x 0.3048 x k = 4.5732 m (k = 1.0002455).
+    16.7683,                      !- Z Origin  Derived from: Z = 55 ft x 0.3048 x k = 16.7683 m (k = 1.0002455); the zone stands for floors 2 to 11 (multiplier 10) and sits at the mean of their origins, (10 + 20 + ... + 100) / 10 = 55 ft with 10 ft per floor.
+    ,                             !- type
+    10;                           !- Multiplier  Source: xlsx raw_data!G240 Multipliers = 10.
+
+  Zone,
+    DataCenter_top_ZN_6,          !- Name  Source: xlsx raw_data!E241 Thermal Zone.
+    ,                             !- direction of relative north
+    4.5732,                       !- X Origin  Derived from: X = 15 ft x 0.3048 x k = 4.5732 m (k = 1.0002455).
+    4.5732,                       !- Y Origin  Derived from: Y = 15 ft x 0.3048 x k = 4.5732 m (k = 1.0002455).
+    33.5366,                      !- Z Origin  Derived from: Z = 110 ft x 0.3048 x k = 33.5366 m (k = 1.0002455); the top floor is the 12th floor, 11 x 10 ft above the ground floor.
+    ,                             !- type
+    1;                            !- Multiplier  Source: xlsx raw_data!G241 Multipliers = 1.
+
+  Zone,
+    DataCenter_basement_ZN_6,     !- Name  Source: xlsx raw_data!E242 Thermal Zone.
+    ,                             !- direction of relative north
+    16.0794,                      !- X Origin  Derived from: X = 52.7410 ft x 0.3048 x k = 16.0794 m (k = 1.0002455); the position is not a whole number of feet.
+    ,                             !- y origin
+    -2.439,                       !- Z Origin  Derived from: Z = -8 ft x 0.3048 x k = -2.439 m (k = 1.0002455); the basement floor is 8 ft below the ground floor (the height of the basement walls).
+    ,                             !- type
+    1;                            !- Multiplier  Source: xlsx raw_data!G242 Multipliers = 1.
+
+  WindowMaterial:SimpleGlazingSystem,
+    Glazing,                      !- Name
+    3.2366,                       !- U-Factor {W/m2-K}  Source: NREL PDF Table 24, p.38: window overall U = 0.57 Btu/h-ft2-F = 3.2366 W/m2-K.
+    0.39;                         !- Solar Heat Gain Coefficient  Source: NREL PDF Table 25, p.39: SHGC = 0.39.
+
+  People,
+    Basement_People,              !- Name
+    Basement,                     !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH_wo_SB,           !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 53/54/55 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M220 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    Basement_Lights,              !- Name
+    Basement,                     !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_office,               !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    11.6116;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L220 Lighting Power Density = 11.6116 W/m2.
+
+  ElectricEquipment,
+    Basement_Equipment,           !- Name
+    Basement,                     !- Zone or ZoneList or Space or SpaceList Name
+    AlwaysOn,                     !- Schedule Name
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    4.8418;                       !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N220 Plug and Process = 4.8418 W/m2.
+
+  People,
+    Core_bottom_People,           !- Name
+    Core_bottom,                  !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH_wo_SB,           !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 53/54/55 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M221 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    Core_bottom_Lights,           !- Name
+    Core_bottom,                  !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_office,               !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    11.6116;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L221 Lighting Power Density = 11.6116 W/m2.
+
+  ElectricEquipment,
+    Core_bottom_Equipment,        !- Name
+    Core_bottom,                  !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_EQUIP_SCH,               !- Schedule Name  Source: xlsx Schedule Summary 'Electric Equipment', rows 59/60/61 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    8.0697;                       !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N221 Plug and Process = 8.0697 W/m2.
+
+  People,
+    Core_mid_People,              !- Name
+    Core_mid,                     !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH_wo_SB,           !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 53/54/55 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M222 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    Core_mid_Lights,              !- Name
+    Core_mid,                     !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_office,               !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    11.6116;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L222 Lighting Power Density = 11.6116 W/m2.
+
+  ElectricEquipment,
+    Core_mid_Equipment,           !- Name
+    Core_mid,                     !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_EQUIP_SCH,               !- Schedule Name  Source: xlsx Schedule Summary 'Electric Equipment', rows 59/60/61 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    8.0696;                       !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N222 Plug and Process = 8.0696 W/m2.
+
+  People,
+    Core_top_People,              !- Name
+    Core_top,                     !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH_wo_SB,           !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 53/54/55 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M223 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    Core_top_Lights,              !- Name
+    Core_top,                     !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_office,               !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    11.6116;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L223 Lighting Power Density = 11.6116 W/m2.
+
+  ElectricEquipment,
+    Core_top_Equipment,           !- Name
+    Core_top,                     !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_EQUIP_SCH,               !- Schedule Name  Source: xlsx Schedule Summary 'Electric Equipment', rows 59/60/61 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    8.0696;                       !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N223 Plug and Process = 8.0696 W/m2.
+
+  People,
+    Perimeter_bot_ZN_3_People,    !- Name
+    Perimeter_bot_ZN_3,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH_wo_SB,           !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 53/54/55 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M224 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    Perimeter_bot_ZN_3_Lights,    !- Name
+    Perimeter_bot_ZN_3,           !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_office,               !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    11.6116;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L224 Lighting Power Density = 11.6116 W/m2.
+
+  ElectricEquipment,
+    Perimeter_bot_ZN_3_Equipment, !- Name
+    Perimeter_bot_ZN_3,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_EQUIP_SCH,               !- Schedule Name  Source: xlsx Schedule Summary 'Electric Equipment', rows 59/60/61 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    8.07;                         !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N224 Plug and Process = 8.07 W/m2.
+
+  People,
+    Perimeter_bot_ZN_2_People,    !- Name
+    Perimeter_bot_ZN_2,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH_wo_SB,           !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 53/54/55 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M225 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    Perimeter_bot_ZN_2_Lights,    !- Name
+    Perimeter_bot_ZN_2,           !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_office,               !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    11.6116;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L225 Lighting Power Density = 11.6116 W/m2.
+
+  ElectricEquipment,
+    Perimeter_bot_ZN_2_Equipment, !- Name
+    Perimeter_bot_ZN_2,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_EQUIP_SCH,               !- Schedule Name  Source: xlsx Schedule Summary 'Electric Equipment', rows 59/60/61 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    8.07;                         !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N225 Plug and Process = 8.07 W/m2.
+
+  People,
+    Perimeter_bot_ZN_1_People,    !- Name
+    Perimeter_bot_ZN_1,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH_wo_SB,           !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 53/54/55 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M226 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    Perimeter_bot_ZN_1_Lights,    !- Name
+    Perimeter_bot_ZN_1,           !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_office,               !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    11.6116;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L226 Lighting Power Density = 11.6116 W/m2.
+
+  ElectricEquipment,
+    Perimeter_bot_ZN_1_Equipment, !- Name
+    Perimeter_bot_ZN_1,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_EQUIP_SCH,               !- Schedule Name  Source: xlsx Schedule Summary 'Electric Equipment', rows 59/60/61 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    8.0699;                       !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N226 Plug and Process = 8.0699 W/m2.
+
+  People,
+    Perimeter_bot_ZN_4_People,    !- Name
+    Perimeter_bot_ZN_4,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH_wo_SB,           !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 53/54/55 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M227 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    Perimeter_bot_ZN_4_Lights,    !- Name
+    Perimeter_bot_ZN_4,           !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_office,               !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    11.6116;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L227 Lighting Power Density = 11.6116 W/m2.
+
+  ElectricEquipment,
+    Perimeter_bot_ZN_4_Equipment, !- Name
+    Perimeter_bot_ZN_4,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_EQUIP_SCH,               !- Schedule Name  Source: xlsx Schedule Summary 'Electric Equipment', rows 59/60/61 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    8.0699;                       !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N227 Plug and Process = 8.0699 W/m2.
+
+  People,
+    Perimeter_mid_ZN_3_People,    !- Name
+    Perimeter_mid_ZN_3,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH_wo_SB,           !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 53/54/55 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M228 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    Perimeter_mid_ZN_3_Lights,    !- Name
+    Perimeter_mid_ZN_3,           !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_office,               !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    11.6116;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L228 Lighting Power Density = 11.6116 W/m2.
+
+  ElectricEquipment,
+    Perimeter_mid_ZN_3_Equipment, !- Name
+    Perimeter_mid_ZN_3,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_EQUIP_SCH,               !- Schedule Name  Source: xlsx Schedule Summary 'Electric Equipment', rows 59/60/61 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    8.07;                         !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N228 Plug and Process = 8.07 W/m2.
+
+  People,
+    Perimeter_mid_ZN_2_People,    !- Name
+    Perimeter_mid_ZN_2,           !- Zone or ZoneList or Space or SpaceList Name
+    AlwaysOff,                    !- Number of People Schedule Name
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M229 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    Perimeter_mid_ZN_2_Lights,    !- Name
+    Perimeter_mid_ZN_2,           !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_office,               !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    11.6116;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L229 Lighting Power Density = 11.6116 W/m2.
+
+  ElectricEquipment,
+    Perimeter_mid_ZN_2_Equipment, !- Name
+    Perimeter_mid_ZN_2,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_EQUIP_SCH,               !- Schedule Name  Source: xlsx Schedule Summary 'Electric Equipment', rows 59/60/61 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    8.07;                         !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N229 Plug and Process = 8.07 W/m2.
+
+  People,
+    Perimeter_mid_ZN_1_People,    !- Name
+    Perimeter_mid_ZN_1,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH_wo_SB,           !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 53/54/55 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M230 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    Perimeter_mid_ZN_1_Lights,    !- Name
+    Perimeter_mid_ZN_1,           !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_office,               !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    11.6116;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L230 Lighting Power Density = 11.6116 W/m2.
+
+  ElectricEquipment,
+    Perimeter_mid_ZN_1_Equipment, !- Name
+    Perimeter_mid_ZN_1,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_EQUIP_SCH,               !- Schedule Name  Source: xlsx Schedule Summary 'Electric Equipment', rows 59/60/61 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    8.0699;                       !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N230 Plug and Process = 8.0699 W/m2.
+
+  People,
+    Perimeter_mid_ZN_4_People,    !- Name
+    Perimeter_mid_ZN_4,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH_wo_SB,           !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 53/54/55 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M231 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    Perimeter_mid_ZN_4_Lights,    !- Name
+    Perimeter_mid_ZN_4,           !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_office,               !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    11.6116;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L231 Lighting Power Density = 11.6116 W/m2.
+
+  ElectricEquipment,
+    Perimeter_mid_ZN_4_Equipment, !- Name
+    Perimeter_mid_ZN_4,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_EQUIP_SCH,               !- Schedule Name  Source: xlsx Schedule Summary 'Electric Equipment', rows 59/60/61 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    8.0699;                       !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N231 Plug and Process = 8.0699 W/m2.
+
+  People,
+    Perimeter_top_ZN_3_People,    !- Name
+    Perimeter_top_ZN_3,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH_wo_SB,           !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 53/54/55 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M232 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    Perimeter_top_ZN_3_Lights,    !- Name
+    Perimeter_top_ZN_3,           !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_office,               !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    11.6116;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L232 Lighting Power Density = 11.6116 W/m2.
+
+  ElectricEquipment,
+    Perimeter_top_ZN_3_Equipment, !- Name
+    Perimeter_top_ZN_3,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_EQUIP_SCH,               !- Schedule Name  Source: xlsx Schedule Summary 'Electric Equipment', rows 59/60/61 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    8.07;                         !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N232 Plug and Process = 8.07 W/m2.
+
+  People,
+    Perimeter_top_ZN_2_People,    !- Name
+    Perimeter_top_ZN_2,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH_wo_SB,           !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 53/54/55 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M233 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    Perimeter_top_ZN_2_Lights,    !- Name
+    Perimeter_top_ZN_2,           !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_office,               !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    11.6116;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L233 Lighting Power Density = 11.6116 W/m2.
+
+  ElectricEquipment,
+    Perimeter_top_ZN_2_Equipment, !- Name
+    Perimeter_top_ZN_2,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_EQUIP_SCH,               !- Schedule Name  Source: xlsx Schedule Summary 'Electric Equipment', rows 59/60/61 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    8.07;                         !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N233 Plug and Process = 8.07 W/m2.
+
+  People,
+    Perimeter_top_ZN_1_People,    !- Name
+    Perimeter_top_ZN_1,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH_wo_SB,           !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 53/54/55 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M234 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    Perimeter_top_ZN_1_Lights,    !- Name
+    Perimeter_top_ZN_1,           !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_office,               !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    11.6116;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L234 Lighting Power Density = 11.6116 W/m2.
+
+  ElectricEquipment,
+    Perimeter_top_ZN_1_Equipment, !- Name
+    Perimeter_top_ZN_1,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_EQUIP_SCH,               !- Schedule Name  Source: xlsx Schedule Summary 'Electric Equipment', rows 59/60/61 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    8.0699;                       !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N234 Plug and Process = 8.0699 W/m2.
+
+  People,
+    Perimeter_top_ZN_4_People,    !- Name
+    Perimeter_top_ZN_4,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH_wo_SB,           !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 53/54/55 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M235 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    Perimeter_top_ZN_4_Lights,    !- Name
+    Perimeter_top_ZN_4,           !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_office,               !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    11.6116;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L235 Lighting Power Density = 11.6116 W/m2.
+
+  ElectricEquipment,
+    Perimeter_top_ZN_4_Equipment, !- Name
+    Perimeter_top_ZN_4,           !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_EQUIP_SCH,               !- Schedule Name  Source: xlsx Schedule Summary 'Electric Equipment', rows 59/60/61 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    8.0699;                       !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N235 Plug and Process = 8.0699 W/m2.
+
+  People,
+    DataCenter_bot_ZN_6_People,   !- Name
+    DataCenter_bot_ZN_6,          !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH_wo_SB,           !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 53/54/55 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M239 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    DataCenter_bot_ZN_6_Lights,   !- Name
+    DataCenter_bot_ZN_6,          !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_datacenter,           !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    14.8542;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L239 Lighting Power Density = 14.8542 W/m2.
+
+  ElectricEquipment,
+    DataCenter_bot_ZN_6_Equipment,!- Name
+    DataCenter_bot_ZN_6,          !- Zone or ZoneList or Space or SpaceList Name
+    AlwaysOn,                     !- Schedule Name
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    215.299;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N239 Plug and Process = 215.299 W/m2.
+
+  People,
+    DataCenter_mid_ZN_6_People,   !- Name
+    DataCenter_mid_ZN_6,          !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH_wo_SB,           !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 53/54/55 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M240 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    DataCenter_mid_ZN_6_Lights,   !- Name
+    DataCenter_mid_ZN_6,          !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_datacenter,           !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    14.8542;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L240 Lighting Power Density = 14.8542 W/m2.
+
+  ElectricEquipment,
+    DataCenter_mid_ZN_6_Equipment,!- Name
+    DataCenter_mid_ZN_6,          !- Zone or ZoneList or Space or SpaceList Name
+    AlwaysOn,                     !- Schedule Name
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    215.299;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N240 Plug and Process = 215.299 W/m2.
+
+  People,
+    DataCenter_top_ZN_6_People,   !- Name
+    DataCenter_top_ZN_6,          !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH_wo_SB,           !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 53/54/55 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M241 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    DataCenter_top_ZN_6_Lights,   !- Name
+    DataCenter_top_ZN_6,          !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_datacenter,           !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    14.8542;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L241 Lighting Power Density = 14.8542 W/m2.
+
+  ElectricEquipment,
+    DataCenter_top_ZN_6_Equipment,!- Name
+    DataCenter_top_ZN_6,          !- Zone or ZoneList or Space or SpaceList Name
+    AlwaysOn,                     !- Schedule Name
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    215.299;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N241 Plug and Process = 215.299 W/m2.
+
+  People,
+    DataCenter_basement_ZN_6_People,!- Name
+    DataCenter_basement_ZN_6,     !- Zone or ZoneList or Space or SpaceList Name
+    BLDG_OCC_SCH_wo_SB,           !- Number of People Schedule Name  Source: xlsx Schedule Summary 'Occupants', rows 53/54/55 (Mon - Fri/Sat/Sun).
+    Area/Person,                  !- Number of People Calculation Method
+    ,                             !- number of people
+    ,                             !- people per floor area
+    18.58,                        !- Floor Area per Person {m2/person}  Source: xlsx raw_data!M242 Design Occupancy Density = 18.58 m2/person.
+    ,                             !- fraction radiant
+    ,                             !- sensible heat fraction
+    ACTIVITY_SCH;                 !- Activity Level Schedule Name
+
+  Lights,
+    DataCenter_basement_ZN_6_Lights,!- Name
+    DataCenter_basement_ZN_6,     !- Zone or ZoneList or Space or SpaceList Name
+    ltg_sch_office,               !- Schedule Name  Source: xlsx Schedule Summary 'Lighting', rows 56/57/58 (Mon - Fri/Sat/Sun).
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- lighting level
+    11.6116;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!L242 Lighting Power Density = 11.6116 W/m2.
+
+  ElectricEquipment,
+    DataCenter_basement_ZN_6_Equipment,!- Name
+    DataCenter_basement_ZN_6,     !- Zone or ZoneList or Space or SpaceList Name
+    AlwaysOn,                     !- Schedule Name
+    Watts/Area,                   !- Design Level Calculation Method
+    ,                             !- design level
+    484.423;                      !- Watts per Floor Area {W/m2}  Source: xlsx raw_data!N242 Plug and Process = 484.423 W/m2.
+
+  ZoneInfiltration:DesignFlowRate,
+    Perimeter_bot_ZN_3_Infiltration,!- Name
+    Perimeter_bot_ZN_3,           !- Zone or ZoneList or Space or SpaceList Name
+    INFIL_SCH_PNNL,               !- Schedule Name  Source: xlsx Schedule Summary 'Infiltration', rows 71/72/73 (Mon - Fri/Sat/Sun).
+    Flow/ExteriorWallArea,        !- Design Flow Rate Calculation Method
+    ,                             !- design flow rate
+    ,                             !- flow rate per floor area
+    0.00102523;                   !- Flow Rate per Exterior Surface Area {m3/s-m2}  Source: xlsx raw_data!R224 Envelope Infiltration = 0.00102523 m3/s-m2.
+
+  ZoneInfiltration:DesignFlowRate,
+    Perimeter_bot_ZN_2_Infiltration,!- Name
+    Perimeter_bot_ZN_2,           !- Zone or ZoneList or Space or SpaceList Name
+    INFIL_SCH_PNNL,               !- Schedule Name  Source: xlsx Schedule Summary 'Infiltration', rows 71/72/73 (Mon - Fri/Sat/Sun).
+    Flow/ExteriorWallArea,        !- Design Flow Rate Calculation Method
+    ,                             !- design flow rate
+    ,                             !- flow rate per floor area
+    0.00102523;                   !- Flow Rate per Exterior Surface Area {m3/s-m2}  Source: xlsx raw_data!R225 Envelope Infiltration = 0.00102523 m3/s-m2.
+
+  ZoneInfiltration:DesignFlowRate,
+    Perimeter_bot_ZN_1_Infiltration,!- Name
+    Perimeter_bot_ZN_1,           !- Zone or ZoneList or Space or SpaceList Name
+    INFIL_SCH_PNNL,               !- Schedule Name  Source: xlsx Schedule Summary 'Infiltration', rows 71/72/73 (Mon - Fri/Sat/Sun).
+    Flow/ExteriorWallArea,        !- Design Flow Rate Calculation Method
+    ,                             !- design flow rate
+    ,                             !- flow rate per floor area
+    0.00102523;                   !- Flow Rate per Exterior Surface Area {m3/s-m2}  Source: xlsx raw_data!R226 Envelope Infiltration = 0.00102523 m3/s-m2.
+
+  ZoneInfiltration:DesignFlowRate,
+    Perimeter_bot_ZN_4_Infiltration,!- Name
+    Perimeter_bot_ZN_4,           !- Zone or ZoneList or Space or SpaceList Name
+    INFIL_SCH_PNNL,               !- Schedule Name  Source: xlsx Schedule Summary 'Infiltration', rows 71/72/73 (Mon - Fri/Sat/Sun).
+    Flow/ExteriorWallArea,        !- Design Flow Rate Calculation Method
+    ,                             !- design flow rate
+    ,                             !- flow rate per floor area
+    0.00102523;                   !- Flow Rate per Exterior Surface Area {m3/s-m2}  Source: xlsx raw_data!R227 Envelope Infiltration = 0.00102523 m3/s-m2.
+
+  ZoneInfiltration:DesignFlowRate,
+    Perimeter_mid_ZN_3_Infiltration,!- Name
+    Perimeter_mid_ZN_3,           !- Zone or ZoneList or Space or SpaceList Name
+    INFIL_SCH_PNNL,               !- Schedule Name  Source: xlsx Schedule Summary 'Infiltration', rows 71/72/73 (Mon - Fri/Sat/Sun).
+    Flow/ExteriorWallArea,        !- Design Flow Rate Calculation Method
+    ,                             !- design flow rate
+    ,                             !- flow rate per floor area
+    0.00102523;                   !- Flow Rate per Exterior Surface Area {m3/s-m2}  Source: xlsx raw_data!R228 Envelope Infiltration = 0.00102523 m3/s-m2.
+
+  ZoneInfiltration:DesignFlowRate,
+    Perimeter_mid_ZN_2_Infiltration,!- Name
+    Perimeter_mid_ZN_2,           !- Zone or ZoneList or Space or SpaceList Name
+    INFIL_SCH_PNNL,               !- Schedule Name  Source: xlsx Schedule Summary 'Infiltration', rows 71/72/73 (Mon - Fri/Sat/Sun).
+    Flow/ExteriorWallArea,        !- Design Flow Rate Calculation Method
+    ,                             !- design flow rate
+    ,                             !- flow rate per floor area
+    0.00102523;                   !- Flow Rate per Exterior Surface Area {m3/s-m2}  Source: xlsx raw_data!R229 Envelope Infiltration = 0.00102523 m3/s-m2.
+
+  ZoneInfiltration:DesignFlowRate,
+    Perimeter_mid_ZN_1_Infiltration,!- Name
+    Perimeter_mid_ZN_1,           !- Zone or ZoneList or Space or SpaceList Name
+    INFIL_SCH_PNNL,               !- Schedule Name  Source: xlsx Schedule Summary 'Infiltration', rows 71/72/73 (Mon - Fri/Sat/Sun).
+    Flow/ExteriorWallArea,        !- Design Flow Rate Calculation Method
+    ,                             !- design flow rate
+    ,                             !- flow rate per floor area
+    0.00102523;                   !- Flow Rate per Exterior Surface Area {m3/s-m2}  Source: xlsx raw_data!R230 Envelope Infiltration = 0.00102523 m3/s-m2.
+
+  ZoneInfiltration:DesignFlowRate,
+    Perimeter_mid_ZN_4_Infiltration,!- Name
+    Perimeter_mid_ZN_4,           !- Zone or ZoneList or Space or SpaceList Name
+    INFIL_SCH_PNNL,               !- Schedule Name  Source: xlsx Schedule Summary 'Infiltration', rows 71/72/73 (Mon - Fri/Sat/Sun).
+    Flow/ExteriorWallArea,        !- Design Flow Rate Calculation Method
+    ,                             !- design flow rate
+    ,                             !- flow rate per floor area
+    0.00102523;                   !- Flow Rate per Exterior Surface Area {m3/s-m2}  Source: xlsx raw_data!R231 Envelope Infiltration = 0.00102523 m3/s-m2.
+
+  ZoneInfiltration:DesignFlowRate,
+    Perimeter_top_ZN_3_Infiltration,!- Name
+    Perimeter_top_ZN_3,           !- Zone or ZoneList or Space or SpaceList Name
+    INFIL_SCH_PNNL,               !- Schedule Name  Source: xlsx Schedule Summary 'Infiltration', rows 71/72/73 (Mon - Fri/Sat/Sun).
+    Flow/ExteriorWallArea,        !- Design Flow Rate Calculation Method
+    ,                             !- design flow rate
+    ,                             !- flow rate per floor area
+    0.00102523;                   !- Flow Rate per Exterior Surface Area {m3/s-m2}  Source: xlsx raw_data!R232 Envelope Infiltration = 0.00102523 m3/s-m2.
+
+  ZoneInfiltration:DesignFlowRate,
+    Perimeter_top_ZN_2_Infiltration,!- Name
+    Perimeter_top_ZN_2,           !- Zone or ZoneList or Space or SpaceList Name
+    INFIL_SCH_PNNL,               !- Schedule Name  Source: xlsx Schedule Summary 'Infiltration', rows 71/72/73 (Mon - Fri/Sat/Sun).
+    Flow/ExteriorWallArea,        !- Design Flow Rate Calculation Method
+    ,                             !- design flow rate
+    ,                             !- flow rate per floor area
+    0.00102523;                   !- Flow Rate per Exterior Surface Area {m3/s-m2}  Source: xlsx raw_data!R233 Envelope Infiltration = 0.00102523 m3/s-m2.
+
+  ZoneInfiltration:DesignFlowRate,
+    Perimeter_top_ZN_1_Infiltration,!- Name
+    Perimeter_top_ZN_1,           !- Zone or ZoneList or Space or SpaceList Name
+    INFIL_SCH_PNNL,               !- Schedule Name  Source: xlsx Schedule Summary 'Infiltration', rows 71/72/73 (Mon - Fri/Sat/Sun).
+    Flow/ExteriorWallArea,        !- Design Flow Rate Calculation Method
+    ,                             !- design flow rate
+    ,                             !- flow rate per floor area
+    0.00102523;                   !- Flow Rate per Exterior Surface Area {m3/s-m2}  Source: xlsx raw_data!R234 Envelope Infiltration = 0.00102523 m3/s-m2.
+
+  ZoneInfiltration:DesignFlowRate,
+    Perimeter_top_ZN_4_Infiltration,!- Name
+    Perimeter_top_ZN_4,           !- Zone or ZoneList or Space or SpaceList Name
+    INFIL_SCH_PNNL,               !- Schedule Name  Source: xlsx Schedule Summary 'Infiltration', rows 71/72/73 (Mon - Fri/Sat/Sun).
+    Flow/ExteriorWallArea,        !- Design Flow Rate Calculation Method
+    ,                             !- design flow rate
+    ,                             !- flow rate per floor area
+    0.00102523;                   !- Flow Rate per Exterior Surface Area {m3/s-m2}  Source: xlsx raw_data!R235 Envelope Infiltration = 0.00102523 m3/s-m2.
+
+  ZoneInfiltration:DesignFlowRate,
+    GroundFloor_Plenum_Infiltration,!- Name
+    GroundFloor_Plenum,           !- Zone or ZoneList or Space or SpaceList Name
+    INFIL_SCH_PNNL,               !- Schedule Name  Source: xlsx Schedule Summary 'Infiltration', rows 71/72/73 (Mon - Fri/Sat/Sun).
+    Flow/ExteriorWallArea,        !- Design Flow Rate Calculation Method
+    ,                             !- design flow rate
+    ,                             !- flow rate per floor area
+    0.00102523;                   !- Flow Rate per Exterior Surface Area {m3/s-m2}  Source: xlsx raw_data!R236 Envelope Infiltration = 0.00102523 m3/s-m2.
+
+  ZoneInfiltration:DesignFlowRate,
+    MidFloor_Plenum_Infiltration, !- Name
+    MidFloor_Plenum,              !- Zone or ZoneList or Space or SpaceList Name
+    INFIL_SCH_PNNL,               !- Schedule Name  Source: xlsx Schedule Summary 'Infiltration', rows 71/72/73 (Mon - Fri/Sat/Sun).
+    Flow/ExteriorWallArea,        !- Design Flow Rate Calculation Method
+    ,                             !- design flow rate
+    ,                             !- flow rate per floor area
+    0.00102523;                   !- Flow Rate per Exterior Surface Area {m3/s-m2}  Source: xlsx raw_data!R237 Envelope Infiltration = 0.00102523 m3/s-m2.
+
+  ZoneInfiltration:DesignFlowRate,
+    TopFloor_Plenum_Infiltration, !- Name
+    TopFloor_Plenum,              !- Zone or ZoneList or Space or SpaceList Name
+    INFIL_SCH_PNNL,               !- Schedule Name  Source: xlsx Schedule Summary 'Infiltration', rows 71/72/73 (Mon - Fri/Sat/Sun).
+    Flow/ExteriorWallArea,        !- Design Flow Rate Calculation Method
+    ,                             !- design flow rate
+    ,                             !- flow rate per floor area
+    0.00102523;                   !- Flow Rate per Exterior Surface Area {m3/s-m2}  Source: xlsx raw_data!R238 Envelope Infiltration = 0.00102523 m3/s-m2.
+
+  HVACTemplate:Thermostat,
+    OfficeThermostat,             !- Name
+    HTGSETP_SCH_YES_OPTIMUM,      !- Heating Setpoint Schedule Name  Source: xlsx Schedule Summary 'Heating Set Point', rows 77/78/79 (Mon - Fri/Sat/Sun).
+    ,                             !- constant heating setpoint
+    CLGSETP_SCH_NO_SETBACK;       !- Cooling Setpoint Schedule Name  Source: xlsx Schedule Summary 'Cooling Set Point', rows 74/75/76 (Mon - Fri/Sat/Sun).
+
+  HVACTemplate:System:VAV,
+    VAV_BOT WITH REHEAT,          !- Name  Source: xlsx raw_data!I221 HVAC System Name = VAV_BOT WITH REHEAT.
+    HVACOperationSchd,            !- System Availability Schedule Name  Source: xlsx Schedule Summary 'HVAC', rows 62/63/64 (Mon - Fri/Sat/Sun).
+    ,                             !- supply fan maximum flow rate
+    ,                             !- supply fan minimum flow rate
+    ,                             !- supply fan total efficiency
+    ,                             !- supply fan delta pressure
+    ,                             !- supply fan motor efficiency
+    ,                             !- supply fan motor in air stream fraction
+    ChilledWater,                 !- Cooling Coil Type  Source: xlsx HVAC System Type 7 (chilled water): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G rows 37, 40, 41, 42, 43.
+    ,                             !- cooling coil availability schedule name
+    ,                             !- cooling coil setpoint schedule name
+    ,                             !- cooling coil design setpoint
+    HotWater;                     !- Heating Coil Type  Source: xlsx HVAC System Type 7 (hot-water boiler): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G rows 37, 40, 41, 42, 43.
+
+  HVACTemplate:System:VAV,
+    VAV_MID WITH REHEAT,          !- Name  Source: xlsx raw_data!I222 HVAC System Name = VAV_MID WITH REHEAT.
+    HVACOperationSchd,            !- System Availability Schedule Name  Source: xlsx Schedule Summary 'HVAC', rows 62/63/64 (Mon - Fri/Sat/Sun).
+    ,                             !- supply fan maximum flow rate
+    ,                             !- supply fan minimum flow rate
+    ,                             !- supply fan total efficiency
+    ,                             !- supply fan delta pressure
+    ,                             !- supply fan motor efficiency
+    ,                             !- supply fan motor in air stream fraction
+    ChilledWater,                 !- Cooling Coil Type  Source: xlsx HVAC System Type 7 (chilled water): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G rows 38, 44, 45, 46, 47.
+    ,                             !- cooling coil availability schedule name
+    ,                             !- cooling coil setpoint schedule name
+    ,                             !- cooling coil design setpoint
+    HotWater;                     !- Heating Coil Type  Source: xlsx HVAC System Type 7 (hot-water boiler): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G rows 38, 44, 45, 46, 47.
+
+  HVACTemplate:System:VAV,
+    VAV_TOP WITH REHEAT,          !- Name  Source: xlsx raw_data!I223 HVAC System Name = VAV_TOP WITH REHEAT.
+    HVACOperationSchd,            !- System Availability Schedule Name  Source: xlsx Schedule Summary 'HVAC', rows 62/63/64 (Mon - Fri/Sat/Sun).
+    ,                             !- supply fan maximum flow rate
+    ,                             !- supply fan minimum flow rate
+    ,                             !- supply fan total efficiency
+    ,                             !- supply fan delta pressure
+    ,                             !- supply fan motor efficiency
+    ,                             !- supply fan motor in air stream fraction
+    ChilledWater,                 !- Cooling Coil Type  Source: xlsx HVAC System Type 7 (chilled water): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G rows 39, 48, 49, 50, 51.
+    ,                             !- cooling coil availability schedule name
+    ,                             !- cooling coil setpoint schedule name
+    ,                             !- cooling coil design setpoint
+    HotWater;                     !- Heating Coil Type  Source: xlsx HVAC System Type 7 (hot-water boiler): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G rows 39, 48, 49, 50, 51.
+
+  HVACTemplate:System:ConstantVolume,
+    CAV_BAS,                      !- Name  Source: xlsx raw_data!I220 HVAC System Name = CAV_BAS.
+    HVACOperationSchd,            !- System Availability Schedule Name  Source: xlsx Schedule Summary 'HVAC', rows 62/63/64 (Mon - Fri/Sat/Sun).
+    ,                             !- supply fan maximum flow rate
+    ,                             !- supply fan total efficiency
+    ,                             !- supply fan delta pressure
+    ,                             !- supply fan motor efficiency
+    ,                             !- supply fan motor in air stream fraction
+    ,                             !- supply fan placement
+    ChilledWater,                 !- Cooling Coil Type  Source: xlsx HVAC System Type 12 (chilled water): HVAC System Type Dictionary row 14; Zone and HVAC System Summary column G row 36.
+    ,                             !- cooling coil availability schedule name
+    ,                             !- cooling coil setpoint control type
+    ,                             !- cooling coil control zone name
+    ,                             !- cooling coil design setpoint temperature
+    ,                             !- cooling coil setpoint schedule name
+    ,                             !- cooling coil setpoint at outdoor dry bulb low
+    ,                             !- cooling coil reset outdoor dry bulb low
+    ,                             !- cooling coil setpoint at outdoor dry bulb high
+    ,                             !- cooling coil reset outdoor dry bulb high
+    HotWater;                     !- Heating Coil Type  Source: xlsx HVAC System Type 12 (hot-water boiler): HVAC System Type Dictionary row 14; Zone and HVAC System Summary column G row 36.
+
+  HVACTemplate:Zone:ConstantVolume,
+    Basement,                     !- Zone Name
+    CAV_BAS,                      !- Template Constant Volume System Name
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- supply air maximum flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    Flow/Zone,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    ,                             !- outdoor air flow rate per zone floor area
+    1.4119;                       !- Outdoor Air Flow Rate per Zone {m3/s}  Source: xlsx raw_data!P220 Total OSA Ventilation = 1.4119 m3/s.
+
+  HVACTemplate:Zone:VAV,
+    Core_bottom,                  !- Zone Name
+    VAV_BOT WITH REHEAT,          !- Template VAV System Name
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- supply air maximum flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    ,                             !- zone minimum air flow input method
+    ,                             !- constant minimum air flow fraction
+    ,                             !- fixed minimum air flow rate
+    ,                             !- minimum air flow fraction schedule name
+    Flow/Area,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    0.000508,                     !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}  Source: xlsx Zone and HVAC System Summary Q37 (Total OSA Ventilation, 20 cfm/person) x N37 (Design Occupancy Density, 5.000 people per 1000 ft2) = 0.1000 cfm/ft2 = 0.000508 m3/s-m2 (1 cfm/ft2 = 0.00508 m3/s-m2).
+    ,                             !- outdoor air flow rate per zone
+    HotWater;                     !- Reheat Coil Type  Source: xlsx HVAC System Type 7 (reheat with hot water): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G row 37.
+
+  HVACTemplate:Zone:VAV,
+    Core_mid,                     !- Zone Name
+    VAV_MID WITH REHEAT,          !- Template VAV System Name
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- supply air maximum flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    ,                             !- zone minimum air flow input method
+    ,                             !- constant minimum air flow fraction
+    ,                             !- fixed minimum air flow rate
+    ,                             !- minimum air flow fraction schedule name
+    Flow/Area,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    0.000508,                     !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}  Source: xlsx Zone and HVAC System Summary Q38 (Total OSA Ventilation, 20 cfm/person) x N38 (Design Occupancy Density, 5.000 people per 1000 ft2) = 0.1000 cfm/ft2 = 0.000508 m3/s-m2 (1 cfm/ft2 = 0.00508 m3/s-m2).
+    ,                             !- outdoor air flow rate per zone
+    HotWater;                     !- Reheat Coil Type  Source: xlsx HVAC System Type 7 (reheat with hot water): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G row 38.
+
+  HVACTemplate:Zone:VAV,
+    Core_top,                     !- Zone Name
+    VAV_TOP WITH REHEAT,          !- Template VAV System Name
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- supply air maximum flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    ,                             !- zone minimum air flow input method
+    ,                             !- constant minimum air flow fraction
+    ,                             !- fixed minimum air flow rate
+    ,                             !- minimum air flow fraction schedule name
+    Flow/Area,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    0.000508,                     !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}  Source: xlsx Zone and HVAC System Summary Q39 (Total OSA Ventilation, 20 cfm/person) x N39 (Design Occupancy Density, 5.000 people per 1000 ft2) = 0.1000 cfm/ft2 = 0.000508 m3/s-m2 (1 cfm/ft2 = 0.00508 m3/s-m2).
+    ,                             !- outdoor air flow rate per zone
+    HotWater;                     !- Reheat Coil Type  Source: xlsx HVAC System Type 7 (reheat with hot water): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G row 39.
+
+  HVACTemplate:Zone:VAV,
+    Perimeter_bot_ZN_3,           !- Zone Name
+    VAV_BOT WITH REHEAT,          !- Template VAV System Name
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- supply air maximum flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    ,                             !- zone minimum air flow input method
+    ,                             !- constant minimum air flow fraction
+    ,                             !- fixed minimum air flow rate
+    ,                             !- minimum air flow fraction schedule name
+    Flow/Area,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    0.000508,                     !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}  Source: xlsx Zone and HVAC System Summary Q40 (Total OSA Ventilation, 20 cfm/person) x N40 (Design Occupancy Density, 5.000 people per 1000 ft2) = 0.1000 cfm/ft2 = 0.000508 m3/s-m2 (1 cfm/ft2 = 0.00508 m3/s-m2).
+    ,                             !- outdoor air flow rate per zone
+    HotWater;                     !- Reheat Coil Type  Source: xlsx HVAC System Type 7 (reheat with hot water): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G row 40.
+
+  HVACTemplate:Zone:VAV,
+    Perimeter_bot_ZN_2,           !- Zone Name
+    VAV_BOT WITH REHEAT,          !- Template VAV System Name
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- supply air maximum flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    ,                             !- zone minimum air flow input method
+    ,                             !- constant minimum air flow fraction
+    ,                             !- fixed minimum air flow rate
+    ,                             !- minimum air flow fraction schedule name
+    Flow/Area,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    0.000508,                     !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}  Source: xlsx Zone and HVAC System Summary Q41 (Total OSA Ventilation, 20 cfm/person) x N41 (Design Occupancy Density, 5.000 people per 1000 ft2) = 0.1000 cfm/ft2 = 0.000508 m3/s-m2 (1 cfm/ft2 = 0.00508 m3/s-m2).
+    ,                             !- outdoor air flow rate per zone
+    HotWater;                     !- Reheat Coil Type  Source: xlsx HVAC System Type 7 (reheat with hot water): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G row 41.
+
+  HVACTemplate:Zone:VAV,
+    Perimeter_bot_ZN_1,           !- Zone Name
+    VAV_BOT WITH REHEAT,          !- Template VAV System Name
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- supply air maximum flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    ,                             !- zone minimum air flow input method
+    ,                             !- constant minimum air flow fraction
+    ,                             !- fixed minimum air flow rate
+    ,                             !- minimum air flow fraction schedule name
+    Flow/Area,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    0.000508,                     !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}  Source: xlsx Zone and HVAC System Summary Q42 (Total OSA Ventilation, 20 cfm/person) x N42 (Design Occupancy Density, 5.000 people per 1000 ft2) = 0.1000 cfm/ft2 = 0.000508 m3/s-m2 (1 cfm/ft2 = 0.00508 m3/s-m2).
+    ,                             !- outdoor air flow rate per zone
+    HotWater;                     !- Reheat Coil Type  Source: xlsx HVAC System Type 7 (reheat with hot water): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G row 42.
+
+  HVACTemplate:Zone:VAV,
+    Perimeter_bot_ZN_4,           !- Zone Name
+    VAV_BOT WITH REHEAT,          !- Template VAV System Name
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- supply air maximum flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    ,                             !- zone minimum air flow input method
+    ,                             !- constant minimum air flow fraction
+    ,                             !- fixed minimum air flow rate
+    ,                             !- minimum air flow fraction schedule name
+    Flow/Area,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    0.000508,                     !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}  Source: xlsx Zone and HVAC System Summary Q43 (Total OSA Ventilation, 20 cfm/person) x N43 (Design Occupancy Density, 5.000 people per 1000 ft2) = 0.1000 cfm/ft2 = 0.000508 m3/s-m2 (1 cfm/ft2 = 0.00508 m3/s-m2).
+    ,                             !- outdoor air flow rate per zone
+    HotWater;                     !- Reheat Coil Type  Source: xlsx HVAC System Type 7 (reheat with hot water): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G row 43.
+
+  HVACTemplate:Zone:VAV,
+    Perimeter_mid_ZN_3,           !- Zone Name
+    VAV_MID WITH REHEAT,          !- Template VAV System Name
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- supply air maximum flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    ,                             !- zone minimum air flow input method
+    ,                             !- constant minimum air flow fraction
+    ,                             !- fixed minimum air flow rate
+    ,                             !- minimum air flow fraction schedule name
+    Flow/Area,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    0.000508,                     !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}  Source: xlsx Zone and HVAC System Summary Q44 (Total OSA Ventilation, 20 cfm/person) x N44 (Design Occupancy Density, 5.000 people per 1000 ft2) = 0.1000 cfm/ft2 = 0.000508 m3/s-m2 (1 cfm/ft2 = 0.00508 m3/s-m2).
+    ,                             !- outdoor air flow rate per zone
+    HotWater;                     !- Reheat Coil Type  Source: xlsx HVAC System Type 7 (reheat with hot water): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G row 44.
+
+  HVACTemplate:Zone:VAV,
+    Perimeter_mid_ZN_2,           !- Zone Name
+    VAV_MID WITH REHEAT,          !- Template VAV System Name
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- supply air maximum flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    ,                             !- zone minimum air flow input method
+    ,                             !- constant minimum air flow fraction
+    ,                             !- fixed minimum air flow rate
+    ,                             !- minimum air flow fraction schedule name
+    Flow/Area,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    0.000508,                     !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}  Source: xlsx Zone and HVAC System Summary Q45 (Total OSA Ventilation, 20 cfm/person) x N45 (Design Occupancy Density, 5.000 people per 1000 ft2) = 0.1000 cfm/ft2 = 0.000508 m3/s-m2 (1 cfm/ft2 = 0.00508 m3/s-m2).
+    ,                             !- outdoor air flow rate per zone
+    HotWater;                     !- Reheat Coil Type  Source: xlsx HVAC System Type 7 (reheat with hot water): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G row 45.
+
+  HVACTemplate:Zone:VAV,
+    Perimeter_mid_ZN_1,           !- Zone Name
+    VAV_MID WITH REHEAT,          !- Template VAV System Name
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- supply air maximum flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    ,                             !- zone minimum air flow input method
+    ,                             !- constant minimum air flow fraction
+    ,                             !- fixed minimum air flow rate
+    ,                             !- minimum air flow fraction schedule name
+    Flow/Area,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    0.000508,                     !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}  Source: xlsx Zone and HVAC System Summary Q46 (Total OSA Ventilation, 20 cfm/person) x N46 (Design Occupancy Density, 5.000 people per 1000 ft2) = 0.1000 cfm/ft2 = 0.000508 m3/s-m2 (1 cfm/ft2 = 0.00508 m3/s-m2).
+    ,                             !- outdoor air flow rate per zone
+    HotWater;                     !- Reheat Coil Type  Source: xlsx HVAC System Type 7 (reheat with hot water): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G row 46.
+
+  HVACTemplate:Zone:VAV,
+    Perimeter_mid_ZN_4,           !- Zone Name
+    VAV_MID WITH REHEAT,          !- Template VAV System Name
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- supply air maximum flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    ,                             !- zone minimum air flow input method
+    ,                             !- constant minimum air flow fraction
+    ,                             !- fixed minimum air flow rate
+    ,                             !- minimum air flow fraction schedule name
+    Flow/Area,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    0.000508,                     !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}  Source: xlsx Zone and HVAC System Summary Q47 (Total OSA Ventilation, 20 cfm/person) x N47 (Design Occupancy Density, 5.000 people per 1000 ft2) = 0.1000 cfm/ft2 = 0.000508 m3/s-m2 (1 cfm/ft2 = 0.00508 m3/s-m2).
+    ,                             !- outdoor air flow rate per zone
+    HotWater;                     !- Reheat Coil Type  Source: xlsx HVAC System Type 7 (reheat with hot water): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G row 47.
+
+  HVACTemplate:Zone:VAV,
+    Perimeter_top_ZN_3,           !- Zone Name
+    VAV_TOP WITH REHEAT,          !- Template VAV System Name
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- supply air maximum flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    ,                             !- zone minimum air flow input method
+    ,                             !- constant minimum air flow fraction
+    ,                             !- fixed minimum air flow rate
+    ,                             !- minimum air flow fraction schedule name
+    Flow/Area,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    0.000508,                     !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}  Source: xlsx Zone and HVAC System Summary Q48 (Total OSA Ventilation, 20 cfm/person) x N48 (Design Occupancy Density, 5.000 people per 1000 ft2) = 0.1000 cfm/ft2 = 0.000508 m3/s-m2 (1 cfm/ft2 = 0.00508 m3/s-m2).
+    ,                             !- outdoor air flow rate per zone
+    HotWater;                     !- Reheat Coil Type  Source: xlsx HVAC System Type 7 (reheat with hot water): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G row 48.
+
+  HVACTemplate:Zone:VAV,
+    Perimeter_top_ZN_2,           !- Zone Name
+    VAV_TOP WITH REHEAT,          !- Template VAV System Name
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- supply air maximum flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    ,                             !- zone minimum air flow input method
+    ,                             !- constant minimum air flow fraction
+    ,                             !- fixed minimum air flow rate
+    ,                             !- minimum air flow fraction schedule name
+    Flow/Area,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    0.000508,                     !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}  Source: xlsx Zone and HVAC System Summary Q49 (Total OSA Ventilation, 20 cfm/person) x N49 (Design Occupancy Density, 5.000 people per 1000 ft2) = 0.1000 cfm/ft2 = 0.000508 m3/s-m2 (1 cfm/ft2 = 0.00508 m3/s-m2).
+    ,                             !- outdoor air flow rate per zone
+    HotWater;                     !- Reheat Coil Type  Source: xlsx HVAC System Type 7 (reheat with hot water): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G row 49.
+
+  HVACTemplate:Zone:VAV,
+    Perimeter_top_ZN_1,           !- Zone Name
+    VAV_TOP WITH REHEAT,          !- Template VAV System Name
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- supply air maximum flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    ,                             !- zone minimum air flow input method
+    ,                             !- constant minimum air flow fraction
+    ,                             !- fixed minimum air flow rate
+    ,                             !- minimum air flow fraction schedule name
+    Flow/Area,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    0.000508,                     !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}  Source: xlsx Zone and HVAC System Summary Q50 (Total OSA Ventilation, 20 cfm/person) x N50 (Design Occupancy Density, 5.000 people per 1000 ft2) = 0.1000 cfm/ft2 = 0.000508 m3/s-m2 (1 cfm/ft2 = 0.00508 m3/s-m2).
+    ,                             !- outdoor air flow rate per zone
+    HotWater;                     !- Reheat Coil Type  Source: xlsx HVAC System Type 7 (reheat with hot water): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G row 50.
+
+  HVACTemplate:Zone:VAV,
+    Perimeter_top_ZN_4,           !- Zone Name
+    VAV_TOP WITH REHEAT,          !- Template VAV System Name
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- supply air maximum flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    ,                             !- zone minimum air flow input method
+    ,                             !- constant minimum air flow fraction
+    ,                             !- fixed minimum air flow rate
+    ,                             !- minimum air flow fraction schedule name
+    Flow/Area,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    0.000508,                     !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}  Source: xlsx Zone and HVAC System Summary Q51 (Total OSA Ventilation, 20 cfm/person) x N51 (Design Occupancy Density, 5.000 people per 1000 ft2) = 0.1000 cfm/ft2 = 0.000508 m3/s-m2 (1 cfm/ft2 = 0.00508 m3/s-m2).
+    ,                             !- outdoor air flow rate per zone
+    HotWater;                     !- Reheat Coil Type  Source: xlsx HVAC System Type 7 (reheat with hot water): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G row 51.
+
+  HVACTemplate:Zone:WaterToAirHeatPump,
+    DataCenter_bot_ZN_6,          !- Zone Name  Source: xlsx raw_data!I239 HVAC System Name = AIRLOOP DATACENTER BOT. xlsx HVAC System Type 14.
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- cooling supply air flow rate
+    ,                             !- heating supply air flow rate
+    ,                             !- no load supply air flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    Flow/Zone,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    ,                             !- outdoor air flow rate per zone floor area
+    0.0184,                       !- Outdoor Air Flow Rate per Zone {m3/s}  Source: xlsx raw_data!P239 Total OSA Ventilation = 0.0184 m3/s.
+    ,                             !- system availability schedule name
+    AlwaysOn;                     !- Supply Fan Operating Mode Schedule Name  Source: xlsx HVAC System Type 14 (Fan Control = Constant volume: the fan runs continuously): HVAC System Type Dictionary row 16; Zone and HVAC System Summary column G row 55.
+
+  HVACTemplate:Zone:WaterToAirHeatPump,
+    DataCenter_mid_ZN_6,          !- Zone Name  Source: xlsx raw_data!I240 HVAC System Name = AIRLOOP DATACENTER MID. xlsx HVAC System Type 14.
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- cooling supply air flow rate
+    ,                             !- heating supply air flow rate
+    ,                             !- no load supply air flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    Flow/Zone,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    ,                             !- outdoor air flow rate per zone floor area
+    0.1839,                       !- Outdoor Air Flow Rate per Zone {m3/s}  Source: xlsx raw_data!P240 Total OSA Ventilation = 0.1839 m3/s.
+    ,                             !- system availability schedule name
+    AlwaysOn;                     !- Supply Fan Operating Mode Schedule Name  Source: xlsx HVAC System Type 14 (Fan Control = Constant volume: the fan runs continuously): HVAC System Type Dictionary row 16; Zone and HVAC System Summary column G row 56.
+
+  HVACTemplate:Zone:WaterToAirHeatPump,
+    DataCenter_top_ZN_6,          !- Zone Name  Source: xlsx raw_data!I241 HVAC System Name = AIRLOOP DATACENTER TOP. xlsx HVAC System Type 14.
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- cooling supply air flow rate
+    ,                             !- heating supply air flow rate
+    ,                             !- no load supply air flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    Flow/Zone,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    ,                             !- outdoor air flow rate per zone floor area
+    0.0184,                       !- Outdoor Air Flow Rate per Zone {m3/s}  Source: xlsx raw_data!P241 Total OSA Ventilation = 0.0184 m3/s.
+    ,                             !- system availability schedule name
+    AlwaysOn;                     !- Supply Fan Operating Mode Schedule Name  Source: xlsx HVAC System Type 14 (Fan Control = Constant volume: the fan runs continuously): HVAC System Type Dictionary row 16; Zone and HVAC System Summary column G row 57.
+
+  HVACTemplate:Zone:WaterToAirHeatPump,
+    DataCenter_basement_ZN_6,     !- Zone Name  Source: xlsx raw_data!I242 HVAC System Name = AIRLOOP DATACENTER BASEMENT. xlsx HVAC System Type 14.
+    OfficeThermostat,             !- Template Thermostat Name
+    ,                             !- cooling supply air flow rate
+    ,                             !- heating supply air flow rate
+    ,                             !- no load supply air flow rate
+    ,                             !- zone heating sizing factor
+    ,                             !- zone cooling sizing factor
+    Flow/Zone,                    !- Outdoor Air Method
+    ,                             !- outdoor air flow rate per person
+    ,                             !- outdoor air flow rate per zone floor area
+    0.3981,                       !- Outdoor Air Flow Rate per Zone {m3/s}  Source: xlsx raw_data!P242 Total OSA Ventilation = 0.3981 m3/s.
+    ,                             !- system availability schedule name
+    AlwaysOn;                     !- Supply Fan Operating Mode Schedule Name  Source: xlsx HVAC System Type 14 (Fan Control = Constant volume: the fan runs continuously): HVAC System Type Dictionary row 16; Zone and HVAC System Summary column G row 58.
+
+  HVACTemplate:Plant:Boiler,
+    Boiler 1,                     !- Name
+    HotWaterBoiler,               !- Boiler Type
+    ,                             !- capacity
+    ,                             !- efficiency
+    NaturalGas,                   !- Fuel Type  Source: xlsx HVAC System Type 7 (hot-water fossil fuel boiler): HVAC System Type Dictionary row 9; Zone and HVAC System Summary column G rows 37-51.
+    ,                             !- priority
+    ,                             !- sizing factor
+    ,                             !- minimum part load ratio
+    ,                             !- maximum part load ratio
+    ,                             !- optimum part load ratio
+    ,                             !- water outlet upper temperature limit
+    HotWater;                     !- Template Plant Loop Type
+
+  HVACTemplate:Plant:Tower,
+    Tower 2,                      !- Name
+    SingleSpeed,                  !- Tower Type  Source: xlsx HVAC System Type 14 (fluid cooler; a tower is the template object that is available): HVAC System Type Dictionary row 16; Zone and HVAC System Summary column G rows 55-58.
+    ,                             !- high speed nominal capacity
+    ,                             !- high speed fan power
+    ,                             !- low speed nominal capacity
+    ,                             !- low speed fan power
+    ,                             !- free convection capacity
+    ,                             !- priority
+    ,                             !- sizing factor
+    MixedWater;                   !- Template Plant Loop Type
+
+  HVACTemplate:Plant:Boiler,
+    Boiler 2,                     !- Name
+    HotWaterBoiler,               !- Boiler Type
+    ,                             !- capacity
+    ,                             !- efficiency
+    NaturalGas,                   !- Fuel Type  Source: xlsx HVAC System Type 14 (hot-water fossil fuel boiler): HVAC System Type Dictionary row 16; Zone and HVAC System Summary column G rows 55-58.
+    ,                             !- priority
+    ,                             !- sizing factor
+    ,                             !- minimum part load ratio
+    ,                             !- maximum part load ratio
+    ,                             !- optimum part load ratio
+    ,                             !- water outlet upper temperature limit
+    MixedWater;                   !- Template Plant Loop Type
+
